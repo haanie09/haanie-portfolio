@@ -148,8 +148,14 @@ export const site = {
   next: {
     kicker: "04 — What I'm building next",
     title: "VectisOS Desktop",
-    status: "Planning · fall 2026",
-    goal: draft("Make saving an invoice and switching screens feel instant, in the office and on the road."),
+    status: "Local-first · planning · fall 2026",
+    goal: draft("Save to the device first, sync to the cloud after. Every click feels instant, in the office and on the road, with or without signal."),
+    /** The approach: local-first. */
+    plan: [
+      draft("Invoices, payments and inventory save to a local database on the device first"),
+      draft("Changes sync to Supabase in the background"),
+      draft("Builds on the offline outbox reps already use on their phones (#273)"),
+    ],
     /** Where the slowness shows up today (from you). */
     targets: ["Saving invoices & payments", "Page loads & switching screens", "The office computer", "Reps' phones in the field"],
     why: slot("Q25", "Why a desktop app, what 'slow' costs your dad's team day to day, and what fast would change."),

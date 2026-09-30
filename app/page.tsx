@@ -310,7 +310,7 @@ function Next() {
                 <span className="disp next__speed">
                   <em>instant</em>
                 </span>
-                <span className="mono">target · click → saved</span>
+                <span className="mono">saved on this device → synced</span>
               </div>
             </div>
           </div>
@@ -325,6 +325,14 @@ function Next() {
                   </li>
                 ))}
               </ol>
+            </div>
+            <div className="stack-s">
+              <span className="mono muted">The plan: local-first</span>
+              <ul className="facts">
+                {n.plan.map((x) => (
+                  <li key={x}>{x}</li>
+                ))}
+              </ul>
             </div>
             <Slot w={n.why} />
           </div>
