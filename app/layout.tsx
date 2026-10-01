@@ -6,8 +6,6 @@ import "@fontsource-variable/newsreader/opsz-italic.css";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "./globals.css";
-import "./themes.css";
-import { ThemePicker } from "@/components/ThemePicker";
 import { isHidden, site } from "@/content/site";
 
 const fullName = `${site.name.first} ${site.name.last}`;
@@ -25,16 +23,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F6EFE4",
+  themeColor: "#E9EEF3",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        {children}
-        {process.env.NODE_ENV === "development" && <ThemePicker />}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

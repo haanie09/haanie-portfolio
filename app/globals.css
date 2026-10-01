@@ -1,19 +1,20 @@
-/* ─── Tokens: Colorado dusk ─────────────────────────────── */
+/* ─── Tokens: Colorado blue hour ─────────────────────────────── */
 :root {
-  --paper: #f6efe4;
-  --paper-2: #ede2d1;
-  --paper-3: #e6d6bf;
-  --ink: #1b1714;
-  --muted: #6a5f55;
-  --accent: #e4572e; /* persimmon */
-  --accent-deep: #a7361a;
-  --blue: #1f4e9c; /* alpine */
-  --sun: #f2b233;
-  --slot-ink: #5a2e1e;
-  --on-dark-muted: #cfc4b6;
-  --accent-text: var(--accent);
-  --slot-line: #c8431f;
+  --paper: #e9eef3;
+  --paper-2: #dae2eb;
+  --paper-3: #c8d3e0;
+  --ink: #141b2d;
+  --muted: #56617a;
+  --accent: #f07f3c; /* horizon orange */
+  --accent-deep: #a94a14;
+  --accent-text: #c45a1c; /* accent, darkened for type on paper */
+  --blue: #25336b; /* Front Range indigo */
+  --sun: #ffc15e;
+  --slot-ink: #4b2410;
+  --slot-line: #c45a1c;
+  --on-dark-muted: #c3ccdb;
   --live: #7bd88f;
+  --sky: linear-gradient(180deg, #25336b 0%, #5a6fa8 45%, #f07f3c 85%, #ffc15e 100%);
 
   --f-disp: "Fraunces Variable", "Fraunces", Georgia, serif;
   --f-body: "Newsreader Variable", "Newsreader", Georgia, serif;
