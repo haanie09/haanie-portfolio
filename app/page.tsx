@@ -1,4 +1,4 @@
-import { site } from "@/content/site";
+import { isHidden, site } from "@/content/site";
 import { Kicker, Photo, Play, Slot } from "@/components/ui";
 
 const introHref = site.links.intro ?? "#contact";
@@ -95,22 +95,19 @@ function Ticker() {
       {site.ticker.map((t) => (
         <span key={t} className="ticker__item">
           <span className="mono">{t}</span>
-          <span className="mono ticker__star" aria-hidden="true">
-            ✳
-          </span>
+          <span className="ticker__sep" aria-hidden="true" />
         </span>
       ))}
     </>
   );
   return (
     <div className="ticker" role="region" aria-label="Right now">
-      <span className="mono ticker__now">
-        <span className="dot" /> Now
-      </span>
-      <div className="ticker__track">
-        <div className="ticker__run">{row}</div>
-        <div className="ticker__run" aria-hidden="true">
-          {row}
+      <div className="ticker__lane">
+        <div className="ticker__track">
+          <div className="ticker__run">{row}</div>
+          <div className="ticker__run" aria-hidden="true">
+            {row}
+          </div>
         </div>
       </div>
     </div>
@@ -217,7 +214,6 @@ function Problems() {
               Hard <em>problems</em>
             </h2>
           </div>
-          <span className="pr head-row__note">{p.note}</span>
         </div>
         <div className="cards3">
           {p.items.map((it, i) => (
@@ -228,12 +224,15 @@ function Problems() {
               </div>
               <h3 className="h-card disp">{it.title}</h3>
               <ul className="facts">
-                {it.facts.map(([f, pr]) => (
-                  <li key={pr}>
-                    {f} <span className="pr">{pr}</span>
-                  </li>
+                {it.facts.map((f) => (
+                  <li key={f}>{f}</li>
                 ))}
               </ul>
+              {it.writeup ? (
+                <a className="card__link" href={it.writeup} target="_blank" rel="noreferrer">
+                  Read how I fixed it
+                </a>
+              ) : null}
               <Slot w={it.story} dark={it.dark} className="push" />
             </article>
           ))}
@@ -257,7 +256,7 @@ function Killed() {
                   <s>{it.what}</s>
                   {it.replaced ? <em className="sun"> → {it.replaced}</em> : null}
                 </span>
-                <span className="mono graveyard__meta">{it.meta}</span>
+                {it.meta ? <span className="mono graveyard__meta">{it.meta}</span> : null}
               </li>
             ))}
           </ul>
@@ -477,7 +476,23 @@ function Contact() {
   );
 }
 
+function InProgress() {
+  return (
+    <main className="wip">
+      <div className="wip__sky" aria-hidden="true" />
+      <h1 className="disp wip__name">
+        {site.name.first} <em>{site.name.last}</em>
+      </h1>
+      <p className="lede">This site is still in progress. Check back soon.</p>
+      <a className="pill" href={`mailto:${site.email}`}>
+        {site.email}
+      </a>
+    </main>
+  );
+}
+
 export default function Home() {
+  if (isHidden()) return <InProgress />;
   return (
     <>
       <a href="#vectis" className="skip mono">

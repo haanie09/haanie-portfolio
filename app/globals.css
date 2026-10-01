@@ -11,6 +11,9 @@
   --sun: #f2b233;
   --slot-ink: #5a2e1e;
   --on-dark-muted: #cfc4b6;
+  --accent-text: var(--accent);
+  --slot-line: #c8431f;
+  --live: #7bd88f;
 
   --f-disp: "Fraunces Variable", "Fraunces", Georgia, serif;
   --f-body: "Newsreader Variable", "Newsreader", Georgia, serif;
@@ -275,14 +278,14 @@ em.disp {
 }
 .pill--ink:hover {
   color: var(--paper);
-  background: #000;
+  background: color-mix(in srgb, var(--ink) 80%, #000);
 }
 
 .dot {
   width: 8px;
   height: 8px;
   border-radius: 99px;
-  background: #7bd88f;
+  background: var(--live);
   display: inline-block;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -311,8 +314,8 @@ em.disp {
 
 /* Your-words slots */
 .slot {
-  border: 1.5px dashed #c8431f;
-  background: rgba(228, 87, 46, 0.07);
+  border: 1.5px dashed var(--slot-line);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
   border-radius: 12px;
   padding: 14px 18px;
   display: flex;
@@ -334,7 +337,7 @@ em.disp {
 }
 .slot--dark {
   border-color: var(--sun);
-  background: rgba(242, 178, 51, 0.09);
+  background: color-mix(in srgb, var(--sun) 9%, transparent);
 }
 .slot--dark .slot__label {
   color: var(--sun);
@@ -344,7 +347,7 @@ em.disp {
 }
 .slot--on-accent {
   border-color: var(--ink);
-  background: rgba(27, 23, 20, 0.06);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
 }
 .slot--on-accent .slot__label,
 .slot--on-accent .slot__prompt {
@@ -386,6 +389,32 @@ em.disp {
   color: var(--ink);
 }
 
+/* ─── In progress (shown until site.launched) ──────────── */
+.wip {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 48px var(--gutter);
+  text-align: center;
+}
+.wip__sky {
+  width: 120px;
+  height: 160px;
+  border-radius: 60px 60px 12px 12px;
+  background: var(--sky);
+}
+.wip__name {
+  font-size: clamp(48px, 9vw, 96px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.wip__name em {
+  color: var(--accent-text);
+}
+
 /* ─── Nav ───────────────────────────────────────────────── */
 .nav {
   position: sticky;
@@ -394,7 +423,7 @@ em.disp {
   background: color-mix(in srgb, var(--paper) 88%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(27, 23, 20, 0.13);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 13%, transparent);
 }
 .nav__inner {
   height: 80px;
@@ -447,7 +476,7 @@ em.disp {
 }
 .nav__sheet a:not(.pill) {
   padding: 14px 10px;
-  border-bottom: 1px solid rgba(27, 23, 20, 0.1);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
 }
 .nav__sheet .pill {
   margin-top: 12px;
@@ -479,7 +508,7 @@ em.disp {
 .hero__name em {
   font-style: italic;
   font-weight: 300;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .roles {
   display: flex;
@@ -511,7 +540,7 @@ em.disp {
   top: 30px;
   width: 80%;
   height: 540px;
-  background: var(--accent);
+  background: var(--sky);
   border-radius: 220px 220px 24px 24px;
   transform: rotate(-4deg);
 }
@@ -577,18 +606,13 @@ em.disp {
   align-items: center;
   overflow: hidden;
 }
-.ticker__now {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--sun);
-  padding: 0 28px 0 max(var(--gutter), calc((100vw - 1200px) / 2));
-  height: 100%;
-  background: var(--ink);
-  position: relative;
-  z-index: 1;
-  box-shadow: 16px 0 16px var(--ink);
+.ticker__lane {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  --fade: clamp(40px, 8vw, 120px);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
 }
 .ticker__track {
   display: flex;
@@ -606,8 +630,11 @@ em.disp {
   padding-right: 40px;
   white-space: nowrap;
 }
-.ticker__star {
-  color: var(--sun);
+.ticker__sep {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--live);
 }
 @keyframes marquee {
   to {
@@ -673,7 +700,7 @@ em.disp {
   width: 12px;
   height: 12px;
   border-radius: 99px;
-  background: rgba(246, 239, 228, 0.35);
+  background: color-mix(in srgb, var(--paper) 35%, transparent);
 }
 .browser__screen {
   flex: 1;
@@ -806,6 +833,13 @@ em.disp {
 .card--ink .numeral {
   color: var(--sun);
 }
+.card__link {
+  align-self: flex-start;
+  font-size: 17px;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}
 .card--accent {
   background: var(--accent);
 }
@@ -820,7 +854,7 @@ em.disp {
   font-size: 56px;
   line-height: 1;
   font-style: italic;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .numeral--ink {
   color: var(--ink);
@@ -845,7 +879,7 @@ em.disp {
   align-items: baseline;
   gap: 16px;
   padding: 18px 0;
-  border-bottom: 1px solid rgba(246, 239, 228, 0.2);
+  border-bottom: 1px solid color-mix(in srgb, var(--paper) 20%, transparent);
 }
 .graveyard li:last-child {
   border-bottom: 0;
@@ -911,7 +945,7 @@ em.disp {
   background: var(--sun);
 }
 .next__bar > span:nth-child(3) {
-  background: #7bd88f;
+  background: var(--live);
 }
 .next__bar .mono {
   margin-left: auto;
@@ -946,19 +980,19 @@ em.disp {
   justify-content: center;
   gap: 8px;
   padding: 24px;
-  background: repeating-linear-gradient(0deg, transparent 0 39px, rgba(27, 23, 20, 0.07) 39px 40px);
+  background: repeating-linear-gradient(0deg, transparent 0 39px, color-mix(in srgb, var(--ink) 7%, transparent) 39px 40px);
 }
 .next__speed {
   font-size: clamp(56px, 7vw, 96px);
   line-height: 1;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .targets li {
   display: flex;
   gap: 14px;
   align-items: baseline;
   padding: 14px 0;
-  border-bottom: 1px solid rgba(27, 23, 20, 0.15);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
   font-size: clamp(22px, 2vw, 28px);
   line-height: 1.2;
 }
@@ -1179,9 +1213,6 @@ em.disp {
   }
   .sticker__bottom {
     display: none;
-  }
-  .ticker__now {
-    padding-left: var(--gutter);
   }
   .stats__head {
     margin-bottom: 40px;

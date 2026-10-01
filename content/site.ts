@@ -25,10 +25,16 @@ export type Words = { q: string; prompt: string; text: string | null };
 /** An empty (or filled) space for your own writing. */
 export const slot = (q: string, prompt: string, text: string | null = null): Words => ({ q, prompt, text });
 
+/** True on the deployed site until `launched` is flipped. */
+export const isHidden = () => !site.launched && process.env.NODE_ENV === "production";
+
 /** Marks wording that still needs to be rewritten in your voice. */
 export const draft = (s: string) => s;
 
 export const site = {
+  /** false = the live site shows an "in progress" page. `npm run dev` always shows the full site. Flip to true to launch. */
+  launched: false,
+
   name: { first: "Haanie", last: "Mohammed" },
   email: "haanie09@gmail.com",
   place: "Aurora, Colorado",
@@ -96,36 +102,41 @@ export const site = {
 
   problems: {
     kicker: "02 — What broke, and what I did",
-    note: "#numbers are real pull requests in the VectisOS repo",
     items: [
       {
         tag: "Offline",
+        /** Write-up in the public VectisOS repo. Leave null until that repo is public. */
+        writeup: null as string | null, // "https://github.com/haanie09/vectisos-public/blob/main/notes/offline-outbox.md"
         title: draft("Reps lose signal. Invoices can't."),
         facts: [
-          ["Outbox in IndexedDB that survives app close and replays on reconnect", "#273"],
-          ["Each phone reserves 50 invoice numbers while online", "#333"],
-          ["A double-tap moved stock twice → idempotency keys", "#335"],
+          "Outbox in IndexedDB that survives app close and replays on reconnect",
+          "Each phone reserves 50 invoice numbers while online",
+          "A double-tap moved stock twice → idempotency keys",
         ],
         story: slot("Q9", "When did no-signal first bite? What happened to a rep?"),
       },
       {
         tag: "Correctness",
+        /** Write-up in the public VectisOS repo. Leave null until that repo is public. */
+        writeup: null as string | null, // "https://github.com/haanie09/vectisos-public/blob/main/notes/one-transaction-invoices.md"
         title: draft("Money and stock have to add up."),
         facts: [
-          ["16–20 browser calls per invoice → one database transaction", "#326"],
-          ["Showing the next invoice number burned two per invoice", "#340"],
-          ["Only real payments can mark an invoice paid", "#91"],
+          "16–20 browser calls per invoice → one database transaction",
+          "Showing the next invoice number burned two per invoice",
+          "Only real payments can mark an invoice paid",
         ],
         story: slot("Q10", "The moment a number was wrong. How you found out, how it felt."),
       },
       {
         tag: "Security",
+        /** Write-up in the public VectisOS repo. Leave null until that repo is public. */
+        writeup: null as string | null, // "https://github.com/haanie09/vectisos-public/blob/main/notes/access-control-audit.md"
         dark: true,
         title: draft("One account could read another's invoices."),
         facts: [
-          ["Found an IDOR in admin-key routes; callers now prove access", "#278"],
-          ["Money functions were callable logged-out → revoked", "#251"],
-          ["Pre-launch audit: 22 findings fixed", "#90"],
+          "Found an IDOR in admin-key routes; callers now prove access",
+          "Money functions were callable logged-out → revoked",
+          "Pre-launch audit: 22 findings fixed",
         ],
         story: slot("Q11", "How you discovered it and what went through your head."),
       },
@@ -136,11 +147,11 @@ export const site = {
     kicker: "03 — Things I built, then deleted",
     heading: draft("Knowing what to cut."),
     items: [
-      { what: "Product flavors & daily counts", meta: "1 month · #338" },
-      { what: "Suggested reorder", meta: "1 day · #286" },
-      { what: "“Optimize route”", meta: "#233" },
-      { what: "Barcode scanner", meta: "#327" },
-      { what: "Par levels", replaced: "demand meter", meta: "#229" },
+      { what: "Product flavors & daily counts", meta: "1 month" },
+      { what: "Suggested reorder", meta: "1 day" },
+      { what: "“Optimize route”" },
+      { what: "Barcode scanner" },
+      { what: "Par levels", replaced: "demand meter" },
     ],
     lesson: slot("Q12 + Q15", "Why flavors came out a month later, and what deleting taught you about building for your dad's team."),
   },
@@ -154,7 +165,7 @@ export const site = {
     plan: [
       draft("Invoices, payments and inventory save to a local database on the device first"),
       draft("Changes sync to Supabase in the background"),
-      draft("Builds on the offline outbox reps already use on their phones (#273)"),
+      draft("Builds on the offline outbox reps already use on their phones"),
     ],
     /** Where the slowness shows up today (from you). */
     targets: ["Saving invoices & payments", "Page loads & switching screens", "The office computer", "Reps' phones in the field"],

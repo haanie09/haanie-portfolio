@@ -6,7 +6,9 @@ import "@fontsource-variable/newsreader/opsz-italic.css";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "./globals.css";
-import { site } from "@/content/site";
+import "./themes.css";
+import { ThemePicker } from "@/components/ThemePicker";
+import { isHidden, site } from "@/content/site";
 
 const fullName = `${site.name.first} ${site.name.last}`;
 
@@ -19,6 +21,7 @@ export const metadata: Metadata = {
     description: "VectisOS, Steel City Codes, and what I'm building next.",
     type: "website",
   },
+  robots: isHidden() ? { index: false, follow: false } : undefined,
 };
 
 export const viewport: Viewport = {
@@ -28,7 +31,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        {process.env.NODE_ENV === "development" && <ThemePicker />}
+      </body>
     </html>
   );
 }
