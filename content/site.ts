@@ -36,7 +36,7 @@ export const site = {
   launched: false,
 
   name: { first: "Haanie", last: "Mohammed" },
-  email: "haanie09@gmail.com",
+  email: "me@haanie.com",
   place: "Aurora, Colorado",
   school: "Grandview High School",
   classOf: "2027",
@@ -105,8 +105,8 @@ export const site = {
     items: [
       {
         tag: "Offline",
-        /** Write-up in the public VectisOS repo. Leave null until that repo is public. */
-        writeup: null as string | null, // "https://github.com/haanie09/vectisos-public/blob/main/notes/offline-outbox.md"
+        /** Slug of the write-up in content/notes.ts (page at /notes/<slug>). */
+        writeup: "offline-outbox",
         title: draft("Reps lose signal. Invoices can't."),
         facts: [
           "Outbox in IndexedDB that survives app close and replays on reconnect",
@@ -117,8 +117,8 @@ export const site = {
       },
       {
         tag: "Correctness",
-        /** Write-up in the public VectisOS repo. Leave null until that repo is public. */
-        writeup: null as string | null, // "https://github.com/haanie09/vectisos-public/blob/main/notes/one-transaction-invoices.md"
+        /** Slug of the write-up in content/notes.ts (page at /notes/<slug>). */
+        writeup: "one-transaction-invoices",
         title: draft("Money and stock have to add up."),
         facts: [
           "16–20 browser calls per invoice → one database transaction",
@@ -129,8 +129,8 @@ export const site = {
       },
       {
         tag: "Security",
-        /** Write-up in the public VectisOS repo. Leave null until that repo is public. */
-        writeup: null as string | null, // "https://github.com/haanie09/vectisos-public/blob/main/notes/access-control-audit.md"
+        /** Slug of the write-up in content/notes.ts (page at /notes/<slug>). */
+        writeup: "access-control-audit",
         dark: true,
         title: draft("One account could read another's invoices."),
         facts: [

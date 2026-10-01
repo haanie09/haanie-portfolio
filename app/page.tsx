@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { isHidden, site } from "@/content/site";
 import { Kicker, Photo, Play, Slot } from "@/components/ui";
 
@@ -228,11 +229,9 @@ function Problems() {
                   <li key={f}>{f}</li>
                 ))}
               </ul>
-              {it.writeup ? (
-                <a className="card__link" href={it.writeup} target="_blank" rel="noreferrer">
-                  Read how I fixed it
-                </a>
-              ) : null}
+              <Link className="card__link" href={`/notes/${it.writeup}`}>
+                Read how I fixed it
+              </Link>
               <Slot w={it.story} dark={it.dark} className="push" />
             </article>
           ))}
