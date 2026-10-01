@@ -148,6 +148,11 @@ function Vectis() {
               Vectis<em className="blue">OS</em>
             </h2>
             <p className="lede">{v.summary}</p>
+            {site.links.demo ? (
+              <a href={site.links.demo} className="mono pill pill--ink demo-cta" target="_blank" rel="noreferrer">
+                <span className="dot" /> Try the live demo
+              </a>
+            ) : null}
           </div>
           <div className="split__side">
             <Slot w={v.origin} />
@@ -156,10 +161,15 @@ function Vectis() {
 
         <div className="showcase">
           <div className="browser">
-            <div className="browser__dots" aria-hidden="true">
+            <div className="browser__dots">
               <span />
               <span />
               <span />
+              {site.links.demo ? (
+                <a href={site.links.demo} className="browser__url" target="_blank" rel="noreferrer">
+                  {site.links.demo.replace("https://", "")}
+                </a>
+              ) : null}
             </div>
             <Photo src={site.photos.vectisDesktop} alt="VectisOS dashboard with demo data" label="VectisOS dashboard (demo data)" className="browser__screen" />
           </div>

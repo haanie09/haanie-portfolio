@@ -43,6 +43,7 @@ export const site = {
 
   links: {
     intro: null as string | null, // your one-minute YouTube intro, e.g. "https://youtube.com/watch?v=…"
+    demo: "https://vectisos.haanie.com" as string | null, // live VectisOS demo with made-up data
     github: "https://github.com/vectis-tech" as string | null,
     linkedin: null as string | null,
     x: null as string | null,

@@ -734,6 +734,24 @@ em.disp {
   border-radius: 99px;
   background: color-mix(in srgb, var(--paper) 35%, transparent);
 }
+.browser__dots {
+  align-items: center;
+}
+.browser__url {
+  margin-left: 10px;
+  padding: 4px 14px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--paper) 14%, transparent);
+  color: var(--paper);
+  font-family: var(--f-mono);
+  font-size: 12px;
+}
+.browser__url:hover {
+  color: var(--sun);
+}
+.demo-cta {
+  align-self: flex-start;
+}
 .browser__screen {
   flex: 1;
   border-radius: 10px;
