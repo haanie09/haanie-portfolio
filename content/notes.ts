@@ -76,7 +76,7 @@ export const notes: Note[] = [
     tag: "Security",
     title: draft("Closing a cross-account data leak"),
     problem: [
-      draft("VectisOS keeps each business's data separate inside the database: every table checks that a row belongs to the signed-in user's organization. That layer was solid. The gap was in a handful of server routes that generate PDFs and send emails."),
+      draft("Safar keeps each business's data separate inside the database: every table checks that a row belongs to the signed-in user's organization. That layer was solid. The gap was in a handful of server routes that generate PDFs and send emails."),
       draft("Those routes checked that the caller was signed in, but not that the invoice they asked for was theirs, and they read data with an admin key that skips the database's checks. Any signed-in user could change the id in a request and read another business's invoices, statements and stock transfers, or have them emailed to any address."),
     ],
     fixes: [

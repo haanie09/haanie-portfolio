@@ -43,7 +43,7 @@ export const site = {
 
   links: {
     intro: null as string | null, // your one-minute YouTube intro, e.g. "https://youtube.com/watch?v=…"
-    demo: "https://vectisos.haanie.com" as string | null, // live VectisOS demo with made-up data
+    demo: "https://safar.haanie.com" as string | null, // live Safar demo with made-up data
     github: "https://github.com/vectis-tech" as string | null,
     linkedin: null as string | null,
     x: null as string | null,
@@ -53,13 +53,13 @@ export const site = {
   /** Photos: put files in /public/photos and set the path, e.g. "/photos/portrait.jpg". null = placeholder. */
   photos: {
     portrait: null as string | null,
-    vectisDesktop: null as string | null,
-    vectisPhone: null as string | null,
+    safarDesktop: null as string | null,
+    safarPhone: null as string | null,
     sccCamp: null as string | null,
   },
 
   roles: [
-    { org: "Vectis Technologies", title: "Founder & developer", note: "built VectisOS" },
+    { org: "Safar Technologies", title: "Founder & developer", note: "built Safar" },
     { org: "Steel City Codes", title: "Regional Director", note: "Denver" },
     { org: "Grandview FBLA", title: "Data Officer", note: "" },
   ],
@@ -67,7 +67,7 @@ export const site = {
   oneLiner: slot("Q23", "One line on who you are, the way you'd say it to a friend."),
 
   ticker: [
-    "VectisOS in daily use at Payless Wholesale",
+    "Safar in daily use at Payless Wholesale",
     "119 invoices in the last 28 days",
     "3 reps invoicing from the field",
     "Works with no signal",
@@ -83,7 +83,7 @@ export const site = {
     ],
   },
 
-  vectis: {
+  safar: {
     kicker: "01 — The flagship",
     summary: draft("Invoicing, inventory, routes and field sales for a wholesale distributor. Solo build. In production every day."),
     origin: slot("Q1–Q3", "How it started: your dad's warehouse, what they used before, the moment you saw the old way was broken."),
@@ -159,7 +159,7 @@ export const site = {
 
   next: {
     kicker: "04 — What I'm building next",
-    title: "VectisOS Desktop",
+    title: "Safar Desktop",
     status: "Local-first · planning · fall 2026",
     goal: draft("Save to the device first, sync to the cloud after. Every click feels instant, in the office and on the road, with or without signal."),
     /** The approach: local-first. */
@@ -174,7 +174,7 @@ export const site = {
   },
 
   beyond: {
-    kicker: "05 — Beyond Vectis",
+    kicker: "05 — Beyond Safar",
     scc: {
       name: "Steel City Codes",
       tag: "Nonprofit",

@@ -6,10 +6,10 @@ const introHref = site.links.intro ?? "#contact";
 
 function Nav() {
   const links = [
-    ["#vectis", "VectisOS"],
+    ["#safar", "Safar"],
     ["#problems", "Hard problems"],
     ["#next", "Next"],
-    ["#beyond", "Beyond Vectis"],
+    ["#beyond", "Beyond Safar"],
     ["#offhours", "Off the clock"],
   ];
   return (
@@ -82,7 +82,7 @@ function Hero() {
           <div className="sticker">
             <span className="mono sticker__top">Live since</span>
             <span className="disp sticker__big">Jul 1</span>
-            <span className="mono sticker__bottom">VectisOS · 2026</span>
+            <span className="mono sticker__bottom">Safar · 2026</span>
           </div>
         </div>
       </div>
@@ -120,7 +120,7 @@ function Stats() {
     <section className="stats">
       <div className="wrap">
         <div className="stats__head">
-          <span className="mono">VectisOS, by the numbers</span>
+          <span className="mono">Safar, by the numbers</span>
           <span className="mono">{site.stats.asOf}</span>
         </div>
         <div className="stats__grid">
@@ -136,16 +136,16 @@ function Stats() {
   );
 }
 
-function Vectis() {
-  const v = site.vectis;
+function Safar() {
+  const v = site.safar;
   return (
-    <section id="vectis" className="section">
+    <section id="safar" className="section">
       <div className="wrap">
         <div className="split split--end">
           <div className="split__main stack">
             <Kicker>{v.kicker}</Kicker>
             <h2 className="h-mega disp">
-              Vectis<em className="blue">OS</em>
+              <em className="blue">Safar</em>
             </h2>
             <p className="lede">{v.summary}</p>
             {site.links.demo ? (
@@ -171,11 +171,11 @@ function Vectis() {
                 </a>
               ) : null}
             </div>
-            <Photo src={site.photos.vectisDesktop} alt="VectisOS dashboard with demo data" label="VectisOS dashboard (demo data)" className="browser__screen" />
+            <Photo src={site.photos.safarDesktop} alt="Safar dashboard with demo data" label="Safar dashboard (demo data)" className="browser__screen" />
           </div>
           <div className="showcase__side">
             <div className="phonecard">
-              <Photo src={site.photos.vectisPhone} alt="VectisOS mobile app" label="phone" className="phonecard__phone" />
+              <Photo src={site.photos.safarPhone} alt="Safar mobile app" label="phone" className="phonecard__phone" />
               <div className="stack-s">
                 <span className="mono sun">Mobile PWA</span>
                 <span>{v.phoneNote}</span>
@@ -288,7 +288,7 @@ function Next() {
           <div className="split__main stack">
             <Kicker>{n.kicker}</Kicker>
             <h2 className="h-big disp">
-              VectisOS <em>Desktop</em>
+              Safar <em>Desktop</em>
             </h2>
             <p className="lede">{n.goal}</p>
           </div>
@@ -304,7 +304,7 @@ function Next() {
               <span />
               <span />
               <span />
-              <span className="mono">VectisOS</span>
+              <span className="mono">Safar</span>
             </div>
             <div className="next__body">
               <div className="next__side">
@@ -504,7 +504,7 @@ export default function Home() {
   if (isHidden()) return <InProgress />;
   return (
     <>
-      <a href="#vectis" className="skip mono">
+      <a href="#safar" className="skip mono">
         Skip to work
       </a>
       <Nav />
@@ -512,7 +512,7 @@ export default function Home() {
         <Hero />
         <Ticker />
         <Stats />
-        <Vectis />
+        <Safar />
         <Problems />
         <Killed />
         <Next />

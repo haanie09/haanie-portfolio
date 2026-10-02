@@ -33,7 +33,7 @@ export default async function NotePage({ params }: Props) {
           ← {site.name.first} {site.name.last}
         </Link>
         <div className="stack">
-          <Kicker>VectisOS · {note.tag}</Kicker>
+          <Kicker>Safar · {note.tag}</Kicker>
           <h1 className="disp note__title">{note.title}</h1>
         </div>
 
@@ -59,7 +59,7 @@ export default async function NotePage({ params }: Props) {
         <Slot w={note.story} />
 
         <p className="words muted">
-          VectisOS is a private codebase. I&apos;m glad to walk through this code on a call:{" "}
+          Safar is a private codebase. I&apos;m glad to walk through this code on a call:{" "}
           <a className="note__link" href={`mailto:${site.email}`}>
             {site.email}
           </a>

@@ -13,10 +13,10 @@ const fullName = `${site.name.first} ${site.name.last}`;
 export const metadata: Metadata = {
   metadataBase: new URL("https://haanie.com"),
   title: fullName,
-  description: `${fullName}: builder of VectisOS, Regional Director at Steel City Codes Denver. ${site.place}.`,
+  description: `${fullName}: builder of Safar, Regional Director at Steel City Codes Denver. ${site.place}.`,
   openGraph: {
     title: fullName,
-    description: "VectisOS, Steel City Codes, and what I'm building next.",
+    description: "Safar, Steel City Codes, and what I'm building next.",
     type: "website",
   },
   robots: isHidden() ? { index: false, follow: false } : undefined,

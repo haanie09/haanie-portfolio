@@ -5,8 +5,8 @@ Drop images here, then point to them in `content/site.ts` under `photos` / `offH
 | Slot | Suggested file | Shape |
 |---|---|---|
 | Hero portrait | `portrait.jpg` | tall, ~4:5, face near the top |
-| VectisOS desktop | `vectis-desktop.png` | screenshot, 16:10 (use demo data) |
-| VectisOS phone | `vectis-phone.png` | phone screenshot, ~9:16 |
+| Safar desktop | `safar-desktop.png` | screenshot, 16:10 (use demo data) |
+| Safar phone | `safar-phone.png` | phone screenshot, ~9:16 |
 | SCC camp | `scc-camp.jpg` | wide, ~16:9 |
 | Off the clock | `snowboarding.jpg`, `hiking.jpg`, `pickleball.jpg`, `friends.jpg` | ~3:4 |
 
