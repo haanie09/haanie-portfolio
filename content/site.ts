@@ -44,7 +44,7 @@ export const site = {
   links: {
     intro: null as string | null, // your one-minute YouTube intro, e.g. "https://youtube.com/watch?v=…"
     demo: "https://safar.haanie.com" as string | null, // live Safar demo with made-up data
-    github: "https://github.com/vectis-tech" as string | null,
+    github: "https://github.com/haanie09" as string | null, // Safar-Technologies org has no public repos yet
     linkedin: null as string | null,
     x: null as string | null,
     resume: null as string | null, // drop a PDF in /public and put "/resume.pdf" here
