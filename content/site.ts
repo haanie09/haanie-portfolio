@@ -178,10 +178,9 @@ export const site = {
     scc: {
       name: "Steel City Codes",
       tag: "Nonprofit",
-      roles: "Regional Director, Denver · Web Developer, national",
+      roles: "Regional Director, Denver",
       facts: [
         draft("Built a registration platform where volunteers pick their own classes, replacing hours of manual matching. Denver pilots it in February."),
-        draft("Moved the national site off Squarespace to Cloudflare Pages; keep course and chapter info right across 12 regions."),
         draft("Wrote curriculum for intermediate Python and MicroPython on Raspberry Pi Pico; teach at the two-week summer camp."),
       ],
       story: slot("SCC", "Volunteer to director: what you took on that nobody asked you to."),
