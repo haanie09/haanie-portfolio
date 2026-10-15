@@ -239,9 +239,11 @@ function Problems() {
                   <li key={f}>{f}</li>
                 ))}
               </ul>
-              <Link className="card__link" href={`/notes/${it.writeup}`}>
-                Read how I fixed it
-              </Link>
+              {it.writeup && (
+                <Link className="card__link" href={`/notes/${it.writeup}`}>
+                  Read how I fixed it
+                </Link>
+              )}
               <Slot w={it.story} dark={it.dark} className="push" />
             </article>
           ))}

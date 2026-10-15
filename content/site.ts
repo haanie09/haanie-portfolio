@@ -105,16 +105,18 @@ export const site = {
     kicker: "02 — What broke, and what I did",
     items: [
       {
-        tag: "Offline",
-        /** Slug of the write-up in content/notes.ts (page at /notes/<slug>). */
-        writeup: "offline-outbox",
-        title: draft("Reps lose signal. Invoices can't."),
+        tag: "Collections",
+        title: draft("Routes that know who owes money."),
         facts: [
-          "Outbox in IndexedDB that survives app close and replays on reconnect",
-          "Each phone reserves 50 invoice numbers while online",
-          "A double-tap moved stock twice → idempotency keys",
+          "Routes built around overdue balances, not just drive time",
+          "Reps pick up nearby collections on routes they already run",
+          "No collection runs since August",
         ],
-        story: slot("Q9", "When did no-signal first bite? What happened to a rep?"),
+        story: slot(
+          "Q9",
+          "Your dad asked for a map; what he needed was who owed him money. What changed once collections rode along on routes?",
+          draft("My dad asked for a map of his customers. What he needed was that map next to who owed him money and how overdue they were, something Google Maps doesn't know, so I built his routes around it. Collections were the bigger cost. Every few months receivables backed up, and he lost whole days going to collect. Now he picks nearby collections and reps handle them on routes they're already running. He hasn't made a collection run since August, and that time goes to decisions that make him money."),
+        ),
       },
       {
         tag: "Correctness",

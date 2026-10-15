@@ -16,38 +16,6 @@ export type Note = {
 
 export const notes: Note[] = [
   {
-    slug: "offline-outbox",
-    tag: "Offline",
-    title: draft("Offline invoices that never double-book"),
-    problem: [
-      draft("Reps write invoices and log visits in store back rooms and on rural roads with no signal. The first version of the sync layer kept its queue in memory: close the app and every unsent visit was gone."),
-      draft("Invoices couldn't be written offline at all, because each one needed the server to hand out an invoice number and take the stock off the van."),
-    ],
-    fixes: [
-      {
-        head: draft("A queue that survives the app closing"),
-        body: draft("Every write from the field is saved to the phone's own database (IndexedDB) first. It replays when signal returns: when the phone reconnects, when the app comes back to the foreground (iPhones often never report reconnecting), and at startup for anything left from a previous session."),
-      },
-      {
-        head: draft("Replays that can't duplicate"),
-        body: draft("Each queued write carries an id generated on the phone, and the database enforces that id as unique. If a request reached the server but the response was lost, retrying it returns the existing record instead of creating a second visit or crediting a payment twice."),
-      },
-      {
-        head: draft("Conflicts pause, they never overwrite"),
-        body: draft("If the server already has newer data, such as a newer visit for the same store, the queued write parks as a conflict and the rep chooses to keep theirs or discard it. Writes that involve money never offer discard."),
-      },
-      {
-        head: draft("Real invoice numbers with no signal"),
-        body: draft("While online, each phone reserves a block of about 50 invoice numbers. Offline, the rep hands the customer a real, final number, and the invoice later goes through the same database function the online path uses. Online and offline draw from one counter, so they can never collide."),
-      },
-      {
-        head: draft("Double-taps"),
-        body: draft("In July a rep tapped Save twice on a stock transfer and a 19-unit move was recorded as 38. The app now creates one id per intent and reuses it on every retry. The database claims that id before touching any stock, so the second tap does nothing. Invoice creation got the same fix."),
-      },
-    ],
-    story: slot("Note · Offline", "When did no-signal first cause a real problem? What happened to a rep? How did you use AI on this, honestly?"),
-  },
-  {
     slug: "one-transaction-invoices",
     tag: "Correctness",
     title: draft("Making money and stock add up"),
