@@ -970,6 +970,79 @@ em.disp {
   gap: 48px;
   align-items: start;
 }
+.next__phone {
+  position: relative;
+  width: min(300px, 100%);
+  justify-self: center;
+  aspect-ratio: 9 / 18;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  border: 2px solid var(--ink);
+  border-radius: 40px;
+  box-shadow: 14px 14px 0 var(--blue);
+  background: var(--paper);
+  overflow: hidden;
+}
+.next__notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 96px;
+  height: 22px;
+  transform: translateX(-50%);
+  border-radius: 0 0 14px 14px;
+  background: var(--ink);
+}
+.next__phonebar {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 16px 14px;
+  font-size: 11px;
+}
+.next__phonebody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 8px;
+  border-radius: 28px;
+  background: repeating-linear-gradient(0deg, transparent 0 39px, color-mix(in srgb, var(--ink) 7%, transparent) 39px 40px);
+}
+.next__stop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: 14px;
+  background: var(--paper);
+  font-size: 13px;
+}
+.next__stop .mono {
+  font-size: 10px;
+}
+.next__stop.on {
+  background: var(--ink);
+  color: var(--paper);
+}
+.next__phonefoot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.next__phonefoot .next__speed {
+  font-size: clamp(34px, 4vw, 46px);
+}
+@media (max-width: 720px) {
+  .next__phone {
+    box-shadow: 8px 8px 0 var(--blue);
+  }
+}
 .next__window {
   border: 2px solid var(--ink);
   border-radius: 14px;

@@ -301,34 +301,37 @@ function Next() {
           </div>
         </div>
         <div className="next__grid">
-          <div className="next__window" aria-hidden="true">
-            <div className="next__bar">
-              <span />
-              <span />
-              <span />
-              <span className="mono">Safar</span>
+          <div className="next__phone" aria-hidden="true">
+            <span className="next__notch" />
+            <div className="next__phonebar mono">
+              <span>9:41</span>
+              <span>Safar</span>
             </div>
-            <div className="next__body">
-              <div className="next__side">
-                {["Invoices", "Customers", "Routes", "Inventory", "Payments"].map((x, i) => (
-                  <span key={x} className={`mono ${i === 0 ? "on" : ""}`}>
-                    {x}
-                  </span>
-                ))}
-              </div>
-              <div className="next__main">
-                <span className="disp next__speed">
-                  <em>instant</em>
+            <div className="next__phonebody">
+              <span className="mono muted">Today · route</span>
+              {[
+                ["Stop 1", "invoiced"],
+                ["Stop 2", "collect"],
+                ["Stop 3", "next"],
+              ].map(([stop, state], i) => (
+                <span key={stop} className={`next__stop ${i === 2 ? "on" : ""}`}>
+                  <span>{stop}</span>
+                  <span className="mono">{state}</span>
                 </span>
-                <span className="mono">saved on this device → synced</span>
+              ))}
+              <div className="next__phonefoot">
+                <span className="disp next__speed">
+                  <em>no signal?</em>
+                </span>
+                <span className="mono">saved on the phone → synced</span>
               </div>
             </div>
           </div>
           <div className="stack-l">
             <div className="stack-s">
-              <span className="mono muted">Where it feels slow today</span>
+              <span className="mono muted">{n.doneLabel}</span>
               <ol className="targets">
-                {n.targets.map((t, i) => (
+                {n.done.map((t, i) => (
                   <li key={t}>
                     <span className="mono targets__n">0{i + 1}</span>
                     <span className="disp">{t}</span>
@@ -337,9 +340,9 @@ function Next() {
               </ol>
             </div>
             <div className="stack-s">
-              <span className="mono muted">The plan: local-first</span>
+              <span className="mono muted">{n.leftLabel}</span>
               <ul className="facts">
-                {n.plan.map((x) => (
+                {n.left.map((x) => (
                   <li key={x}>{x}</li>
                 ))}
               </ul>

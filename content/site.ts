@@ -169,18 +169,20 @@ export const site = {
 
   next: {
     kicker: "04 — What I'm building next",
-    title: "Safar Desktop",
-    status: "Local-first · planning · fall 2026",
-    goal: draft("Save to the device first, sync to the cloud after. Every click feels instant, in the office and on the road, with or without signal."),
-    /** The approach: local-first. */
-    plan: [
-      draft("Invoices, payments and inventory save to a local database on the device first"),
-      draft("Changes sync to Supabase in the background"),
-      draft("Builds on the offline outbox reps already use on their phones"),
+    title: "Safar for iPhone and Android",
+    status: "Native app · in development · App Store next",
+    goal: draft("Reps already run Safar in their phone's browser. The native app puts it on the home screen, keeps the offline queue in the phone's own storage, and is the version other distributors will download."),
+    /** What's already built (facts from the Oct 4 merges). */
+    doneLabel: "Already built",
+    done: ["Runs in the iPhone simulator", "Offline queue in the phone's own storage", "Camera, sharing & push notifications", "Setup & data import for a second distributor"],
+    /** What's left (from you, Oct 15). */
+    leftLabel: "What's left",
+    left: [
+      draft("Finish the iPhone screens and first-run setup"),
+      draft("Publish on the App Store"),
+      draft("Form the LLC, then offer Safar to other local distributors"),
     ],
-    /** Where the slowness shows up today (from you). */
-    targets: ["Saving invoices & payments", "Page loads & switching screens", "The office computer", "Reps' phones in the field"],
-    why: slot("Q25", "Why a desktop app, what 'slow' costs your dad's team day to day, and what fast would change."),
+    why: slot("Q25", "Why a phone app, and what selling Safar to other distributors would mean to you."),
   },
 
   beyond: {
