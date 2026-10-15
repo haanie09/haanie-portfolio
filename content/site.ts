@@ -145,7 +145,11 @@ export const site = {
           "Money functions were callable logged-out → revoked",
           "Pre-launch audit: 22 findings fixed",
         ],
-        story: slot("Q11", "How you discovered it and what went through your head."),
+        story: slot(
+          "Q11",
+          "How you discovered it and what went through your head.",
+          draft("Safar holds every store my dad sells to, what they buy and what they owe. Leaked, that's his customers' data and his competitive information. Reps sometimes log in on public networks, new employees get accounts, and I can't see what's on anyone's phone. So before the first real invoice, I ran a full security audit and fixed all 22 issues it found. I kept auditing after launch. In July, one audit caught a hole where one account could read another's invoices, and I closed it."),
+        ),
       },
     ],
   },
