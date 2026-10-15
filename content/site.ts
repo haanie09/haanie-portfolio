@@ -128,7 +128,11 @@ export const site = {
           "Showing the next invoice number burned two per invoice",
           "Only real payments can mark an invoice paid",
         ],
-        story: slot("Q10", "The moment a number was wrong. How you found out, how it felt."),
+        story: slot(
+          "Q10",
+          "The moment a number was wrong. How you found out, how it felt.",
+          draft("My dad caught it first: his invoice numbers were going up by two. I traced it to the invoice screen. Just showing the next number used one up, and saving used another. We fixed it right away. The lesson: a mistake can hide anywhere, even in a number that only sits on the screen."),
+        ),
       },
       {
         tag: "Security",
