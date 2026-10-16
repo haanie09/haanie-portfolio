@@ -140,7 +140,11 @@ export const site = {
       { what: "Suggested reorder", meta: "lived 1 day" },
       { what: "“Optimize route”" },
     ],
-    lesson: slot("Q12 + Q15", "Why flavors came out a month later, and what deleting taught you about building for your dad's team."),
+    lesson: slot(
+      "Q12 + Q15",
+      "Why flavors came out a month later, and what deleting taught you about building for your dad's team.",
+      draft("I built flavor tracking because every product we sold came in one, and we had never recorded it. My dad and one of our reps pushed back. A rep is in and out of a store in about ten minutes, and logging each flavor on a phone would push a visit to fifteen or twenty. I argued that ordering smarter would be worth it. My dad said every extra second on a sale is time we don't get back, and lost time is lost money. They weren't wrong, so I deleted it a month after it shipped. Now I ask how an idea impacts a person before worrying about how it works."),
+    ),
   },
 
   next: {
