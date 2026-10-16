@@ -168,7 +168,6 @@ export const site = {
       tag: "Nonprofit",
       roles: "Regional Director, Denver",
       facts: [
-        draft("Built a registration platform where volunteers pick their own classes, replacing hours of manual matching. Denver pilots it in February."),
         draft("Wrote curriculum for intermediate Python and MicroPython on Raspberry Pi Pico; teach at the two-week summer camp."),
       ],
       story: slot(
