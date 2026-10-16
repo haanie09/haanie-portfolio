@@ -1419,6 +1419,8 @@ em.disp {
 .polaroids { grid-template-columns: repeat(auto-fit, minmax(260px, 420px)); }
 .beyond__photo img { object-position: 12% 45%; }
 @media (max-width: 720px) {
+  .hero { padding-top: 96px; }
+  .hero__name { font-size: clamp(52px, 15vw, 76px); }
   .hero__art { order: 0; }
   .browser { display: none; }
 }

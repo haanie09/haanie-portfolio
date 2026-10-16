@@ -71,7 +71,7 @@ function Hero() {
               <li key={r.org}>
                 <span>
                   {r.title}, <b>{r.org}</b>
-                  {r.note ? ` · ${r.note}` : ""}
+                  {r.note ? `, ${r.note}` : ""}
                 </span>
               </li>
             ))}
