@@ -82,12 +82,12 @@ export const site = {
     origin: slot(
       "Q1–Q3",
       "How it started: your dad's warehouse, what they used before, the moment you saw the old way was broken.",
-      "My dad stood by the warehouse door, trying to tally every box that went out to the vans. Every invoice he sent meant opening an Excel sheet afterward to subtract each item by hand, and dinner waited until he was done. Importing his inventory and customers might as well have been unearthing mummies: items entered twice under different names, counts that drifted from the shelves. We did a full audit as a family, walking the aisles and recounting. The next morning I showed him how to punch in a 7-Eleven's order. We heard the woosh of an email going out, and the items had already come off the inventory.",
+      "My dad stood by the warehouse door, trying to tally every box that went out to the vans. Every invoice meant opening an Excel sheet afterward to subtract each item by hand, and dinner waited until he was done. Importing his inventory might as well have been unearthing mummies, so we audited the whole warehouse as a family. The next morning, a 7-Eleven's order came off the inventory with one click.",
     ),
     role: slot(
       "Q6–Q8",
       "What you personally did (product, design, database, code, support) and how you used AI, honestly.",
-      draft("I started on a whiteboard with one thesis: every part of my dad's wholesale operation should run on one system. I wrote the plan, and AI wrote much of the code from it. My job was deciding what to build, testing it against the real business, and fixing what real use broke. For weeks, my dad kept entering every invoice into QuickBooks and Excel, and again into Safar, until Safar proved it could do all of it in one click. Real people found what testing missed: a rep tapped Save twice, a 19-unit transfer was recorded as 38, and the shelf count came out wrong. So I built Safar to work with impatience instead of against it. A second tap now does nothing, and big actions ask for one simple confirm."),
+      draft("I started on a whiteboard with one thesis: every part of my dad's business should run on one system. I wrote the plan, and AI wrote much of the code. My job was deciding what to build and testing it against the real business. For weeks my dad entered every invoice into QuickBooks, Excel and Safar, until Safar did all of it in one click. Then real people found what testing missed: a rep tapped Save twice, and a 19-unit transfer became 38. So I built Safar to work with impatience instead of against it. A second tap now does nothing, and big actions ask for one confirm."),
     ),
     phoneNote: "What reps use on the road today, in the phone's browser",
     log: [
@@ -108,7 +108,7 @@ export const site = {
         story: slot(
           "Q9",
           "Your dad asked for a map; what he needed was who owed him money. What changed once collections rode along on routes?",
-          draft("My dad asked for a map of his customers. What he needed was that map next to who owed him money and how overdue they were, something Google Maps doesn't know, so I built his routes around it. Collections were the bigger cost. Every few months receivables backed up, and he lost whole days going to collect. Now he picks nearby collections and reps handle them on routes they're already running. He hasn't made a collection run since August, and that time goes to decisions that make him money."),
+          draft("My dad asked for a map of his customers. What he needed was that map next to who owed him money, which Google Maps doesn't know, so I built his routes around it. Collections used to cost him whole days every few months. Now reps pick up nearby collections on routes they already run, and he hasn't made a collection run since August."),
         ),
       },
       {
@@ -127,7 +127,7 @@ export const site = {
         story: slot(
           "Q11",
           "How you discovered it and what went through your head.",
-          draft("Safar holds every store my dad sells to, what they buy and what they owe. Leaked, that's his customers' data and his competitive information. Reps sometimes log in on public networks, new employees get accounts, and I can't see what's on anyone's phone. So before the first real invoice, I ran a full security audit and fixed all 22 issues it found. I kept auditing after launch. In July, one audit caught a hole where one account could read another's invoices, and I closed it."),
+          draft("In July, an audit caught a hole where one account could read another's invoices. I closed it the same day. Safar holds every store my dad sells to, what they buy and what they owe, and reps log in on public networks and phones I can't see. That's why I audited before the first real invoice, fixing all 22 issues it found, and why I keep auditing."),
         ),
       },
     ],
@@ -143,7 +143,7 @@ export const site = {
     lesson: slot(
       "Q12 + Q15",
       "Why flavors came out a month later, and what deleting taught you about building for your dad's team.",
-      draft("I built flavor tracking because every product we sold came in one, and we had never recorded it. My dad and one of our reps pushed back. A rep is in and out of a store in about ten minutes, and logging each flavor on a phone would push a visit to fifteen or twenty. I argued that ordering smarter would be worth it. My dad said every extra second on a sale is time we don't get back, and lost time is lost money. They weren't wrong, so I deleted it a month after it shipped. Now I ask how an idea impacts a person before worrying about how it works."),
+      draft("I built flavor tracking because every product we sold came in one, and we had never recorded it. My dad and a rep pushed back: a visit takes about ten minutes, and logging each flavor would push it to twenty. My dad said every extra second on a sale is time we don't get back. He was right, so I deleted it a month after it shipped. Now I ask how an idea affects a person before I worry about how it works."),
     ),
   },
 
@@ -180,7 +180,7 @@ export const site = {
       name: "FBLA",
       tag: "Two-time state champion",
       roles: "Data Officer, Grandview FBLA",
-      body: draft("State champion in Website Design (2025) and Website Coding & Development (2026). As Data Officer, I rebuilt the chapter's registration app for 180+ members; placement results import automatically, so who qualifies for state is settled before anyone fills out a form."),
+      body: draft("Two-time state champion: Website Design (2025) and Website Coding & Development (2026). As Data Officer, I rebuilt the chapter's registration app for 180+ members. Placement results now import automatically, so state qualifiers are set before anyone fills out a form."),
     },
     deca: {
       name: "DECA",
