@@ -193,7 +193,11 @@ export const site = {
 
   why: {
     kicker: "Why I build",
-    quote: slot("Q24 + Q25", "Why this matters to you, who it's for, and what you want to build next. This is the impact section: set big, like a pull quote."),
+    quote: slot(
+      "Q24 + Q25",
+      "Why this matters to you, who it's for, and what you want to build next. This is the impact section: set big, like a pull quote.",
+      draft("I build to make technology work for humans. A few weeks after my dad started using Safar, he told me, \u201cBohot time bachaa liya app ne mera\u201d: you saved me a lot of time. I want to give that time back to other small family businesses, where every moment counts."),
+    ),
   },
 
   offHours: {
