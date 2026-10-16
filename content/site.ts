@@ -33,7 +33,7 @@ export const draft = (s: string) => s;
 
 export const site = {
   /** false = the live site shows an "in progress" page. `npm run dev` always shows the full site. Flip to true to launch. */
-  launched: false,
+  launched: true,
 
   name: { first: "Haanie", last: "Mohammed" },
   email: "me@haanie.com",
