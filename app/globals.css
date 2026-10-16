@@ -14,6 +14,7 @@
   --work: #f5731f; /* orange: work zone */
   --service: #0a4a9a; /* blue: services */
   --rec: #6b4127; /* brown: recreation */
+  --stop: #c8102e; /* red: wrong way */
 
   --f: "Overpass Variable", "Overpass", "Helvetica Neue", Arial, sans-serif;
 
@@ -122,6 +123,10 @@ dd {
 .t-reg {
   --bg: var(--paper);
   --fg: var(--ink);
+}
+.t-stop {
+  --bg: var(--stop);
+  --fg: #fff;
 }
 
 /* Section titles, set like a guide-sign legend */
@@ -416,23 +421,36 @@ dd {
   min-height: 100%;
 }
 .hero__photo img {
-  object-position: 50% 28%;
+  object-position: 50% 50%;
 }
-.hero__foot {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px 40px;
-  flex-wrap: wrap;
-  padding-top: 32px;
+/* Where the photo was taken, on a brown attraction sign */
+.hero__place {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 10px 15px 7px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.1;
+  --r: 9px;
+  --inset: 3px;
+  --line: 1.5px;
 }
 .hero__line {
+  grid-column: 1 / span 8;
+  align-self: center;
+  margin-top: 28px;
   max-width: 44ch;
   font-size: clamp(24px, 2.5vw, 34px);
   line-height: 1.2;
   font-weight: 650;
   letter-spacing: -0.01em;
+}
+
+.hero__cta {
+  grid-column: 9 / span 4;
+  justify-content: center;
+  margin-top: 28px;
 }
 
 /* Destination rows: name on the left, detail on the right, like "Denver 12" */
@@ -476,27 +494,23 @@ dd {
 }
 
 /* ─── Safar ─────────────────────────────────────────────── */
-.safar__top {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 32px 48px;
-  flex-wrap: wrap;
-}
-.safar__summary {
-  padding-bottom: 12px;
-}
-.safar__proof {
-  margin-top: 56px;
+.safar__head {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 40px var(--gutter);
-  align-items: start;
+  align-items: center;
+}
+.safar__id {
+  grid-column: 1 / span 7;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
 }
 
 /* "Safar so far": counts set right like mileage on a guide sign */
 .miles {
-  grid-column: 1 / span 6;
+  grid-column: 8 / span 5;
   padding: 34px 40px 26px;
   --r: 22px;
   --inset: 9px;
@@ -540,11 +554,7 @@ dd {
   font-weight: 500;
   color: rgb(255 255 255 / 0.82);
 }
-.safar__origin {
-  grid-column: 8 / span 5;
-  font-size: 20px;
-  line-height: 1.62;
-}
+
 
 .showcase {
   margin-top: 88px;
@@ -590,20 +600,21 @@ dd {
   border-radius: 25px;
 }
 
-.built {
+/* Labeled story blocks: How it started, What I personally built */
+.story {
   margin-top: 88px;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 16px var(--gutter);
 }
-.built__label {
+.story__label {
   grid-column: 1 / span 4;
   font-size: clamp(28px, 2.6vw, 38px);
   line-height: 1.08;
   font-weight: 800;
   letter-spacing: -0.01em;
 }
-.built__text {
+.story__text {
   grid-column: 5 / span 7;
   font-size: 20px;
   line-height: 1.62;
@@ -940,12 +951,20 @@ dd {
 }
 
 /* ─── Off the clock ─────────────────────────────────────── */
-.snaps {
+.off {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: minmax(0, 360px) minmax(0, 480px);
   gap: var(--gutter);
-  max-width: 900px;
+  align-items: start;
+}
+/* Activities without a photo, listed like a recreation sign */
+.off__sign {
+  border-top: 0;
+  padding: 22px 32px 18px;
+  --r: 20px;
+  --inset: 8px;
+  --line: 3px;
 }
 .snap__img {
   aspect-ratio: 4 / 5;
@@ -1038,12 +1057,11 @@ dd {
   .hero__photo {
     grid-column: 8 / span 5;
   }
-  .miles,
-  .safar__origin {
-    grid-column: 1 / -1;
+  .safar__id {
+    grid-column: 1 / span 6;
   }
-  .safar__origin {
-    max-width: 62ch;
+  .miles {
+    grid-column: 7 / span 6;
   }
   .showcase__desk {
     grid-column: 1 / span 8;
@@ -1051,8 +1069,8 @@ dd {
   .showcase__phone {
     grid-column: 9 / span 4;
   }
-  .built__label,
-  .built__text,
+  .story__label,
+  .story__text,
   .incident__title,
   .incident__body,
   .closed__list,
@@ -1118,12 +1136,9 @@ dd {
   }
   .hero__photo {
     order: -1;
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 4 / 5;
     margin-bottom: 12px;
     border-radius: 20px;
-  }
-  .hero__photo img {
-    object-position: 50% 22%;
   }
   .dest li,
   .dest a {
@@ -1135,8 +1150,10 @@ dd {
     text-align: left;
     font-size: 17px;
   }
-  .hero__foot {
-    padding-top: 24px;
+  .hero__line,
+  .hero__cta {
+    grid-column: 1 / -1;
+    margin-top: 20px;
   }
   .go {
     width: 100%;
@@ -1149,8 +1166,9 @@ dd {
   .plate--xl {
     font-size: clamp(64px, 22vw, 104px);
   }
-  .safar__proof {
-    margin-top: 36px;
+  .safar__id,
+  .miles {
+    grid-column: 1 / -1;
   }
   .miles {
     padding: 26px 24px 20px;
@@ -1171,7 +1189,7 @@ dd {
     grid-column: 2 / span 10;
   }
 
-  .built {
+  .story {
     margin-top: 56px;
   }
 
@@ -1238,9 +1256,11 @@ dd {
     display: none;
   }
 
-  .snaps {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  .off {
+    grid-template-columns: 1fr;
+  }
+  .off__sign {
+    padding: 18px 24px 14px;
   }
   .snap figcaption {
     font-size: 15px;

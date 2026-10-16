@@ -9,11 +9,18 @@ const fullName = `${site.name.first} ${site.name.last}`;
 export const metadata: Metadata = {
   metadataBase: new URL("https://haanie.com"),
   title: fullName,
-  description: `${fullName}: builder of Safar, Regional Director at Steel City Codes Denver. ${site.place}.`,
+  description: `${fullName} builds Safar, the software his family's wholesale business runs on, and directs Steel City Codes in Denver.`,
   openGraph: {
     title: fullName,
     description: "Safar, Steel City Codes, and what I'm building next.",
     type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${fullName} on a green highway sign, with Safar, Steel City Codes and Grandview FBLA` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: fullName,
+    description: "Safar, Steel City Codes, and what I'm building next.",
+    images: ["/og.png"],
   },
   robots: isHidden() ? { index: false, follow: false } : undefined,
 };

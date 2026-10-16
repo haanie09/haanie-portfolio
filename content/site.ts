@@ -9,10 +9,10 @@
  *                               prompt until you write it. To fill one:
  *                               slot("Q23", "prompt…", "Your actual words.")
  *
- *  2. draft("…")                Placeholder wording Claude wrote from your
- *                               facts so the layout looks real. The Academy
- *                               discourages AI-written text, so rewrite each
- *                               of these in your voice, then delete draft().
+ *  2. draft("…")                Wording Claude composed from your facts. The
+ *                               Academy discourages AI-written text, so read
+ *                               each one aloud, change anything you wouldn't
+ *                               say, then delete draft().
  *
  *  3. Plain strings             Facts: numbers, dates, PR numbers, titles.
  *
@@ -52,7 +52,8 @@ export const site = {
 
   /** Photos: put files in /public/photos and set the path, e.g. "/photos/portrait.jpg". null = placeholder. */
   photos: {
-    portrait: "/photos/portrait.jpg" as string | null,
+    portrait: "/photos/traveling.jpg" as string | null, // swap in the warehouse portrait from the shot list when you have one
+    portraitPlace: "Taj Mahal, Agra" as string | null, // small brown sign on the photo; null hides it
     safarDesktop: "/photos/safar-desktop.png" as string | null,
     safarPhone: "/photos/safar-phone.png" as string | null,
     sccCamp: "/photos/scc-camp.jpg" as string | null,
@@ -65,40 +66,43 @@ export const site = {
     { org: "Grandview FBLA", title: "Data Officer", note: "" },
   ],
 
-  oneLiner: slot("Q23", "One line on who you are, the way you'd say it to a friend.", "I build to make technology work for humans."),
+  // From your Common App activity ("Because I build for people I work beside").
+  oneLiner: slot("Q23", "One line on who you are, the way you’d say it to a friend.", "I build software for the people I work beside."),
 
   stats: {
     title: "Safar so far",
-    source: "From the production database on Sept 22, 2026",
+    source: "Production database, Sept 22, 2026",
     items: [
-      { n: "344", label: "invoices created since go-live" },
-      { n: "283", label: "stores on my dad's routes" },
+      { n: "344", label: "invoices since launch" },
+      { n: "283", label: "stores on my dad’s routes" },
       { n: "403", label: "store visits logged by reps" },
       { n: "3", label: "reps invoicing from the field" },
     ],
   },
 
   safar: {
-    kicker: "The flagship",
-    summary: draft("Invoicing, inventory, routes and field sales for my dad's wholesale business. In daily use since July 2026."),
+    summary: draft("The software my family’s wholesale business runs on. Invoicing, inventory and delivery routes, in daily use since July 2026."),
+    originLabel: "How it started",
     origin: slot(
       "Q1–Q3",
-      "How it started: your dad's warehouse, what they used before, the moment you saw the old way was broken.",
-      "My dad stood by the warehouse door, trying to tally every box that went out to the vans. Every invoice meant opening an Excel sheet afterward to subtract each item by hand, and dinner waited until he was done. Importing his inventory might as well have been unearthing mummies, so we audited the whole warehouse as a family. The next morning, a 7-Eleven's order came off the inventory with one click.",
+      "How it started: your dad’s warehouse, what they used before, the moment you saw the old way was broken.",
+      // From your Common App personal statement, edited for the site (the dinner is saved for the video).
+      "Every invoice my dad sent meant a second job: opening Excel afterward to subtract each item by hand. Last summer I started building him a system to do that work instead. The hard part was his data. Items had been entered twice under different names, and the counts no longer matched the shelves, so my family recounted the whole warehouse, aisle by aisle. The next morning, we punched in a local 7-Eleven’s order, and the inventory updated itself.",
     ),
+    desktopNote: "The owner’s dashboard in the live demo, which runs on made-up data.",
     /** Heading over the role slot; matches the Academy's "what you personally built". */
     roleLabel: "What I personally built",
     role: slot(
       "Q6–Q8",
       "What you personally did (product, design, database, code, support) and how you used AI, honestly.",
-      draft("I started on a whiteboard with one thesis: every part of my dad's business should run on one system. I wrote the plan, and AI wrote much of the code. My job was deciding what to build and testing it against the real business. For weeks my dad entered every invoice into QuickBooks, Excel and Safar, until Safar did all of it in one click. Then real people found what testing missed: a rep tapped Save twice, and a 19-unit transfer became 38. So I built Safar to work with impatience instead of against it. A second tap now does nothing, and big actions ask for one confirm."),
+      draft("I started on a whiteboard with one rule: every part of my dad’s business should run on one system. I wrote the plan, and AI wrote much of the code. My job was deciding what to build, testing it against the real business and fixing what daily use broke. For weeks my dad entered every invoice three times, in QuickBooks, Excel and Safar, until Safar could do the work of all three. Then a rep tapped Save twice and a 19-unit transfer became 38. Now Safar expects impatience: a second tap does nothing."),
     ),
-    phoneNote: "What reps use on the road today, in the phone's browser",
+    phoneNote: "A rep’s day in Safar, running in the phone’s browser.",
     log: [
       { d: "May 17", e: "First commit" },
       { d: "Jun 26", e: "Security audit, 22 fixes" },
-      { d: "Jul 1", e: "Go-live. First real invoice", key: true },
-      { d: "Oct 4", e: "Started the native phone app" },
+      { d: "Jul 1", e: "Launch: the first real invoice", key: true },
+      { d: "Oct 4", e: "Started the native app" },
       { d: "Today", e: "Still in daily use", now: true },
     ],
   },
@@ -112,7 +116,7 @@ export const site = {
         story: slot(
           "Q9",
           "Your dad asked for a map; what he needed was who owed him money. What changed once collections rode along on routes?",
-          draft("My dad asked for a map of his customers. What he needed was that map next to who owed him money, which Google Maps doesn't know, so I built his routes around it. Collections used to cost him whole days every few months. Now reps pick up nearby collections on routes they already run, and he hasn't made a collection run since August."),
+          draft("My dad asked for a map of his customers. What he needed was that map next to who owed him money, which Google Maps can’t show, so I built his routes around both. Collections used to cost him whole days every few months. Now reps pick up overdue balances on routes they already run, and he hasn’t made a collection run since August."),
         ),
         /** Screenshot from the live demo (made-up data), shown under the story. */
         shot: {
@@ -120,8 +124,8 @@ export const site = {
           w: 750,
           h: 990,
           kind: "phone",
-          alt: "A rep's route in Safar: one finished stop, then suggested stops tagged Overdue balance",
-          caption: "Suggested stops on a rep's route, from the live demo.",
+          alt: "A rep’s route in Safar: one finished stop, then suggested stops tagged Overdue balance",
+          caption: "Suggested stops on a rep’s route, from the live demo.",
         },
       },
       {
@@ -129,26 +133,25 @@ export const site = {
         title: draft("Getting other distributors to switch."),
         story: slot(
           "Q10",
-          "What other distributors told you, and what you're building because of it.",
-          draft("I called other distributors to see if Safar could work for them. One told me, \"We've got it handled.\" Most said the same thing in more words: switching would mean uprooting the systems their business already runs on. So the next thing I'm building is the move itself. Safar already imports a distributor's customers and products from a spreadsheet, and I'm designing a QuickBooks sync so they can keep their books where they are."),
+          "What other distributors told you, and what you’re building because of it.",
+          draft("I called other distributors to see if Safar could work for them. One told me, “We’ve got it handled.” Most said the same thing at greater length: switching means uprooting the systems their business already runs on. So the next thing I’m building is the move itself. Safar now imports a distributor’s customers and products from a spreadsheet, and I’m designing a QuickBooks sync so they can keep their books where they are."),
         ),
       },
       {
         tag: "Security",
-        dark: true,
-        title: draft("One account could read another's invoices."),
+        title: draft("One account could read another’s invoices."),
         story: slot(
           "Q11",
           "How you discovered it and what went through your head.",
-          draft("In July, an audit caught a hole where one account could read another's invoices. I closed it the same day. Safar holds every store my dad sells to, what they buy and what they owe, and reps log in on public networks and phones I can't see. That's why I audited before the first real invoice, fixing all 22 issues it found, and why I keep auditing."),
+          draft("In July, an audit found a hole: one account could read another’s invoices. I closed it the same day. Safar holds every store my dad sells to, what they buy and what they owe, and reps sign in on public networks and phones I’ll never see. That’s why I audited before the first real invoice, fixed all 22 issues it found, and kept auditing after launch."),
         ),
         shot: {
           src: "/photos/safar-permissions.png",
           w: 1348,
           h: 648,
           kind: "panel",
-          alt: "Safar's invoice permissions for a rep: See everyone's invoices is off, so they only see invoices they wrote; delete, record and void payments are marked DB-enforced",
-          caption: "A rep's invoice permissions, from the live demo.",
+          alt: "Safar’s invoice permissions for a rep: See everyone’s invoices is off, so they only see invoices they wrote; delete, record and void payments are marked DB-enforced",
+          caption: "A rep’s invoice permissions, from the live demo.",
         },
       },
     ],
@@ -163,22 +166,22 @@ export const site = {
     ],
     lesson: slot(
       "Q12 + Q15",
-      "Why flavors came out a month later, and what deleting taught you about building for your dad's team.",
-      draft("I built flavor tracking because every product we sold came in one, and we had never recorded it. My dad and a rep pushed back: a visit takes about ten minutes, and logging each flavor would push it to twenty. My dad said every extra second on a sale is time we don't get back. He was right, so I deleted it a month after it shipped. Now I ask how an idea affects a person before I worry about how it works."),
+      "Why flavors came out a month later, and what deleting taught you about building for your dad’s team.",
+      // From your Common App activity description, lightly edited.
+      "I pushed to track product flavors so we could order smarter. Our reps showed me it would double the length of every stop, and lost time is lost money, so I cut it. Now I ask how a feature affects the person using it before I ask how it works.",
     ),
   },
 
   next: {
-    kicker: "What I'm building next",
+    kicker: "What I’m building next",
     title: "Safar for iPhone and Android",
-    status: "Native app · in development · App Store next",
-    goal: draft("Reps run Safar in their phone's browser today. The native app puts it on the home screen and keeps unsent work stored on the phone itself."),
-    /** What's left (from you, Oct 15). */
-    leftLabel: "What's left",
+    // Checked against the Safar repo: Capacitor shell (#516), SQLite outbox, camera/barcode, share sheet.
+    goal: draft("Reps use Safar in their phone’s browser today. The native app ships with its screens built in, so it opens with no signal. It also scans barcodes with the camera and sends invoice PDFs straight from the phone’s share sheet."),
+    leftLabel: "What’s left",
     left: [
       draft("Finish the iPhone screens and first-run setup"),
-      draft("Publish on the App Store"),
-      draft("Form the LLC, then offer Safar to other local distributors"),
+      draft("Publish on the App Store, then Google Play"),
+      draft("Form the LLC and offer Safar to other local distributors"),
     ],
   },
 
@@ -186,28 +189,29 @@ export const site = {
     kicker: "Beyond Safar",
     scc: {
       name: "Steel City Codes",
-      tag: "Nonprofit",
       roles: "Regional Director, Denver",
       facts: [
-        draft("Wrote curriculum for intermediate Python and MicroPython on Raspberry Pi Pico; teach at the two-week summer camp."),
+        draft("Our Denver region teaches 200+ students a year; 150+ come to the two-week summer camp."),
+        draft("I wrote the intermediate Python and MicroPython (Raspberry Pi Pico) curriculum and teach it at camp."),
+        // From your supplement essays, edited.
+        "All six kids in one family have come through my microcontrollers class. One built a video game controller; another, a rubber band gun that fires when its ultrasonic sensor spots someone walking past.",
       ],
       story: slot(
         "SCC",
         "Volunteer to director: what you took on that nobody asked you to.",
-        draft("Before every summer camp, our team spent weekends matching volunteers and students to classes by hand. Nobody asked for a registration system, so I built one: volunteers pick their own classes, parents sign their kids up, and admins see the whole camp in one place. Denver pilots it when registration opens in February. If it holds up, I'll hand it to the national team with what we learned, so other regions can use it too."),
+        draft("Before every camp, our team spent weekends matching volunteers and students to classes by hand. Nobody asked for a registration system, so I built one. Volunteers pick their own classes, parents sign their kids up, and admins see the whole camp in one place. Denver pilots it in February, when registration opens. If it holds up, I’ll hand it to the national team so other regions can use it too."),
       ),
     },
     fbla: {
       name: "FBLA",
-      tag: "Two-time state champion",
       roles: "Data Officer, Grandview FBLA",
-      body: draft("Two-time state champion: Website Design (2025) and Website Coding & Development (2026). As Data Officer, I rebuilt the chapter's registration app for 180+ members. Placement results now import automatically, so state qualifiers are set before anyone fills out a form."),
+      body: draft("Two-time state champion, in Website Design (2025) and Website Coding & Development (2026). As Data Officer, I rebuilt the chapter’s registration app for 180+ members. Placement results now import automatically, so state qualifiers are set before anyone fills out a form."),
     },
     deca: {
       name: "DECA",
       place: "2nd",
       roles: "2nd at state, Integrated Marketing Campaign–Product",
-      body: draft("A campaign pitching Meta smart glasses to the blind and low-vision community. Two-time state qualifier."),
+      body: draft("A campaign pitching Meta’s smart glasses to blind and low-vision users. State qualifier two years running."),
     },
   },
 
@@ -215,18 +219,19 @@ export const site = {
     kicker: "Why I build",
     quote: slot(
       "Q24 + Q25",
-      "Why this matters to you, who it's for, and what you want to build next. This is the impact section: set big, like a pull quote.",
-      draft("A few weeks after my dad started using Safar, he told me, \u201cBohot time bachaa liya app ne mera\u201d: you saved me a lot of time. I want to give that time back to other small family businesses, where the owner is still typing invoices after the store closes."),
+      "Why this matters to you, who it’s for, and what you want to build next. This is the impact section: set big, like a pull quote.",
+      // From your Common App personal statement and supplement, edited.
+      "A few weeks after my dad started using Safar, he told me, “Bohot time bachaa liya app ne mera”: you saved me a lot of time. To me, the best technology gives people back their time.",
     ),
   },
 
   offHours: {
     kicker: "Off the clock",
+    /** Items with a photo show as photos; the rest are listed on a brown recreation sign. */
     items: [
-      { caption: "Traveling: the Taj Mahal, Agra", photo: "/photos/traveling.jpg" as string | null, tone: "blue" },
-      { caption: "Hiking", photo: "/photos/hiking.jpg" as string | null, tone: "ink" },
-      { caption: "Pickleball, daily in season", photo: null as string | null, tone: "accent" },
-      { caption: "Friends", photo: null as string | null, tone: "sun" },
+      { caption: "Hiking", detail: "", photo: "/photos/hiking.jpg" as string | null },
+      { caption: "Pickleball", detail: "Daily in season, entering tournaments", photo: null as string | null },
+      { caption: "Snowboarding", detail: "", photo: null as string | null },
     ],
   },
 };

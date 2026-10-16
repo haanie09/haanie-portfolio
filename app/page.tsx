@@ -14,7 +14,7 @@ type Tone = "guide" | "warn" | "work" | "service" | "rec" | "reg";
 const sections: { href: string; label: string; tone: Tone }[] = [
   { href: "#safar", label: "Safar", tone: "guide" },
   { href: "#problems", label: "What broke", tone: "warn" },
-  { href: "#next", label: "What's next", tone: "work" },
+  { href: "#next", label: "What’s next", tone: "work" },
   { href: "#beyond", label: "Beyond Safar", tone: "service" },
   { href: "#offhours", label: "Off the clock", tone: "rec" },
 ];
@@ -22,7 +22,7 @@ const sections: { href: string; label: string; tone: Tone }[] = [
 const host = (url: string) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
 function Nav() {
-  const links = sections.filter((s) => s.href !== "#offhours" || site.offHours.items.some((it) => it.photo));
+  const links = sections.filter((s) => s.href !== "#offhours" || site.offHours.items.length > 0);
   const items = (
     <>
       {links.map((s) => (
@@ -90,21 +90,21 @@ function Hero() {
         </div>
         <Photo
           src={site.photos.portrait}
-          alt={`${site.name.first} ${site.name.last}`}
+          alt={`${site.name.first} ${site.name.last}${site.photos.portraitPlace ? ` at the ${site.photos.portraitPlace}` : ""}`}
           label="portrait of you"
           className="hero__photo"
-          width={820}
-          height={1027}
+          width={768}
+          height={1024}
           eager
-        />
-        <div className="hero__foot">
-          <Slot w={site.oneLiner} className="hero__line" />
-          {demo ? (
-            <a href={demo} className="sign t-guide go" target="_blank" rel="noreferrer">
-              Try the live demo
-            </a>
-          ) : null}
-        </div>
+        >
+          {site.photos.portraitPlace ? <span className="sign t-rec hero__place">{site.photos.portraitPlace}</span> : null}
+        </Photo>
+        <Slot w={site.oneLiner} className="hero__line" />
+        {demo ? (
+          <a href={demo} className="sign t-guide go hero__cta" target="_blank" rel="noreferrer">
+            Try the live demo
+          </a>
+        ) : null}
       </div>
     </section>
   );
@@ -116,12 +116,11 @@ function Safar() {
   return (
     <section id="safar" className="section">
       <div className="wrap">
-        <div className="safar__top">
-          <h2 className="sign t-guide plate plate--xl">Safar</h2>
-          <p className="lede safar__summary">{v.summary}</p>
-        </div>
-
-        <div className="safar__proof">
+        <div className="safar__head">
+          <div className="safar__id">
+            <h2 className="sign t-guide plate plate--xl">Safar</h2>
+            <p className="lede">{v.summary}</p>
+          </div>
           <div className="sign t-guide miles">
             <p className="miles__title">{s.title}</p>
             <dl className="miles__list">
@@ -134,7 +133,11 @@ function Safar() {
             </dl>
             <p className="miles__src">{s.source}</p>
           </div>
-          <Slot w={v.origin} className="safar__origin" />
+        </div>
+
+        <div className="story">
+          <h3 className="story__label">{v.originLabel}</h3>
+          <Slot w={v.origin} className="story__text" />
         </div>
 
         <div className="showcase">
@@ -148,7 +151,7 @@ function Safar() {
               height={1800}
             />
             <figcaption>
-              From the live demo, which runs on made-up data.
+              {v.desktopNote}
               {demo ? (
                 <>
                   {" "}
@@ -172,9 +175,9 @@ function Safar() {
           </figure>
         </div>
 
-        <div className="built">
-          <h3 className="built__label">{v.roleLabel}</h3>
-          <Slot w={v.role} className="built__text" />
+        <div className="story">
+          <h3 className="story__label">{v.roleLabel}</h3>
+          <Slot w={v.role} className="story__text" />
         </div>
 
         <ol className="route" aria-label="Safar timeline">
@@ -354,19 +357,31 @@ function Why() {
 }
 
 function OffHours() {
-  const items = site.offHours.items.filter((it) => it.photo);
-  if (items.length === 0) return null;
+  const all = site.offHours.items;
+  if (all.length === 0) return null;
+  const pictured = all.filter((it) => it.photo);
+  const listed = all.filter((it) => !it.photo);
   return (
     <section id="offhours" className="section section--tight">
       <div className="wrap">
         <h2 className="sign t-rec plate">{site.offHours.kicker}</h2>
-        <div className="snaps">
-          {items.map((it) => (
+        <div className="off">
+          {pictured.map((it) => (
             <figure key={it.caption} className="snap">
               <Photo src={it.photo} alt={it.caption} label={it.caption.toLowerCase()} className="snap__img" width={768} height={1024} />
               <figcaption>{it.caption}</figcaption>
             </figure>
           ))}
+          {listed.length > 0 ? (
+            <ul className="sign t-rec dest off__sign">
+              {listed.map((it) => (
+                <li key={it.caption}>
+                  <span className="dest__name">{it.caption}</span>
+                  {it.detail ? <span className="dest__what">{it.detail}</span> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </div>
     </section>
