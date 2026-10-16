@@ -112,12 +112,12 @@ export const site = {
         ),
       },
       {
-        tag: "Correctness",
-        title: draft("Invoice numbers that skipped."),
+        tag: "Beyond my dad",
+        title: draft("Getting other distributors to switch."),
         story: slot(
           "Q10",
-          "The moment a number was wrong. How you found out, how it felt.",
-          draft("My dad caught it first: his invoice numbers were going up by two. I traced it to the invoice screen. Just showing the next number used one up, and saving used another. We fixed it right away."),
+          "What other distributors told you, and what you're building because of it.",
+          draft("I called other distributors to see if Safar could work for them. One told me, \"We've got it handled.\" Most said the same thing in more words: switching would mean uprooting the systems their business already runs on. So the next thing I'm building is the move itself. Safar already imports a distributor's customers and products from a spreadsheet, and I'm designing a QuickBooks sync so they can keep their books where they are."),
         ),
       },
       {
