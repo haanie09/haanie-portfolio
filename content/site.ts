@@ -64,7 +64,7 @@ export const site = {
     { org: "Grandview FBLA", title: "Data Officer", note: "" },
   ],
 
-  oneLiner: slot("Q23", "One line on who you are, the way you'd say it to a friend."),
+  oneLiner: slot("Q23", "One line on who you are, the way you'd say it to a friend.", "I build to make technology work for humans."),
 
   stats: {
     asOf: "Safar so far, from the production database on Sept 22, 2026",
@@ -79,7 +79,11 @@ export const site = {
   safar: {
     kicker: "The flagship",
     summary: draft("Invoicing, inventory, routes and field sales for my dad's wholesale business. In daily use since July 2026."),
-    origin: slot("Q1–Q3", "How it started: your dad's warehouse, what they used before, the moment you saw the old way was broken."),
+    origin: slot(
+      "Q1–Q3",
+      "How it started: your dad's warehouse, what they used before, the moment you saw the old way was broken.",
+      "My dad stood by the warehouse door, trying to tally every box that went out to the vans. Every invoice he sent meant opening an Excel sheet afterward to subtract each item by hand, and dinner waited until he was done. Importing his inventory and customers might as well have been unearthing mummies: items entered twice under different names, counts that drifted from the shelves. We did a full audit as a family, walking the aisles and recounting. The next morning I showed him how to punch in a 7-Eleven's order. We heard the woosh of an email going out, and the items had already come off the inventory.",
+    ),
     role: slot("Q6–Q8", "What you personally did (product, design, database, code, support) and how you used AI, honestly."),
     phoneNote: "What reps use on the road today, in the phone's browser",
     log: [
