@@ -1,7 +1,7 @@
 // Lists every empty "your words" slot and every draft() line left in content/.
 import { readFileSync } from "node:fs";
 
-const files = ["site.ts", "notes.ts"];
+const files = ["site.ts"];
 const empty = [];
 const drafts = [];
 

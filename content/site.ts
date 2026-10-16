@@ -52,10 +52,10 @@ export const site = {
 
   /** Photos: put files in /public/photos and set the path, e.g. "/photos/portrait.jpg". null = placeholder. */
   photos: {
-    portrait: null as string | null,
-    safarDesktop: null as string | null,
-    safarPhone: null as string | null,
-    sccCamp: null as string | null,
+    portrait: "/photos/portrait.jpg" as string | null,
+    safarDesktop: "/photos/safar-desktop.png" as string | null,
+    safarPhone: "/photos/safar-phone.png" as string | null,
+    sccCamp: "/photos/scc-camp.jpg" as string | null,
   },
 
   roles: [
@@ -66,52 +66,37 @@ export const site = {
 
   oneLiner: slot("Q23", "One line on who you are, the way you'd say it to a friend."),
 
-  ticker: [
-    "Safar in daily use at Payless Wholesale",
-    "119 invoices in the last 28 days",
-    "3 reps invoicing from the field",
-    "Works with no signal",
-  ],
-
   stats: {
     asOf: "Production database · Sept 22, 2026",
     items: [
       { n: "344", label: "invoices created since go-live" },
       { n: "283", label: "active customers" },
       { n: "403", label: "store visits logged by reps" },
-      { n: "442", label: "commits · 257 merged PRs", italic: true },
+      { n: "3", label: "reps invoicing from the field" },
     ],
   },
 
   safar: {
-    kicker: "01 — The flagship",
+    kicker: "The flagship",
     summary: draft("Invoicing, inventory, routes and field sales for a wholesale distributor. Solo build. In production every day."),
     origin: slot("Q1–Q3", "How it started: your dad's warehouse, what they used before, the moment you saw the old way was broken."),
     role: slot("Q6–Q8", "What you personally did (product, design, database, code, support) and how you used AI, honestly."),
-    phoneNote: "18 of 59 pages built for reps on the road",
-    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase · Postgres", "Row-level security", "IndexedDB", "Tailwind v4", "Google Maps", "Vitest · CI"],
+    phoneNote: "The app reps invoice from on the road",
     log: [
       { d: "May 17", e: "First commit" },
-      { d: "Jun 16", e: "First deploy" },
       { d: "Jun 26", e: "Security audit, 22 fixes" },
       { d: "Jul 1", e: "Go-live. First real invoice", key: true },
-      { d: "Jul 21", e: "Offline outbox ships" },
-      { d: "Jul 24", e: "Invoices in one transaction" },
+      { d: "Oct 4", e: "Native phone app built" },
       { d: "Today", e: "Still in daily use", now: true },
     ],
   },
 
   problems: {
-    kicker: "02 — What broke, and what I did",
+    kicker: "What broke, and what I did",
     items: [
       {
         tag: "Collections",
         title: draft("Routes that know who owes money."),
-        facts: [
-          "Routes built around overdue balances, not just drive time",
-          "Reps pick up nearby collections on routes they already run",
-          "No collection runs since August",
-        ],
         story: slot(
           "Q9",
           "Your dad asked for a map; what he needed was who owed him money. What changed once collections rode along on routes?",
@@ -120,14 +105,7 @@ export const site = {
       },
       {
         tag: "Correctness",
-        /** Slug of the write-up in content/notes.ts (page at /notes/<slug>). */
-        writeup: "one-transaction-invoices",
         title: draft("Money and stock have to add up."),
-        facts: [
-          "16–20 browser calls per invoice → one database transaction",
-          "Showing the next invoice number burned two per invoice",
-          "Only real payments can mark an invoice paid",
-        ],
         story: slot(
           "Q10",
           "The moment a number was wrong. How you found out, how it felt.",
@@ -136,15 +114,8 @@ export const site = {
       },
       {
         tag: "Security",
-        /** Slug of the write-up in content/notes.ts (page at /notes/<slug>). */
-        writeup: "access-control-audit",
         dark: true,
         title: draft("One account could read another's invoices."),
-        facts: [
-          "Found an IDOR in admin-key routes; callers now prove access",
-          "Money functions were callable logged-out → revoked",
-          "Pre-launch audit: 22 findings fixed",
-        ],
         story: slot(
           "Q11",
           "How you discovered it and what went through your head.",
@@ -155,26 +126,21 @@ export const site = {
   },
 
   killed: {
-    kicker: "03 — Things I built, then deleted",
+    kicker: "Things I built, then deleted",
     heading: draft("Knowing what to cut."),
     items: [
       { what: "Product flavors & daily counts", meta: "1 month" },
       { what: "Suggested reorder", meta: "1 day" },
       { what: "“Optimize route”" },
-      { what: "Barcode scanner" },
-      { what: "Par levels", replaced: "demand meter" },
     ],
     lesson: slot("Q12 + Q15", "Why flavors came out a month later, and what deleting taught you about building for your dad's team."),
   },
 
   next: {
-    kicker: "04 — What I'm building next",
+    kicker: "What I'm building next",
     title: "Safar for iPhone and Android",
     status: "Native app · in development · App Store next",
     goal: draft("Reps already run Safar in their phone's browser. The native app puts it on the home screen, keeps the offline queue in the phone's own storage, and is the version other distributors will download."),
-    /** What's already built (facts from the Oct 4 merges). */
-    doneLabel: "Already built",
-    done: ["Runs in the iPhone simulator", "Offline queue in the phone's own storage", "Camera, sharing & push notifications", "Setup & data import for a second distributor"],
     /** What's left (from you, Oct 15). */
     leftLabel: "What's left",
     left: [
@@ -182,11 +148,10 @@ export const site = {
       draft("Publish on the App Store"),
       draft("Form the LLC, then offer Safar to other local distributors"),
     ],
-    why: slot("Q25", "Why a phone app, and what selling Safar to other distributors would mean to you."),
   },
 
   beyond: {
-    kicker: "05 — Beyond Safar",
+    kicker: "Beyond Safar",
     scc: {
       name: "Steel City Codes",
       tag: "Nonprofit",
@@ -198,31 +163,29 @@ export const site = {
       story: slot("SCC", "Volunteer to director: what you took on that nobody asked you to."),
     },
     fbla: {
-      name: "FBLA data system",
-      tag: "React · Firebase",
+      name: "FBLA",
+      tag: "Two-time state champion",
       roles: "Data Officer, Grandview FBLA",
-      body: draft("Inherited the chapter's system and rebuilt it. Placement data imports automatically, so who qualifies for state is settled before anyone fills out a form. Replaces Google Forms and spreadsheets."),
-      story: slot("FBLA", "What was broken when you got it."),
+      body: draft("State champion in Website Design (2025) and Website Coding & Development (2026). As Data Officer, I rebuilt the chapter's registration app for 180+ members; placement results import automatically, so who qualifies for state is settled before anyone fills out a form."),
     },
     deca: {
       name: "DECA",
       place: "2nd",
       roles: "State · Integrated Marketing Campaign–Product",
-      body: draft("A campaign pitching Meta smart glasses to the blind and low-vision community. State qualifier every year competed."),
-      story: slot("DECA", "Why that audience?"),
+      body: draft("A campaign pitching Meta smart glasses to the blind and low-vision community. Two-time state qualifier."),
     },
   },
 
   why: {
-    kicker: "06 — Why I build",
+    kicker: "Why I build",
     quote: slot("Q24 + Q25", "Why this matters to you, who it's for, and what you want to build next. This is the impact section: set big, like a pull quote."),
   },
 
   offHours: {
-    kicker: "07 — Off the clock",
+    kicker: "Off the clock",
     heading: draft("Colorado, mostly outside"),
     items: [
-      { caption: "Snowboarding", photo: null as string | null, tone: "blue" },
+      { caption: "Traveling", photo: "/photos/traveling.jpg" as string | null, tone: "blue" },
       { caption: "Hiking", photo: null as string | null, tone: "ink" },
       { caption: "Pickleball, daily in season", photo: null as string | null, tone: "accent" },
       { caption: "Friends", photo: null as string | null, tone: "sun" },

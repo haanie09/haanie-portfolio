@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { isHidden, site } from "@/content/site";
 import { Kicker, Photo, Play, Slot } from "@/components/ui";
 
@@ -11,7 +10,7 @@ function Nav() {
     ["#next", "Next"],
     ["#beyond", "Beyond Safar"],
     ["#offhours", "Off the clock"],
-  ];
+  ].filter(([href]) => href !== "#offhours" || site.offHours.items.some((it) => it.photo));
   return (
     <header className="nav">
       <div className="wrap nav__inner">
@@ -66,7 +65,6 @@ function Hero() {
           <ol className="roles">
             {site.roles.map((r, i) => (
               <li key={r.org}>
-                <span className="mono roles__n">0{i + 1}</span>
                 <span>
                   {r.title}, <b>{r.org}</b>
                   {r.note ? ` · ${r.note}` : ""}
@@ -90,31 +88,6 @@ function Hero() {
   );
 }
 
-function Ticker() {
-  const row = (
-    <>
-      {site.ticker.map((t) => (
-        <span key={t} className="ticker__item">
-          <span className="mono">{t}</span>
-          <span className="ticker__sep" aria-hidden="true" />
-        </span>
-      ))}
-    </>
-  );
-  return (
-    <div className="ticker" role="region" aria-label="Right now">
-      <div className="ticker__lane">
-        <div className="ticker__track">
-          <div className="ticker__run">{row}</div>
-          <div className="ticker__run" aria-hidden="true">
-            {row}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Stats() {
   return (
     <section className="stats">
@@ -126,7 +99,7 @@ function Stats() {
         <div className="stats__grid">
           {site.stats.items.map((s) => (
             <div key={s.label} className="stat">
-              <span className={`disp stat__n ${s.italic ? "it" : ""}`}>{s.n}</span>
+              <span className={`disp stat__n ${"italic" in s && s.italic ? "it" : ""}`}>{s.n}</span>
               <span className="stat__label">{s.label}</span>
             </div>
           ))}
@@ -177,19 +150,9 @@ function Safar() {
             <div className="phonecard">
               <Photo src={site.photos.safarPhone} alt="Safar mobile app" label="phone" className="phonecard__phone" />
               <div className="stack-s">
-                <span className="mono sun">Mobile PWA</span>
+                <span className="mono sun">Phone app</span>
                 <span>{v.phoneNote}</span>
               </div>
-            </div>
-            <div className="stack-s">
-              <span className="mono muted">Stack</span>
-              <ul className="chips">
-                {v.stack.map((s) => (
-                  <li key={s} className="chip">
-                    {s}
-                  </li>
-                ))}
-              </ul>
             </div>
             <Slot w={v.role} />
           </div>
@@ -214,7 +177,6 @@ function Safar() {
 
 function Problems() {
   const p = site.problems;
-  const numerals = ["i.", "ii.", "iii."];
   return (
     <section id="problems" className="section section--sand">
       <div className="wrap">
@@ -227,23 +189,10 @@ function Problems() {
           </div>
         </div>
         <div className="cards3">
-          {p.items.map((it, i) => (
+          {p.items.map((it) => (
             <article key={it.tag} className={`card ${it.dark ? "card--ink" : ""}`}>
-              <div className="card__top">
-                <span className="disp numeral">{numerals[i]}</span>
-                <span className="mono muted">{it.tag}</span>
-              </div>
+              <span className="mono muted">{it.tag}</span>
               <h3 className="h-card disp">{it.title}</h3>
-              <ul className="facts">
-                {it.facts.map((f) => (
-                  <li key={f}>{f}</li>
-                ))}
-              </ul>
-              {it.writeup && (
-                <Link className="card__link" href={`/notes/${it.writeup}`}>
-                  Read how I fixed it
-                </Link>
-              )}
               <Slot w={it.story} dark={it.dark} className="push" />
             </article>
           ))}
@@ -265,7 +214,7 @@ function Killed() {
               <li key={it.what}>
                 <span className="disp graveyard__what">
                   <s>{it.what}</s>
-                  {it.replaced ? <em className="sun"> → {it.replaced}</em> : null}
+                  {"replaced" in it && it.replaced ? <em className="sun"> → {String(it.replaced)}</em> : null}
                 </span>
                 {it.meta ? <span className="mono graveyard__meta">{it.meta}</span> : null}
               </li>
@@ -290,7 +239,7 @@ function Next() {
           <div className="split__main stack">
             <Kicker>{n.kicker}</Kicker>
             <h2 className="h-big disp">
-              Safar <em>Desktop</em>
+              {n.title}
             </h2>
             <p className="lede">{n.goal}</p>
           </div>
@@ -329,17 +278,6 @@ function Next() {
           </div>
           <div className="stack-l">
             <div className="stack-s">
-              <span className="mono muted">{n.doneLabel}</span>
-              <ol className="targets">
-                {n.done.map((t, i) => (
-                  <li key={t}>
-                    <span className="mono targets__n">0{i + 1}</span>
-                    <span className="disp">{t}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <div className="stack-s">
               <span className="mono muted">{n.leftLabel}</span>
               <ul className="facts">
                 {n.left.map((x) => (
@@ -347,7 +285,6 @@ function Next() {
                 ))}
               </ul>
             </div>
-            <Slot w={n.why} />
           </div>
         </div>
       </div>
@@ -388,7 +325,6 @@ function Beyond() {
             </div>
             <span className="mono blue">{b.fbla.roles}</span>
             <p className="body">{b.fbla.body}</p>
-            <Slot w={b.fbla.story} className="push" />
           </article>
           <article className="card card--accent">
             <div className="card__title-row">
@@ -397,7 +333,6 @@ function Beyond() {
             </div>
             <span className="mono">{b.deca.roles}</span>
             <p className="body">{b.deca.body}</p>
-            <Slot w={b.deca.story} className="push slot--on-accent" />
           </article>
         </div>
       </div>
@@ -426,6 +361,8 @@ function Why() {
 
 function OffHours() {
   const o = site.offHours;
+  const items = o.items.filter((it) => it.photo);
+  if (items.length === 0) return null;
   const [head, ...rest] = o.heading.split(",");
   const tail = rest.join(",");
   return (
@@ -443,7 +380,7 @@ function OffHours() {
           </h2>
         </div>
         <div className="polaroids">
-          {o.items.map((it, i) => (
+          {items.map((it, i) => (
             <figure key={it.caption} className={`polaroid tone-${it.tone}`} style={{ ["--tilt" as string]: `${[-2, 1.5, -1, 2][i]}deg` }}>
               <Photo src={it.photo} alt={it.caption} label={it.caption.toLowerCase()} className="polaroid__img" />
               <figcaption>{it.caption}</figcaption>
@@ -466,7 +403,7 @@ function Contact() {
   return (
     <footer id="contact" className="contact">
       <div className="wrap stack-l">
-        <Kicker tone="ink">08 — Get in touch</Kicker>
+        <Kicker tone="ink">Get in touch</Kicker>
         <a href={`mailto:${site.email}`} className="contact__email disp">
           {site.email}
         </a>
@@ -515,7 +452,6 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Ticker />
         <Stats />
         <Safar />
         <Problems />
