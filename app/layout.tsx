@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/fraunces/full.css";
-import "@fontsource-variable/fraunces/full-italic.css";
-import "@fontsource-variable/newsreader/opsz.css";
-import "@fontsource-variable/newsreader/opsz-italic.css";
-import "@fontsource/ibm-plex-mono/400.css";
-import "@fontsource/ibm-plex-mono/500.css";
+import "@fontsource-variable/overpass/wght.css";
+import "@fontsource-variable/overpass/wght-italic.css";
 import "./globals.css";
 import { isHidden, site } from "@/content/site";
 
@@ -23,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#E9EEF3",
+  themeColor: "#E6E8E3",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

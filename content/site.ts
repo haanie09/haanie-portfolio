@@ -47,7 +47,7 @@ export const site = {
     github: "https://github.com/haanie09" as string | null, // Safar-Technologies org has no public repos yet
     linkedin: null as string | null,
     x: null as string | null,
-    resume: null as string | null, // drop a PDF in /public and put "/resume.pdf" here
+    resume: "/resume.pdf" as string | null, // copy of Documents/Academy Application/03 Resume, re-copy after edits
   },
 
   /** Photos: put files in /public/photos and set the path, e.g. "/photos/portrait.jpg". null = placeholder. */
@@ -56,6 +56,7 @@ export const site = {
     safarDesktop: "/photos/safar-desktop.png" as string | null,
     safarPhone: "/photos/safar-phone.png" as string | null,
     sccCamp: "/photos/scc-camp.jpg" as string | null,
+    fblaState: "/photos/fbla-state.jpg" as string | null, // State Leadership Conference 2025, Website Design on stage
   },
 
   roles: [
@@ -67,7 +68,8 @@ export const site = {
   oneLiner: slot("Q23", "One line on who you are, the way you'd say it to a friend.", "I build to make technology work for humans."),
 
   stats: {
-    asOf: "Safar so far, from the production database on Sept 22, 2026",
+    title: "Safar so far",
+    source: "From the production database on Sept 22, 2026",
     items: [
       { n: "344", label: "invoices created since go-live" },
       { n: "283", label: "stores on my dad's routes" },
@@ -84,6 +86,8 @@ export const site = {
       "How it started: your dad's warehouse, what they used before, the moment you saw the old way was broken.",
       "My dad stood by the warehouse door, trying to tally every box that went out to the vans. Every invoice meant opening an Excel sheet afterward to subtract each item by hand, and dinner waited until he was done. Importing his inventory might as well have been unearthing mummies, so we audited the whole warehouse as a family. The next morning, a 7-Eleven's order came off the inventory with one click.",
     ),
+    /** Heading over the role slot; matches the Academy's "what you personally built". */
+    roleLabel: "What I personally built",
     role: slot(
       "Q6–Q8",
       "What you personally did (product, design, database, code, support) and how you used AI, honestly.",
@@ -110,6 +114,15 @@ export const site = {
           "Your dad asked for a map; what he needed was who owed him money. What changed once collections rode along on routes?",
           draft("My dad asked for a map of his customers. What he needed was that map next to who owed him money, which Google Maps doesn't know, so I built his routes around it. Collections used to cost him whole days every few months. Now reps pick up nearby collections on routes they already run, and he hasn't made a collection run since August."),
         ),
+        /** Screenshot from the live demo (made-up data), shown under the story. */
+        shot: {
+          src: "/photos/safar-collections.jpg",
+          w: 750,
+          h: 990,
+          kind: "phone",
+          alt: "A rep's route in Safar: one finished stop, then suggested stops tagged Overdue balance",
+          caption: "Suggested stops on a rep's route, from the live demo.",
+        },
       },
       {
         tag: "Beyond my dad",
@@ -129,6 +142,14 @@ export const site = {
           "How you discovered it and what went through your head.",
           draft("In July, an audit caught a hole where one account could read another's invoices. I closed it the same day. Safar holds every store my dad sells to, what they buy and what they owe, and reps log in on public networks and phones I can't see. That's why I audited before the first real invoice, fixing all 22 issues it found, and why I keep auditing."),
         ),
+        shot: {
+          src: "/photos/safar-permissions.png",
+          w: 1348,
+          h: 648,
+          kind: "panel",
+          alt: "Safar's invoice permissions for a rep: See everyone's invoices is off, so they only see invoices they wrote; delete, record and void payments are marked DB-enforced",
+          caption: "A rep's invoice permissions, from the live demo.",
+        },
       },
     ],
   },
@@ -195,7 +216,7 @@ export const site = {
     quote: slot(
       "Q24 + Q25",
       "Why this matters to you, who it's for, and what you want to build next. This is the impact section: set big, like a pull quote.",
-      draft("I build to make technology work for humans. A few weeks after my dad started using Safar, he told me, \u201cBohot time bachaa liya app ne mera\u201d: you saved me a lot of time. I want to give that time back to other small family businesses, where the owner is still typing invoices after the store closes."),
+      draft("A few weeks after my dad started using Safar, he told me, \u201cBohot time bachaa liya app ne mera\u201d: you saved me a lot of time. I want to give that time back to other small family businesses, where the owner is still typing invoices after the store closes."),
     ),
   },
 

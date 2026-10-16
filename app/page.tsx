@@ -2,51 +2,61 @@ import { isHidden, site } from "@/content/site";
 import { Photo, Play, Slot } from "@/components/ui";
 
 const intro = site.links.intro;
+const demo = site.links.demo;
+
+/**
+ * Section colors follow what each color means on a US highway sign:
+ * green = where you're headed, yellow = warning, orange = work zone,
+ * blue = services, brown = recreation, white = rules.
+ */
+type Tone = "guide" | "warn" | "work" | "service" | "rec" | "reg";
+
+const sections: { href: string; label: string; tone: Tone }[] = [
+  { href: "#safar", label: "Safar", tone: "guide" },
+  { href: "#problems", label: "What broke", tone: "warn" },
+  { href: "#next", label: "What's next", tone: "work" },
+  { href: "#beyond", label: "Beyond Safar", tone: "service" },
+  { href: "#offhours", label: "Off the clock", tone: "rec" },
+];
+
+const host = (url: string) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
 function Nav() {
-  const links = [
-    ["#safar", "Safar"],
-    ["#problems", "What broke"],
-    ["#next", "What's next"],
-    ["#beyond", "Beyond Safar"],
-    ["#offhours", "Off the clock"],
-  ].filter(([href]) => href !== "#offhours" || site.offHours.items.some((it) => it.photo));
+  const links = sections.filter((s) => s.href !== "#offhours" || site.offHours.items.some((it) => it.photo));
+  const items = (
+    <>
+      {links.map((s) => (
+        <a key={s.href} href={s.href}>
+          <span className={`chip t-${s.tone}`} aria-hidden="true" />
+          {s.label}
+        </a>
+      ))}
+      {intro ? (
+        <a href={intro} target="_blank" rel="noreferrer">
+          <Play /> Watch my intro
+        </a>
+      ) : null}
+      <a href="#contact">Contact</a>
+    </>
+  );
   return (
     <header className="nav">
       <div className="wrap nav__inner">
-        <a href="#top" className="nav__name disp">
+        <a href="#top" className="nav__name">
           {site.name.first} {site.name.last}
         </a>
         <nav className="nav__links" aria-label="Sections">
-          {links.map(([href, label]) => (
-            <a key={href} href={href}>
-              {label}
-            </a>
-          ))}
-          {intro ? (
-            <a href={intro} className="pill pill--ink" target="_blank" rel="noreferrer">
-              <Play /> Watch my intro
-            </a>
-          ) : null}
+          {items}
         </nav>
         <details className="nav__menu">
           <summary aria-label="Open menu">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
               <path d="M4 8h16M4 16h16" />
             </svg>
           </summary>
-          <div className="nav__sheet">
-            {links.map(([href, label]) => (
-              <a key={href} href={href}>
-                {label}
-              </a>
-            ))}
-            {intro ? (
-              <a href={intro} className="pill pill--ink" target="_blank" rel="noreferrer">
-                <Play /> Watch my intro
-              </a>
-            ) : null}
-          </div>
+          <nav className="nav__sheet" aria-label="Sections">
+            {items}
+          </nav>
         </details>
       </div>
     </header>
@@ -57,50 +67,43 @@ function Hero() {
   return (
     <section id="top" className="hero">
       <div className="wrap hero__grid">
-        <div className="hero__text">
+        <div className="sign t-guide hero__sign">
           <p className="hero__meta">
             Senior at {site.school} in {site.place}. Class of {site.classOf}.
           </p>
-          <h1 className="hero__name disp">
+          <h1 className="hero__name">
             {site.name.first}
             <br />
             {site.name.last}
           </h1>
-          <ol className="roles">
+          <ul className="dest">
             {site.roles.map((r) => (
               <li key={r.org}>
-                <span>
-                  {r.title}, <b>{r.org}</b>
+                <span className="dest__name">{r.org}</span>
+                <span className="dest__what">
+                  {r.title}
                   {r.note ? `, ${r.note}` : ""}
                 </span>
               </li>
             ))}
-          </ol>
-          <Slot w={site.oneLiner} className="hero__oneliner" />
+          </ul>
         </div>
-        <div className="hero__art">
-          <div className="hero__arch-back" aria-hidden="true" />
-          <Photo src={site.photos.portrait} alt={`${site.name.first} ${site.name.last}`} label="portrait of you" className="hero__arch" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Stats() {
-  return (
-    <section className="stats">
-      <div className="wrap">
-        <div className="stats__head">
-          <span>{site.stats.asOf}</span>
-        </div>
-        <div className="stats__grid">
-          {site.stats.items.map((s) => (
-            <div key={s.label} className="stat">
-              <span className={`disp stat__n ${"italic" in s && s.italic ? "it" : ""}`}>{s.n}</span>
-              <span className="stat__label">{s.label}</span>
-            </div>
-          ))}
+        <Photo
+          src={site.photos.portrait}
+          alt={`${site.name.first} ${site.name.last}`}
+          label="portrait of you"
+          className="hero__photo"
+          width={820}
+          height={1027}
+          eager
+        />
+        <div className="hero__foot">
+          <Slot w={site.oneLiner} className="hero__line" />
+          {demo ? (
+            <a href={demo} className="sign t-guide go" target="_blank" rel="noreferrer">
+              Try the live demo
+            </a>
+          ) : null}
         </div>
       </div>
     </section>
@@ -109,60 +112,91 @@ function Stats() {
 
 function Safar() {
   const v = site.safar;
+  const s = site.stats;
   return (
     <section id="safar" className="section">
       <div className="wrap">
-        <div className="split split--end">
-          <div className="split__main stack">
-            <h2 className="h-mega disp blue">Safar</h2>
-            <p className="lede">{v.summary}</p>
-            {site.links.demo ? (
-              <a href={site.links.demo} className="mono pill pill--ink demo-cta" target="_blank" rel="noreferrer">
-                <span className="dot" /> Try the live demo
-              </a>
-            ) : null}
+        <div className="safar__top">
+          <h2 className="sign t-guide plate plate--xl">Safar</h2>
+          <p className="lede safar__summary">{v.summary}</p>
+        </div>
+
+        <div className="safar__proof">
+          <div className="sign t-guide miles">
+            <p className="miles__title">{s.title}</p>
+            <dl className="miles__list">
+              {s.items.map((it) => (
+                <div key={it.label} className="miles__row">
+                  <dt>{it.label}</dt>
+                  <dd>{it.n}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="miles__src">{s.source}</p>
           </div>
-          <div className="split__side">
-            <Slot w={v.origin} />
-          </div>
+          <Slot w={v.origin} className="safar__origin" />
         </div>
 
         <div className="showcase">
-          <div className="browser">
-            <div className="browser__dots">
-              <span />
-              <span />
-              <span />
-              {site.links.demo ? (
-                <a href={site.links.demo} className="browser__url" target="_blank" rel="noreferrer">
-                  {site.links.demo.replace("https://", "")}
-                </a>
+          <figure className="showcase__desk">
+            <Photo
+              src={site.photos.safarDesktop}
+              alt="Safar's owner dashboard in the live demo"
+              label="Safar dashboard (demo data)"
+              className="shot"
+              width={2880}
+              height={1800}
+            />
+            <figcaption>
+              From the live demo, which runs on made-up data.
+              {demo ? (
+                <>
+                  {" "}
+                  <a href={demo} target="_blank" rel="noreferrer">
+                    {host(demo)}
+                  </a>
+                </>
               ) : null}
-            </div>
-            <Photo src={site.photos.safarDesktop} alt="Safar dashboard with demo data" label="Safar dashboard (demo data)" className="browser__screen" />
-          </div>
-          <div className="showcase__side">
-            <div className="phonecard">
-              <Photo src={site.photos.safarPhone} alt="Safar mobile app" label="phone" className="phonecard__phone" />
-              <div className="stack-s">
-                <span>{v.phoneNote}</span>
-              </div>
-            </div>
-            <Slot w={v.role} />
-          </div>
+            </figcaption>
+          </figure>
+          <figure className="showcase__phone">
+            <Photo
+              src={site.photos.safarPhone}
+              alt="Safar on a rep's phone, showing today's route"
+              label="phone screenshot"
+              className="phone"
+              width={1170}
+              height={1992}
+            />
+            <figcaption>{v.phoneNote}</figcaption>
+          </figure>
         </div>
 
-        <div className="log">
-          <ol className="log__row">
-            {v.log.map((l) => (
-              <li key={l.d} className={`log__item ${l.key ? "is-key" : ""} ${l.now ? "is-now" : ""}`}>
-                <span className="log__dot" aria-hidden="true" />
-                <span className="mono log__date">{l.d}</span>
-                <span className="log__event">{l.e}</span>
-              </li>
-            ))}
-          </ol>
+        <div className="built">
+          <h3 className="built__label">{v.roleLabel}</h3>
+          <Slot w={v.role} className="built__text" />
         </div>
+
+        <ol className="route" aria-label="Safar timeline">
+          {v.log.map((l) => {
+            const md = l.d.match(/^([A-Za-z]{3}) (\d{1,2})$/);
+            return (
+              <li key={l.d} className={`route__stop${"key" in l && l.key ? " is-key" : ""}${"now" in l && l.now ? " is-now" : ""}`}>
+                <span className="sign t-guide marker">
+                  {md ? (
+                    <>
+                      <span className="marker__m">{md[1]}</span>
+                      <span className="marker__d">{md[2]}</span>
+                    </>
+                  ) : (
+                    <span className="marker__word">{l.d}</span>
+                  )}
+                </span>
+                <span className="route__event">{l.e}</span>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );
@@ -171,18 +205,22 @@ function Safar() {
 function Problems() {
   const p = site.problems;
   return (
-    <section id="problems" className="section section--sand">
+    <section id="problems" className="section section--paper">
       <div className="wrap">
-        <div className="head-row">
-          <div className="stack">
-            <h2 className="h-big disp">{p.kicker}</h2>
-          </div>
-        </div>
-        <div className="cards3">
+        <h2 className="sign t-warn plate">{p.kicker}</h2>
+        <div className="incidents">
           {p.items.map((it) => (
-            <article key={it.tag} className={`card ${it.dark ? "card--ink" : ""}`}>
-              <h3 className="h-card disp">{it.title}</h3>
-              <Slot w={it.story} dark={it.dark} />
+            <article key={it.tag} className="incident">
+              <h3 className="incident__title">{it.title}</h3>
+              <div className="incident__body">
+                <Slot w={it.story} />
+                {"shot" in it && it.shot ? (
+                  <figure className={`incident__shot incident__shot--${it.shot.kind}`}>
+                    <Photo src={it.shot.src} alt={it.shot.alt} label="screenshot" className="crop" width={it.shot.w} height={it.shot.h} />
+                    <figcaption>{it.shot.caption}</figcaption>
+                  </figure>
+                ) : null}
+              </div>
             </article>
           ))}
         </div>
@@ -194,24 +232,24 @@ function Problems() {
 function Killed() {
   const k = site.killed;
   return (
-    <section className="section section--ink">
-      <div className="wrap split">
-        <div className="split__main stack-l">
-          <h2 className="h-big disp">{k.kicker}</h2>
-          <ul className="graveyard">
+    <section className="section section--night">
+      <div className="wrap">
+        <h2 className="sign t-reg plate">{k.kicker}</h2>
+        <div className="closed">
+          <ul className="closed__list">
             {k.items.map((it) => (
-              <li key={it.what}>
-                <span className="disp graveyard__what">
-                  <s>{it.what}</s>
-                  {"replaced" in it && it.replaced ? <em className="sun"> → {String(it.replaced)}</em> : null}
-                </span>
-                {it.meta ? <span className="mono graveyard__meta">{it.meta}</span> : null}
+              <li key={it.what} className="closed__item">
+                <s className="closed__what">
+                  {it.what}
+                  <span className="closed__bar" aria-hidden="true">
+                    <span>{it.what}</span>
+                  </span>
+                </s>
+                {"meta" in it && it.meta ? <span className="closed__meta">{it.meta}</span> : null}
               </li>
             ))}
           </ul>
-        </div>
-        <div className="split__side stack-l killed__side">
-          <Slot w={k.lesson} dark />
+          <Slot w={k.lesson} dark className="closed__lesson" />
         </div>
       </div>
     </section>
@@ -221,24 +259,26 @@ function Killed() {
 function Next() {
   const n = site.next;
   return (
-    <section id="next" className="section section--next">
+    <section id="next" className="section">
       <div className="wrap">
-        <div className="split split--end">
-          <div className="split__main stack">
-            <h2 className="h-big disp">
-              {n.title}
-            </h2>
+        <h2 className="sign t-work plate">{n.kicker}</h2>
+        <div className="next">
+          <div className="next__main">
+            <h3 className="next__title">{n.title}</h3>
             <p className="lede">{n.goal}</p>
           </div>
-          <div className="split__side stack">
-            <div className="stack-s">
-              <h3 className="h-card disp">{n.leftLabel}</h3>
-              <ul className="facts">
-                {n.left.map((x) => (
-                  <li key={x}>{x}</li>
-                ))}
-              </ul>
-            </div>
+          <div className="next__left">
+            <h4 className="next__label">{n.leftLabel}</h4>
+            <ol className="steps">
+              {n.left.map((x, i) => (
+                <li key={x}>
+                  <span className="steps__n" aria-hidden="true">
+                    <span>{i + 1}</span>
+                  </span>
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </div>
@@ -249,40 +289,54 @@ function Next() {
 function Beyond() {
   const b = site.beyond;
   return (
-    <section id="beyond" className="section section--blue">
+    <section id="beyond" className="section section--paper">
       <div className="wrap">
-        <div className="stack">
-          <h2 className="h-big disp">{b.kicker}</h2>
-        </div>
-        <div className="beyond">
-          <article className="card card--paper beyond__scc">
-            <Photo src={site.photos.sccCamp} alt="Teaching at Steel City Codes summer camp" label="teaching at SCC summer camp" className="beyond__photo" />
-            <div className="card__title-row">
-              <h3 className="h-card-l disp">{b.scc.name}</h3>
-            </div>
-            <p className="role-line">{b.scc.roles}</p>
-            <ul className="facts facts--l">
+        <h2 className="sign t-service plate">{b.kicker}</h2>
+        <article className="org">
+          <Photo
+            src={site.photos.sccCamp}
+            alt="With the Steel City Codes team at summer camp"
+            label="teaching at SCC summer camp"
+            className="org__photo org__photo--left"
+            width={1600}
+            height={900}
+          />
+          <div className="org__body">
+            <h3 className="org__name">{b.scc.name}</h3>
+            <p className="org__role">{b.scc.roles}</p>
+            <ul className="org__facts">
               {b.scc.facts.map((f) => (
                 <li key={f}>{f}</li>
               ))}
             </ul>
-            <Slot w={b.scc.story} className="push" />
-          </article>
-          <article className="card card--paper">
-            <div className="card__title-row">
-              <h3 className="h-card disp">{b.fbla.name}</h3>
-            </div>
-            <p className="role-line">{b.fbla.roles}</p>
-            <p className="body">{b.fbla.body}</p>
-          </article>
-          <article className="card card--accent">
-            <div className="card__title-row">
-              <h3 className="h-card disp">{b.deca.name}</h3>
-            </div>
-            <p className="role-line">{b.deca.roles}</p>
-            <p className="body">{b.deca.body}</p>
-          </article>
-        </div>
+            <Slot w={b.scc.story} />
+          </div>
+        </article>
+        <article className="org org--flip">
+          <Photo
+            src={site.photos.fblaState}
+            alt="On stage for Website Design at the 2025 FBLA State Leadership Conference"
+            label="FBLA state awards"
+            className="org__photo"
+            width={1600}
+            height={1042}
+          />
+          <div className="org__body">
+            <h3 className="org__name">{b.fbla.name}</h3>
+            <p className="org__role">{b.fbla.roles}</p>
+            <p className="words">{b.fbla.body}</p>
+          </div>
+        </article>
+        <article className="org org--text">
+          <div className="org__body">
+            <h3 className="org__name">{b.deca.name}</h3>
+            <p className="org__role">{b.deca.roles}</p>
+            <p className="words">{b.deca.body}</p>
+          </div>
+          <p className="sign t-service placard" aria-hidden="true">
+            {b.deca.place}
+          </p>
+        </article>
       </div>
     </section>
   );
@@ -292,31 +346,24 @@ function Why() {
   return (
     <section className="section">
       <div className="wrap why">
-        <div className="stack">
-          <h2 className="h-card disp">{site.why.kicker}</h2>
-        </div>
-        <div className="stack">
-          <Slot w={site.why.quote} big />
-        </div>
+        <h2 className="sign t-reg plate why__plate">{site.why.kicker}</h2>
+        <Slot w={site.why.quote} big className="why__quote" />
       </div>
     </section>
   );
 }
 
 function OffHours() {
-  const o = site.offHours;
-  const items = o.items.filter((it) => it.photo);
+  const items = site.offHours.items.filter((it) => it.photo);
   if (items.length === 0) return null;
   return (
     <section id="offhours" className="section section--tight">
       <div className="wrap">
-        <div className="stack">
-          <h2 className="h-big disp">{o.kicker}</h2>
-        </div>
-        <div className="polaroids">
+        <h2 className="sign t-rec plate">{site.offHours.kicker}</h2>
+        <div className="snaps">
           {items.map((it) => (
-            <figure key={it.caption} className={`polaroid tone-${it.tone}`}>
-              <Photo src={it.photo} alt={it.caption} label={it.caption.toLowerCase()} className="polaroid__img" />
+            <figure key={it.caption} className="snap">
+              <Photo src={it.photo} alt={it.caption} label={it.caption.toLowerCase()} className="snap__img" width={768} height={1024} />
               <figcaption>{it.caption}</figcaption>
             </figure>
           ))}
@@ -328,32 +375,37 @@ function OffHours() {
 
 function Contact() {
   const l = site.links;
-  const others: [string, string | null][] = [
-    ["GitHub", l.github],
-    ["LinkedIn", l.linkedin],
-    ["X", l.x],
-    ["Résumé", l.resume],
+  const rows: { label: string; href: string | null; note: string; download?: boolean }[] = [
+    { label: "One-minute intro", href: intro, note: "YouTube" },
+    { label: "Live demo", href: l.demo, note: l.demo ? host(l.demo) : "" },
+    { label: "GitHub", href: l.github, note: l.github ? host(l.github) : "" },
+    { label: "Résumé", href: l.resume, note: "PDF" },
+    { label: "LinkedIn", href: l.linkedin, note: l.linkedin ? host(l.linkedin) : "" },
+    { label: "X", href: l.x, note: l.x ? host(l.x) : "" },
   ];
   return (
     <footer id="contact" className="contact">
-      <div className="wrap stack-l">
-        <a href={`mailto:${site.email}`} className="contact__email disp">
-          {site.email}
-        </a>
-        <div className="contact__links">
-          {intro ? (
-            <a href={intro} className="pill pill--ink" target="_blank" rel="noreferrer">
-              <Play /> One-minute intro
-            </a>
-          ) : null}
-          {others
-            .filter(([, href]) => href)
-            .map(([label, href]) => (
-              <a key={label} href={href!} className="pill" target="_blank" rel="noreferrer">
-                {label}
-              </a>
-            ))}
+      <div className="wrap">
+        <div className="sign t-guide contact__sign">
+          <a href={`mailto:${site.email}`} className="contact__email">
+            {site.email}
+          </a>
+          <ul className="dest dest--links">
+            {rows
+              .filter((r) => r.href)
+              .map((r) => (
+                <li key={r.label}>
+                  <a href={r.href!} target="_blank" rel="noreferrer">
+                    <span className="dest__name">{r.label}</span>
+                    <span className="dest__what">{r.note}</span>
+                  </a>
+                </li>
+              ))}
+          </ul>
         </div>
+        <p className="contact__foot">
+          {site.name.first} {site.name.last}, {site.place}
+        </p>
       </div>
     </footer>
   );
@@ -362,12 +414,13 @@ function Contact() {
 function InProgress() {
   return (
     <main className="wip">
-      <div className="wip__sky" aria-hidden="true" />
-      <h1 className="disp wip__name">
-        {site.name.first} <em>{site.name.last}</em>
-      </h1>
-      <p className="lede">This site is still in progress. Check back soon.</p>
-      <a className="pill" href={`mailto:${site.email}`}>
+      <div className="sign t-guide wip__sign">
+        <h1 className="wip__name">
+          {site.name.first} {site.name.last}
+        </h1>
+        <p className="wip__text">This site is still in progress. Check back soon.</p>
+      </div>
+      <a className="wip__mail" href={`mailto:${site.email}`}>
         {site.email}
       </a>
     </main>
@@ -378,13 +431,12 @@ export default function Home() {
   if (isHidden()) return <InProgress />;
   return (
     <>
-      <a href="#safar" className="skip mono">
-        Skip to work
+      <a href="#safar" className="skip">
+        Skip to Safar
       </a>
       <Nav />
       <main>
         <Hero />
-        <Stats />
         <Safar />
         <Problems />
         <Killed />
