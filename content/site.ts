@@ -186,7 +186,7 @@ export const site = {
     heading: draft("Away from the keyboard"),
     items: [
       { caption: "Traveling", photo: "/photos/traveling.jpg" as string | null, tone: "blue" },
-      { caption: "Hiking", photo: null as string | null, tone: "ink" },
+      { caption: "Hiking", photo: "/photos/hiking.jpg" as string | null, tone: "ink" },
       { caption: "Pickleball, daily in season", photo: null as string | null, tone: "accent" },
       { caption: "Friends", photo: null as string | null, tone: "sun" },
     ],
