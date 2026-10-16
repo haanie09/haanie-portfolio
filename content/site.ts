@@ -174,7 +174,7 @@ export const site = {
       story: slot(
         "SCC",
         "Volunteer to director: what you took on that nobody asked you to.",
-        draft("Nobody asked for a registration system. Every spring, matching volunteers to classes meant hours of back-and-forth by hand, so I built one: volunteers pick their own classes, parents sign their kids up, and admins see the whole camp in one place. Denver pilots it when registration opens in February. If it holds up, I'll hand it to the national team with what we learned, so other regions can use it too."),
+        draft("Before every summer camp, our team spent weekends matching volunteers and students to classes by hand. Nobody asked for a registration system, so I built one: volunteers pick their own classes, parents sign their kids up, and admins see the whole camp in one place. Denver pilots it when registration opens in February. If it holds up, I'll hand it to the national team with what we learned, so other regions can use it too."),
       ),
     },
     fbla: {
