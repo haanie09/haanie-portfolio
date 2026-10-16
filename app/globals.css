@@ -1404,3 +1404,21 @@ em.disp {
     margin-right: 8px;
   }
 }
+
+/* ─── Oct 15 review pass: quieter chrome ─────────────────── */
+.hero__meta { color: var(--muted); font-size: 17px; }
+.role-line { font-size: 16px; color: var(--muted); }
+.card--paper .role-line { color: var(--blue); }
+.card--accent .role-line { color: var(--ink); }
+.nav__links a, .nav__sheet a, .pill { text-transform: none; letter-spacing: 0.01em; font-family: var(--f-body); font-size: 16px; }
+.stats { background: var(--paper-2); }
+.stats__head { margin-bottom: 40px; color: var(--muted); }
+.stat__n { font-size: clamp(52px, 6vw, 88px); }
+.cards3 { align-items: start; }
+.polaroid__img, .polaroid:hover .polaroid__img { transform: none; }
+.polaroids { grid-template-columns: repeat(auto-fit, minmax(260px, 420px)); }
+.beyond__photo img { object-position: 12% 45%; }
+@media (max-width: 720px) {
+  .hero__art { order: 0; }
+  .browser { display: none; }
+}

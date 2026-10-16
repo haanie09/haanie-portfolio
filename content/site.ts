@@ -59,7 +59,7 @@ export const site = {
   },
 
   roles: [
-    { org: "Safar Technologies", title: "Founder & developer", note: "" },
+    { org: "Safar", title: "Founder & developer", note: "" },
     { org: "Steel City Codes", title: "Regional Director", note: "Denver" },
     { org: "Grandview FBLA", title: "Data Officer", note: "" },
   ],
@@ -67,10 +67,10 @@ export const site = {
   oneLiner: slot("Q23", "One line on who you are, the way you'd say it to a friend."),
 
   stats: {
-    asOf: "Production database · Sept 22, 2026",
+    asOf: "Safar so far, from the production database on Sept 22, 2026",
     items: [
       { n: "344", label: "invoices created since go-live" },
-      { n: "283", label: "active customers" },
+      { n: "283", label: "stores on my dad's routes" },
       { n: "403", label: "store visits logged by reps" },
       { n: "3", label: "reps invoicing from the field" },
     ],
@@ -78,15 +78,15 @@ export const site = {
 
   safar: {
     kicker: "The flagship",
-    summary: draft("Invoicing, inventory, routes and field sales for a wholesale distributor. Solo build. In production every day."),
+    summary: draft("Invoicing, inventory, routes and field sales for my dad's wholesale business. In daily use since July 2026."),
     origin: slot("Q1–Q3", "How it started: your dad's warehouse, what they used before, the moment you saw the old way was broken."),
     role: slot("Q6–Q8", "What you personally did (product, design, database, code, support) and how you used AI, honestly."),
-    phoneNote: "The app reps invoice from on the road",
+    phoneNote: "What reps use on the road today, in the phone's browser",
     log: [
       { d: "May 17", e: "First commit" },
       { d: "Jun 26", e: "Security audit, 22 fixes" },
       { d: "Jul 1", e: "Go-live. First real invoice", key: true },
-      { d: "Oct 4", e: "Native phone app built" },
+      { d: "Oct 4", e: "Started the native phone app" },
       { d: "Today", e: "Still in daily use", now: true },
     ],
   },
@@ -105,11 +105,11 @@ export const site = {
       },
       {
         tag: "Correctness",
-        title: draft("Money and stock have to add up."),
+        title: draft("Invoice numbers that skipped."),
         story: slot(
           "Q10",
           "The moment a number was wrong. How you found out, how it felt.",
-          draft("My dad caught it first: his invoice numbers were going up by two. I traced it to the invoice screen. Just showing the next number used one up, and saving used another. We fixed it right away. The lesson: a mistake can hide anywhere, even in a number that only sits on the screen."),
+          draft("My dad caught it first: his invoice numbers were going up by two. I traced it to the invoice screen. Just showing the next number used one up, and saving used another. We fixed it right away."),
         ),
       },
       {
@@ -127,10 +127,9 @@ export const site = {
 
   killed: {
     kicker: "Things I built, then deleted",
-    heading: draft("Knowing what to cut."),
     items: [
-      { what: "Product flavors & daily counts", meta: "1 month" },
-      { what: "Suggested reorder", meta: "1 day" },
+      { what: "Product flavors & daily counts", meta: "lived 1 month" },
+      { what: "Suggested reorder", meta: "lived 1 day" },
       { what: "“Optimize route”" },
     ],
     lesson: slot("Q12 + Q15", "Why flavors came out a month later, and what deleting taught you about building for your dad's team."),
@@ -140,7 +139,7 @@ export const site = {
     kicker: "What I'm building next",
     title: "Safar for iPhone and Android",
     status: "Native app · in development · App Store next",
-    goal: draft("Reps already run Safar in their phone's browser. The native app puts it on the home screen, keeps the offline queue in the phone's own storage, and is the version other distributors will download."),
+    goal: draft("Reps run Safar in their phone's browser today. The native app puts it on the home screen and keeps unsent work stored on the phone itself."),
     /** What's left (from you, Oct 15). */
     leftLabel: "What's left",
     left: [
@@ -171,7 +170,7 @@ export const site = {
     deca: {
       name: "DECA",
       place: "2nd",
-      roles: "State · Integrated Marketing Campaign–Product",
+      roles: "2nd at state, Integrated Marketing Campaign–Product",
       body: draft("A campaign pitching Meta smart glasses to the blind and low-vision community. Two-time state qualifier."),
     },
   },
@@ -183,9 +182,8 @@ export const site = {
 
   offHours: {
     kicker: "Off the clock",
-    heading: draft("Away from the keyboard"),
     items: [
-      { caption: "Traveling", photo: "/photos/traveling.jpg" as string | null, tone: "blue" },
+      { caption: "Traveling: the Taj Mahal, Agra", photo: "/photos/traveling.jpg" as string | null, tone: "blue" },
       { caption: "Hiking", photo: "/photos/hiking.jpg" as string | null, tone: "ink" },
       { caption: "Pickleball, daily in season", photo: null as string | null, tone: "accent" },
       { caption: "Friends", photo: null as string | null, tone: "sun" },

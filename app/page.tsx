@@ -1,13 +1,13 @@
 import { isHidden, site } from "@/content/site";
-import { Kicker, Photo, Play, Slot } from "@/components/ui";
+import { Photo, Play, Slot } from "@/components/ui";
 
-const introHref = site.links.intro ?? "#contact";
+const intro = site.links.intro;
 
 function Nav() {
   const links = [
     ["#safar", "Safar"],
-    ["#problems", "Hard problems"],
-    ["#next", "Next"],
+    ["#problems", "What broke"],
+    ["#next", "What's next"],
     ["#beyond", "Beyond Safar"],
     ["#offhours", "Off the clock"],
   ].filter(([href]) => href !== "#offhours" || site.offHours.items.some((it) => it.photo));
@@ -19,13 +19,15 @@ function Nav() {
         </a>
         <nav className="nav__links" aria-label="Sections">
           {links.map(([href, label]) => (
-            <a key={href} href={href} className="mono">
+            <a key={href} href={href}>
               {label}
             </a>
           ))}
-          <a href={introHref} className="mono pill pill--ink" target={site.links.intro ? "_blank" : undefined} rel="noreferrer">
-            <Play /> Watch my intro
-          </a>
+          {intro ? (
+            <a href={intro} className="pill pill--ink" target="_blank" rel="noreferrer">
+              <Play /> Watch my intro
+            </a>
+          ) : null}
         </nav>
         <details className="nav__menu">
           <summary aria-label="Open menu">
@@ -35,13 +37,15 @@ function Nav() {
           </summary>
           <div className="nav__sheet">
             {links.map(([href, label]) => (
-              <a key={href} href={href} className="mono">
+              <a key={href} href={href}>
                 {label}
               </a>
             ))}
-            <a href={introHref} className="mono pill pill--ink">
-              <Play /> Watch my intro
-            </a>
+            {intro ? (
+              <a href={intro} className="pill pill--ink" target="_blank" rel="noreferrer">
+                <Play /> Watch my intro
+              </a>
+            ) : null}
           </div>
         </details>
       </div>
@@ -54,16 +58,16 @@ function Hero() {
     <section id="top" className="hero">
       <div className="wrap hero__grid">
         <div className="hero__text">
-          <span className="mono muted">
-            {site.place} · {site.school} · Class of {site.classOf}
-          </span>
+          <p className="hero__meta">
+            Senior at {site.school} in {site.place}. Class of {site.classOf}.
+          </p>
           <h1 className="hero__name disp">
             {site.name.first}
             <br />
-            <em>{site.name.last}</em>
+            {site.name.last}
           </h1>
           <ol className="roles">
-            {site.roles.map((r, i) => (
+            {site.roles.map((r) => (
               <li key={r.org}>
                 <span>
                   {r.title}, <b>{r.org}</b>
@@ -77,11 +81,6 @@ function Hero() {
         <div className="hero__art">
           <div className="hero__arch-back" aria-hidden="true" />
           <Photo src={site.photos.portrait} alt={`${site.name.first} ${site.name.last}`} label="portrait of you" className="hero__arch" />
-          <div className="sticker">
-            <span className="mono sticker__top">Live since</span>
-            <span className="disp sticker__big">Jul 1</span>
-            <span className="mono sticker__bottom">Safar · 2026</span>
-          </div>
         </div>
       </div>
     </section>
@@ -93,8 +92,7 @@ function Stats() {
     <section className="stats">
       <div className="wrap">
         <div className="stats__head">
-          <span className="mono">Safar, by the numbers</span>
-          <span className="mono">{site.stats.asOf}</span>
+          <span>{site.stats.asOf}</span>
         </div>
         <div className="stats__grid">
           {site.stats.items.map((s) => (
@@ -116,10 +114,7 @@ function Safar() {
       <div className="wrap">
         <div className="split split--end">
           <div className="split__main stack">
-            <Kicker>{v.kicker}</Kicker>
-            <h2 className="h-mega disp">
-              <em className="blue">Safar</em>
-            </h2>
+            <h2 className="h-mega disp blue">Safar</h2>
             <p className="lede">{v.summary}</p>
             {site.links.demo ? (
               <a href={site.links.demo} className="mono pill pill--ink demo-cta" target="_blank" rel="noreferrer">
@@ -150,7 +145,6 @@ function Safar() {
             <div className="phonecard">
               <Photo src={site.photos.safarPhone} alt="Safar mobile app" label="phone" className="phonecard__phone" />
               <div className="stack-s">
-                <span className="mono sun">Phone app</span>
                 <span>{v.phoneNote}</span>
               </div>
             </div>
@@ -159,7 +153,6 @@ function Safar() {
         </div>
 
         <div className="log">
-          <span className="mono muted">Build log</span>
           <ol className="log__row">
             {v.log.map((l) => (
               <li key={l.d} className={`log__item ${l.key ? "is-key" : ""} ${l.now ? "is-now" : ""}`}>
@@ -182,16 +175,12 @@ function Problems() {
       <div className="wrap">
         <div className="head-row">
           <div className="stack">
-            <Kicker>{p.kicker}</Kicker>
-            <h2 className="h-big disp">
-              Hard <em>problems</em>
-            </h2>
+            <h2 className="h-big disp">{p.kicker}</h2>
           </div>
         </div>
         <div className="cards3">
           {p.items.map((it) => (
             <article key={it.tag} className={`card ${it.dark ? "card--ink" : ""}`}>
-              <span className="mono muted">{it.tag}</span>
               <h3 className="h-card disp">{it.title}</h3>
               <Slot w={it.story} dark={it.dark} />
             </article>
@@ -208,7 +197,7 @@ function Killed() {
     <section className="section section--ink">
       <div className="wrap split">
         <div className="split__main stack-l">
-          <Kicker tone="sun">{k.kicker}</Kicker>
+          <h2 className="h-big disp">{k.kicker}</h2>
           <ul className="graveyard">
             {k.items.map((it) => (
               <li key={it.what}>
@@ -222,7 +211,6 @@ function Killed() {
           </ul>
         </div>
         <div className="split__side stack-l killed__side">
-          <h2 className="h-quote disp">{k.heading}</h2>
           <Slot w={k.lesson} dark />
         </div>
       </div>
@@ -237,18 +225,14 @@ function Next() {
       <div className="wrap">
         <div className="split split--end">
           <div className="split__main stack">
-            <Kicker>{n.kicker}</Kicker>
             <h2 className="h-big disp">
               {n.title}
             </h2>
             <p className="lede">{n.goal}</p>
           </div>
           <div className="split__side stack">
-            <span className="status mono">
-              <span className="dot dot--sun" /> {n.status}
-            </span>
             <div className="stack-s">
-              <span className="mono muted">{n.leftLabel}</span>
+              <h3 className="h-card disp">{n.leftLabel}</h3>
               <ul className="facts">
                 {n.left.map((x) => (
                   <li key={x}>{x}</li>
@@ -268,19 +252,15 @@ function Beyond() {
     <section id="beyond" className="section section--blue">
       <div className="wrap">
         <div className="stack">
-          <Kicker tone="sun">{b.kicker}</Kicker>
-          <h2 className="h-big disp">
-            Teaching, organizing, <em>competing</em>
-          </h2>
+          <h2 className="h-big disp">{b.kicker}</h2>
         </div>
         <div className="beyond">
           <article className="card card--paper beyond__scc">
             <Photo src={site.photos.sccCamp} alt="Teaching at Steel City Codes summer camp" label="teaching at SCC summer camp" className="beyond__photo" />
             <div className="card__title-row">
               <h3 className="h-card-l disp">{b.scc.name}</h3>
-              <span className="mono muted">{b.scc.tag}</span>
             </div>
-            <span className="mono blue">{b.scc.roles}</span>
+            <p className="role-line">{b.scc.roles}</p>
             <ul className="facts facts--l">
               {b.scc.facts.map((f) => (
                 <li key={f}>{f}</li>
@@ -291,17 +271,15 @@ function Beyond() {
           <article className="card card--paper">
             <div className="card__title-row">
               <h3 className="h-card disp">{b.fbla.name}</h3>
-              <span className="mono muted">{b.fbla.tag}</span>
             </div>
-            <span className="mono blue">{b.fbla.roles}</span>
+            <p className="role-line">{b.fbla.roles}</p>
             <p className="body">{b.fbla.body}</p>
           </article>
           <article className="card card--accent">
             <div className="card__title-row">
               <h3 className="h-card disp">{b.deca.name}</h3>
-              <span className="disp numeral numeral--ink">{b.deca.place}</span>
             </div>
-            <span className="mono">{b.deca.roles}</span>
+            <p className="role-line">{b.deca.roles}</p>
             <p className="body">{b.deca.body}</p>
           </article>
         </div>
@@ -315,14 +293,10 @@ function Why() {
     <section className="section">
       <div className="wrap why">
         <div className="stack">
-          <Kicker>{site.why.kicker}</Kicker>
-          <svg className="why__mark" width="72" height="56" viewBox="0 0 72 56" aria-hidden="true">
-            <path d="M0 56V32C0 14 10 3 28 0l3 7C19 11 14 18 14 28h14v28zm40 0V32C40 14 50 3 68 0l3 7C59 11 54 18 54 28h14v28z" fill="var(--accent)" />
-          </svg>
+          <h2 className="h-card disp">{site.why.kicker}</h2>
         </div>
         <div className="stack">
           <Slot w={site.why.quote} big />
-          <span className="mono muted">— {site.name.first}</span>
         </div>
       </div>
     </section>
@@ -333,25 +307,15 @@ function OffHours() {
   const o = site.offHours;
   const items = o.items.filter((it) => it.photo);
   if (items.length === 0) return null;
-  const [head, ...rest] = o.heading.split(",");
-  const tail = rest.join(",");
   return (
     <section id="offhours" className="section section--tight">
       <div className="wrap">
         <div className="stack">
-          <Kicker>{o.kicker}</Kicker>
-          <h2 className="h-big disp">
-            {head}
-            {tail ? (
-              <>
-                ,<em>{tail}</em>
-              </>
-            ) : null}
-          </h2>
+          <h2 className="h-big disp">{o.kicker}</h2>
         </div>
         <div className="polaroids">
-          {items.map((it, i) => (
-            <figure key={it.caption} className={`polaroid tone-${it.tone}`} style={{ ["--tilt" as string]: `${[-2, 1.5, -1, 2][i]}deg` }}>
+          {items.map((it) => (
+            <figure key={it.caption} className={`polaroid tone-${it.tone}`}>
               <Photo src={it.photo} alt={it.caption} label={it.caption.toLowerCase()} className="polaroid__img" />
               <figcaption>{it.caption}</figcaption>
             </figure>
@@ -373,24 +337,22 @@ function Contact() {
   return (
     <footer id="contact" className="contact">
       <div className="wrap stack-l">
-        <Kicker tone="ink">Get in touch</Kicker>
         <a href={`mailto:${site.email}`} className="contact__email disp">
           {site.email}
         </a>
         <div className="contact__links">
-          <a href={introHref} className="mono pill pill--ink" target={l.intro ? "_blank" : undefined} rel="noreferrer">
-            <Play /> One-minute intro
-          </a>
+          {intro ? (
+            <a href={intro} className="pill pill--ink" target="_blank" rel="noreferrer">
+              <Play /> One-minute intro
+            </a>
+          ) : null}
           {others
             .filter(([, href]) => href)
             .map(([label, href]) => (
-              <a key={label} href={href!} className="mono pill" target="_blank" rel="noreferrer">
+              <a key={label} href={href!} className="pill" target="_blank" rel="noreferrer">
                 {label}
               </a>
             ))}
-        </div>
-        <div className="contact__foot">
-          <span className="mono">Aurora, CO · 2026</span>
         </div>
       </div>
     </footer>
