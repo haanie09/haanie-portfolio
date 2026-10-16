@@ -84,7 +84,11 @@ export const site = {
       "How it started: your dad's warehouse, what they used before, the moment you saw the old way was broken.",
       "My dad stood by the warehouse door, trying to tally every box that went out to the vans. Every invoice he sent meant opening an Excel sheet afterward to subtract each item by hand, and dinner waited until he was done. Importing his inventory and customers might as well have been unearthing mummies: items entered twice under different names, counts that drifted from the shelves. We did a full audit as a family, walking the aisles and recounting. The next morning I showed him how to punch in a 7-Eleven's order. We heard the woosh of an email going out, and the items had already come off the inventory.",
     ),
-    role: slot("Q6–Q8", "What you personally did (product, design, database, code, support) and how you used AI, honestly."),
+    role: slot(
+      "Q6–Q8",
+      "What you personally did (product, design, database, code, support) and how you used AI, honestly.",
+      draft("I started on a whiteboard with one thesis: every part of my dad's wholesale operation should run on one system. I wrote the plan, and AI wrote much of the code from it. My job was deciding what to build, testing it against the real business, and fixing what real use broke. For weeks, my dad kept entering every invoice into QuickBooks and Excel, and again into Safar, until Safar proved it could do all of it in one click. Real people found what testing missed: a rep tapped Save twice, a 19-unit transfer was recorded as 38, and the shelf count came out wrong. So I built Safar to work with impatience instead of against it. A second tap now does nothing, and big actions ask for one simple confirm."),
+    ),
     phoneNote: "What reps use on the road today, in the phone's browser",
     log: [
       { d: "May 17", e: "First commit" },
