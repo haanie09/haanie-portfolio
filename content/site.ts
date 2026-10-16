@@ -171,7 +171,11 @@ export const site = {
         draft("Built a registration platform where volunteers pick their own classes, replacing hours of manual matching. Denver pilots it in February."),
         draft("Wrote curriculum for intermediate Python and MicroPython on Raspberry Pi Pico; teach at the two-week summer camp."),
       ],
-      story: slot("SCC", "Volunteer to director: what you took on that nobody asked you to."),
+      story: slot(
+        "SCC",
+        "Volunteer to director: what you took on that nobody asked you to.",
+        draft("Nobody asked for a registration system. Every spring, matching volunteers to classes meant hours of back-and-forth by hand, so I built one: volunteers pick their own classes, parents sign their kids up, and admins see the whole camp in one place. Denver pilots it when registration opens in February. If it holds up, I'll hand it to the national team with what we learned, so other regions can use it too."),
+      ),
     },
     fbla: {
       name: "FBLA",
