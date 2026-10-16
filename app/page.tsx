@@ -193,7 +193,7 @@ function Problems() {
             <article key={it.tag} className={`card ${it.dark ? "card--ink" : ""}`}>
               <span className="mono muted">{it.tag}</span>
               <h3 className="h-card disp">{it.title}</h3>
-              <Slot w={it.story} dark={it.dark} className="push" />
+              <Slot w={it.story} dark={it.dark} />
             </article>
           ))}
         </div>
@@ -243,40 +243,10 @@ function Next() {
             </h2>
             <p className="lede">{n.goal}</p>
           </div>
-          <div className="split__side">
+          <div className="split__side stack">
             <span className="status mono">
               <span className="dot dot--sun" /> {n.status}
             </span>
-          </div>
-        </div>
-        <div className="next__grid">
-          <div className="next__phone" aria-hidden="true">
-            <span className="next__notch" />
-            <div className="next__phonebar mono">
-              <span>9:41</span>
-              <span>Safar</span>
-            </div>
-            <div className="next__phonebody">
-              <span className="mono muted">Today · route</span>
-              {[
-                ["Stop 1", "invoiced"],
-                ["Stop 2", "collect"],
-                ["Stop 3", "next"],
-              ].map(([stop, state], i) => (
-                <span key={stop} className={`next__stop ${i === 2 ? "on" : ""}`}>
-                  <span>{stop}</span>
-                  <span className="mono">{state}</span>
-                </span>
-              ))}
-              <div className="next__phonefoot">
-                <span className="disp next__speed">
-                  <em>no signal?</em>
-                </span>
-                <span className="mono">saved on the phone → synced</span>
-              </div>
-            </div>
-          </div>
-          <div className="stack-l">
             <div className="stack-s">
               <span className="mono muted">{n.leftLabel}</span>
               <ul className="facts">

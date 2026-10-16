@@ -59,7 +59,7 @@ export const site = {
   },
 
   roles: [
-    { org: "Safar Technologies", title: "Founder & developer", note: "built Safar" },
+    { org: "Safar Technologies", title: "Founder & developer", note: "" },
     { org: "Steel City Codes", title: "Regional Director", note: "Denver" },
     { org: "Grandview FBLA", title: "Data Officer", note: "" },
   ],
@@ -183,7 +183,7 @@ export const site = {
 
   offHours: {
     kicker: "Off the clock",
-    heading: draft("Colorado, mostly outside"),
+    heading: draft("Away from the keyboard"),
     items: [
       { caption: "Traveling", photo: "/photos/traveling.jpg" as string | null, tone: "blue" },
       { caption: "Hiking", photo: null as string | null, tone: "ink" },
