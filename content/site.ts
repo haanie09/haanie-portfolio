@@ -97,7 +97,7 @@ export const site = {
     role: slot(
       "Q6–Q8",
       "What you personally did (product, design, database, code, support) and how you used AI, honestly.",
-      draft("I started on a whiteboard with one rule: every part of my dad’s business should run on one system. I wrote the plan, and AI wrote much of the code. My job was deciding what to build, testing it against the real business and fixing what daily use broke. For weeks my dad entered every invoice three times, in QuickBooks, Excel and Safar, until Safar could do the work of all three. Then a rep tapped Save twice and a 19-unit transfer became 38. Now Safar expects impatience: a second tap does nothing."),
+      draft("I planned Safar on a whiteboard and directed AI to write much of the code. My job was deciding what to build and testing it against my dad’s business until it held up. For weeks he entered every invoice three times, in QuickBooks, Excel and Safar, until Safar could do the work of all three. When a rep’s double tap turned a 19-unit transfer into 38, I made the second tap do nothing."),
     ),
     phoneNote: "A rep’s day in Safar, running in the phone’s browser.",
     log: [

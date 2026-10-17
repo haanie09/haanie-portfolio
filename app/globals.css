@@ -1368,3 +1368,31 @@ dd {
     scroll-behavior: auto;
   }
 }
+
+/* ─── Motion: one load moment, three that mean something ─── */
+.motion .hero__sign {
+  animation: sign-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.motion .hero__photo {
+  animation: sign-up 0.7s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes sign-up {
+  from { opacity: 0; transform: translateY(18px); }
+}
+/* Barricade stripes draw across each deleted feature */
+.motion .closed__bar > span {
+  background-size: 0% 0.19em;
+  transition: background-size 0.7s cubic-bezier(0.6, 0, 0.2, 1);
+}
+.motion .closed__list.is-in .closed__bar > span { background-size: 100% 0.19em; }
+.motion .closed__list.is-in .closed__item:nth-child(2) .closed__bar > span { transition-delay: 0.25s; }
+.motion .closed__list.is-in .closed__item:nth-child(3) .closed__bar > span { transition-delay: 0.5s; }
+/* The road's center line rolls past the mile markers */
+.motion .route.is-in::after { animation: lane 1.6s cubic-bezier(0.2, 0.6, 0.2, 1) both; }
+@keyframes lane { from { background-position-x: 240px; } to { background-position-x: 0; } }
+.motion .route .marker { opacity: 0; transform: translateY(8px); transition: opacity 0.4s, transform 0.4s; }
+.motion .route.is-in .marker { opacity: 1; transform: none; }
+.motion .route.is-in .route__stop:nth-child(2) .marker { transition-delay: 0.15s; }
+.motion .route.is-in .route__stop:nth-child(3) .marker { transition-delay: 0.3s; }
+.motion .route.is-in .route__stop:nth-child(4) .marker { transition-delay: 0.45s; }
+.motion .route.is-in .route__stop:nth-child(5) .marker { transition-delay: 0.6s; }

@@ -3,6 +3,7 @@ import "@fontsource-variable/overpass/wght.css";
 import "@fontsource-variable/overpass/wght-italic.css";
 import "./globals.css";
 import { isHidden, site } from "@/content/site";
+import Motion from "@/components/Motion";
 
 const fullName = `${site.name.first} ${site.name.last}`;
 
@@ -32,7 +33,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Motion />
+      </body>
     </html>
   );
 }

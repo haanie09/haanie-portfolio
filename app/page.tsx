@@ -102,7 +102,7 @@ function Hero() {
         <Slot w={site.oneLiner} className="hero__line" />
         {demo ? (
           <a href={demo} className="sign t-guide go hero__cta" target="_blank" rel="noreferrer">
-            Try the live demo
+            Try the Safar demo
           </a>
         ) : null}
       </div>
@@ -127,7 +127,7 @@ function Safar() {
               {s.items.map((it) => (
                 <div key={it.label} className="miles__row">
                   <dt>{it.label}</dt>
-                  <dd>{it.n}</dd>
+                  <dd data-count={it.n}>{it.n}</dd>
                 </div>
               ))}
             </dl>
@@ -180,7 +180,7 @@ function Safar() {
           <Slot w={v.role} className="story__text" />
         </div>
 
-        <ol className="route" aria-label="Safar timeline">
+        <ol className="route" data-reveal aria-label="Safar timeline">
           {v.log.map((l) => {
             const md = l.d.match(/^([A-Za-z]{3}) (\d{1,2})$/);
             return (
@@ -239,7 +239,7 @@ function Killed() {
       <div className="wrap">
         <h2 className="sign t-reg plate">{k.kicker}</h2>
         <div className="closed">
-          <ul className="closed__list">
+          <ul className="closed__list" data-reveal>
             {k.items.map((it) => (
               <li key={it.what} className="closed__item">
                 <s className="closed__what">
@@ -324,7 +324,7 @@ function Beyond() {
             {site.links.sccDemo ? (
               <div className="org__demo">
                 <a href={site.links.sccDemo} className="sign t-guide go" target="_blank" rel="noreferrer">
-                  Try the live demo
+                  Try the Steel City Codes demo
                 </a>
                 <p className="org__demo-note">{b.scc.demoNote}</p>
               </div>
@@ -439,7 +439,8 @@ function Contact() {
   const l = site.links;
   const rows: { label: string; href: string | null; note: string; download?: boolean }[] = [
     { label: "One-minute intro", href: intro, note: "YouTube" },
-    { label: "Live demo", href: l.demo, note: l.demo ? host(l.demo) : "" },
+    { label: "Safar demo", href: l.demo, note: l.demo ? host(l.demo) : "" },
+    { label: "Steel City Codes demo", href: l.sccDemo, note: l.sccDemo ? host(l.sccDemo) : "" },
     { label: "GitHub", href: l.github, note: l.github ? host(l.github) : "" },
     { label: "Résumé", href: l.resume, note: "PDF" },
     { label: "LinkedIn", href: l.linkedin, note: l.linkedin ? host(l.linkedin) : "" },
