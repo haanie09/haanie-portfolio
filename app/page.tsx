@@ -135,6 +135,8 @@ function Safar() {
           </div>
         </div>
 
+        <Road />
+
         <div className="story">
           <h3 className="story__label">{v.originLabel}</h3>
           <Slot w={v.origin} className="story__text" />
@@ -180,28 +182,50 @@ function Safar() {
           <Slot w={v.role} className="story__text" />
         </div>
 
-        <ol className="route" data-reveal aria-label="Safar timeline">
-          {v.log.map((l) => {
-            const md = l.d.match(/^([A-Za-z]{3}) (\d{1,2})$/);
-            return (
-              <li key={l.d} className={`route__stop${"key" in l && l.key ? " is-key" : ""}${"now" in l && l.now ? " is-now" : ""}`}>
-                <span className="sign t-guide marker">
-                  {md ? (
-                    <>
-                      <span className="marker__m">{md[1]}</span>
-                      <span className="marker__d">{md[2]}</span>
-                    </>
-                  ) : (
-                    <span className="marker__word">{l.d}</span>
-                  )}
-                </span>
-                <span className="route__event">{l.e}</span>
-              </li>
-            );
-          })}
-        </ol>
       </div>
     </section>
+  );
+}
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/** Past share of the road; the rest is the work zone ahead. */
+const PAST = 64;
+
+/** Safar's timeline as one road: past stops placed by real date, today, then the work zone ahead. */
+function Road() {
+  const r = site.safar.road;
+  const day = (iso: string) => Date.parse(`${iso}T12:00:00Z`) / 86400000;
+  const start = day(r.start);
+  const now = Math.floor(Date.now() / 86400000);
+  const at = (iso: string) => ((day(iso) - start) / (now - start)) * PAST;
+  const nextStep = (100 - PAST) / r.next.length;
+  const stops = [
+    ...r.past.map((p) => {
+      const [, m, d] = p.date.split("-").map(Number);
+      return { x: at(p.date), m: MONTHS[m - 1], d: String(d), e: p.e, kind: "key" in p && p.key ? "key" : "past" };
+    }),
+    { x: PAST, m: "", d: "Today", e: r.today, kind: "now" },
+    ...r.next.map((e, i) => ({ x: PAST + nextStep * (i + 0.85), m: "", d: "Next", e, kind: "next" })),
+  ];
+  return (
+    <ol className="road" data-reveal aria-label="Safar timeline, from first commit to what is next">
+      <li className="road__lane" aria-hidden="true" style={{ ["--past" as string]: `${PAST}%` }} />
+      {stops.map((s, i) => (
+        <li
+          key={`${s.d}-${s.e}`}
+          className={`stop stop--${s.kind} ${i % 2 === 0 ? "stop--up" : "stop--down"}${s.x > 84 ? " stop--end" : ""}`}
+          style={{ left: `${s.x}%`, ["--i" as string]: i }}
+        >
+          <span className="stop__card">
+            <span className={`sign marker ${s.kind === "now" ? "t-warn" : s.kind === "next" ? "t-work" : "t-guide"}`}>
+              {s.m ? <span className="marker__m">{s.m}</span> : null}
+              <span className={s.m ? "marker__d" : "marker__word"}>{s.d}</span>
+            </span>
+            <span className="stop__e">{s.e}</span>
+          </span>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -269,19 +293,6 @@ function Next() {
           <div className="next__main">
             <h3 className="next__title">{n.title}</h3>
             <p className="lede">{n.goal}</p>
-          </div>
-          <div className="next__left">
-            <h4 className="next__label">{n.leftLabel}</h4>
-            <ol className="steps">
-              {n.left.map((x, i) => (
-                <li key={x}>
-                  <span className="steps__n" aria-hidden="true">
-                    <span>{i + 1}</span>
-                  </span>
-                  <span>{x}</span>
-                </li>
-              ))}
-            </ol>
           </div>
         </div>
       </div>

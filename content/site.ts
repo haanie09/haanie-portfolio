@@ -100,13 +100,25 @@ export const site = {
       draft("I planned Safar on a whiteboard and directed AI to write much of the code. My job was deciding what to build and testing it against my dad’s business until it held up. For weeks he entered every invoice three times, in QuickBooks, Excel and Safar, until Safar could do the work of all three."),
     ),
     phoneNote: "A rep’s day in Safar, running in the phone’s browser.",
-    log: [
-      { d: "May 17", e: "First commit" },
-      { d: "Jun 26", e: "Security audit, 22 fixes" },
-      { d: "Jul 1", e: "Launch: the first real invoice", key: true },
-      { d: "Oct 4", e: "Started the native app" },
-      { d: "Today", e: "Still in daily use", now: true },
-    ],
+    /** The road: stops are placed by real date (from FACT_SHEET.md and the repo). */
+    road: {
+      start: "2026-05-17",
+      past: [
+        { date: "2026-05-17", e: "First commit" },
+        { date: "2026-06-26", e: "Security audit, 22 fixes" },
+        { date: "2026-07-01", e: "Launch: first real invoice", key: true },
+        { date: "2026-07-22", e: "Closed a cross-account data leak" },
+        { date: "2026-08-14", e: "Deleted flavor tracking" },
+        { date: "2026-10-04", e: "Started the native app" },
+      ],
+      today: "Still in daily use",
+      /** The work zone ahead, in order. */
+      next: [
+        draft("Finish the iPhone app"),
+        draft("App Store, then Google Play"),
+        draft("Offer Safar to other distributors"),
+      ],
+    },
   },
 
   problems: {
@@ -179,12 +191,6 @@ export const site = {
     title: "Safar for iPhone and Android",
     // Checked against the Safar repo: Capacitor shell (#516), SQLite outbox, camera/barcode, share sheet.
     goal: draft("Reps use Safar in their phone’s browser today. The native app ships with its screens built in, so it opens with no signal. It also scans barcodes with the camera and sends invoice PDFs straight from the phone’s share sheet."),
-    leftLabel: "What’s left",
-    left: [
-      draft("Finish the iPhone screens and first-run setup"),
-      draft("Publish on the App Store, then Google Play"),
-      draft("Form the LLC and offer Safar to other local distributors"),
-    ],
   },
 
   beyond: {

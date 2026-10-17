@@ -620,90 +620,6 @@ dd {
   line-height: 1.62;
 }
 
-/* Timeline: mile markers along a road */
-.route {
-  --post: 66px;
-  position: relative;
-  margin-top: 96px;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  column-gap: 16px;
-}
-.route::before,
-.route::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-.route::before {
-  top: calc(var(--post) + 26px);
-  height: 18px;
-  border-radius: 3px;
-  background: var(--road);
-}
-.route::after {
-  top: calc(var(--post) + 34px);
-  height: 2px;
-  background: repeating-linear-gradient(90deg, var(--warn) 0 26px, transparent 26px 48px);
-}
-.route__stop {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 66px;
-}
-/* The marker's post, down to the road */
-.route__stop::before {
-  content: "";
-  position: absolute;
-  left: 27px;
-  top: var(--post);
-  width: 4px;
-  height: 26px;
-  background: #8c9196;
-}
-.marker {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 58px;
-  height: var(--post);
-  font-weight: 800;
-  line-height: 1;
-  --r: 7px;
-  --inset: 3px;
-  --line: 1.5px;
-}
-.marker__m {
-  font-size: 13px;
-  font-weight: 700;
-}
-.marker__d {
-  margin-top: 3px;
-  font-size: 26px;
-  letter-spacing: -0.02em;
-}
-.marker__word {
-  font-size: 14px;
-  font-weight: 800;
-}
-.route__stop.is-now .marker {
-  --bg: var(--warn);
-  --fg: var(--ink);
-}
-.route__event {
-  max-width: 18ch;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.35;
-}
-.route__stop.is-key .route__event {
-  font-weight: 800;
-}
-
 /* ─── What broke ────────────────────────────────────────── */
 .incidents {
   margin-top: 40px;
@@ -1114,7 +1030,6 @@ dd {
   .closed__list,
   .closed__lesson,
   .next__main,
-  .next__left,
   .why__plate {
     grid-column: 1 / -1;
   }
@@ -1239,43 +1154,6 @@ dd {
     margin-top: 56px;
   }
 
-  .route {
-    --post: 58px;
-    margin-top: 64px;
-    grid-template-columns: 1fr;
-    row-gap: 18px;
-  }
-  .route::before {
-    top: 0;
-    bottom: 0;
-    left: 70px;
-    right: auto;
-    width: 14px;
-    height: auto;
-  }
-  .route::after {
-    top: 0;
-    bottom: 0;
-    left: 76px;
-    right: auto;
-    width: 2px;
-    height: auto;
-    background: repeating-linear-gradient(180deg, var(--warn) 0 22px, transparent 22px 40px);
-  }
-  .route__stop {
-    flex-direction: row;
-    align-items: center;
-    gap: 64px;
-  }
-  .marker {
-    width: 52px;
-  }
-  .route__stop::before {
-    display: none;
-  }
-  .route__event {
-    max-width: none;
-  }
 
   .incident {
     padding-top: 36px;
@@ -1387,12 +1265,147 @@ dd {
 .motion .closed__list.is-in .closed__bar > span { background-size: 100% 0.19em; }
 .motion .closed__list.is-in .closed__item:nth-child(2) .closed__bar > span { transition-delay: 0.25s; }
 .motion .closed__list.is-in .closed__item:nth-child(3) .closed__bar > span { transition-delay: 0.5s; }
-/* The road's center line rolls past the mile markers */
-.motion .route.is-in::after { animation: lane 1.6s cubic-bezier(0.2, 0.6, 0.2, 1) both; }
-@keyframes lane { from { background-position-x: 240px; } to { background-position-x: 0; } }
-.motion .route .marker { opacity: 0; transform: translateY(8px); transition: opacity 0.4s, transform 0.4s; }
-.motion .route.is-in .marker { opacity: 1; transform: none; }
-.motion .route.is-in .route__stop:nth-child(2) .marker { transition-delay: 0.15s; }
-.motion .route.is-in .route__stop:nth-child(3) .marker { transition-delay: 0.3s; }
-.motion .route.is-in .route__stop:nth-child(4) .marker { transition-delay: 0.45s; }
-.motion .route.is-in .route__stop:nth-child(5) .marker { transition-delay: 0.6s; }
+
+/* The road: past by real date, today, then the work zone */
+.road {
+  --lane-top: 152px;
+  position: relative;
+  height: 330px;
+  margin: 96px 0 8px;
+  padding: 0;
+}
+.road__lane {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--lane-top);
+  height: 18px;
+  border-radius: 3px;
+  background:
+    repeating-linear-gradient(90deg, var(--warn) 0 26px, transparent 26px 48px) 0 50% / var(--past) 2px no-repeat,
+    repeating-linear-gradient(90deg, #fff 0 14px, transparent 14px 34px) right 50% / calc(100% - var(--past)) 2px no-repeat,
+    linear-gradient(90deg, var(--road) 0 var(--past), #9aa0a4 var(--past));
+}
+.stop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+}
+/* where the date falls on the road */
+.stop::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: calc(var(--lane-top) + 4px);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--road);
+}
+.stop__card {
+  position: absolute;
+  left: -26px;
+  width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.stop--up .stop__card {
+  bottom: calc(100% - var(--lane-top) + 14px);
+  flex-direction: column-reverse;
+}
+.stop--down .stop__card {
+  top: calc(var(--lane-top) + 32px);
+}
+.stop--end .stop__card {
+  left: auto;
+  right: -26px;
+  align-items: flex-end;
+  text-align: right;
+}
+/* Date plates: small mile markers */
+.marker {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 56px;
+  font-weight: 800;
+  line-height: 1;
+  --r: 7px;
+  --inset: 3px;
+  --line: 1.5px;
+}
+.marker__m {
+  font-size: 12px;
+  font-weight: 700;
+}
+.marker__d {
+  margin-top: 3px;
+  font-size: 23px;
+  letter-spacing: -0.02em;
+}
+.marker__word {
+  font-size: 13px;
+  font-weight: 800;
+}
+.stop__e {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.stop--key .stop__e {
+  font-weight: 800;
+}
+.stop--next .stop__e {
+  color: var(--asphalt);
+}
+
+@media (max-width: 760px) {
+  .road {
+    height: auto;
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .road::before {
+    content: "";
+    position: absolute;
+    left: 66px;
+    top: 0;
+    bottom: 0;
+    width: 12px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--road) 0 64%, #9aa0a4 64%);
+  }
+  .road__lane,
+  .stop::after {
+    display: none;
+  }
+  .stop {
+    position: static;
+    width: auto;
+  }
+  .stop__card,
+  .stop--up .stop__card,
+  .stop--end .stop__card {
+    position: static;
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 44px;
+    text-align: left;
+  }
+}
+
+/* The road plays once: center line rolls in, stops come up in order */
+.motion .road.is-in .road__lane { animation: lane 1.4s cubic-bezier(0.2, 0.6, 0.2, 1) both; }
+@keyframes lane { from { background-position: 240px 50%, right 50%, 0 0; } }
+.motion .road .stop__card { opacity: 0; translate: 0 8px; transition: opacity 0.4s, translate 0.4s; transition-delay: calc(var(--i) * 0.1s); }
+.motion .road.is-in .stop__card { opacity: 1; translate: 0 0; }
