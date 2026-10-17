@@ -246,7 +246,7 @@ export const site = {
       { caption: "Friends", detail: "", photo: "/photos/friends.jpg" as string | null, w: 1200, h: 900 },
       { caption: "Grandview student section", detail: "", photo: "/photos/student-section.jpg" as string | null, w: 1024, h: 578 },
       { caption: "Family", detail: "", photo: "/photos/family.jpg" as string | null, w: 1024, h: 768 },
-      { caption: "Pickleball", detail: "Daily in season, entering tournaments", photo: null as string | null, w: 0, h: 0 },
+      { caption: "Pickleball", detail: "", photo: null as string | null, w: 0, h: 0 },
       { caption: "Snowboarding", detail: "", photo: null as string | null, w: 0, h: 0 },
     ],
   },
