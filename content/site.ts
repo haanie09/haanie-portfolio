@@ -107,7 +107,7 @@ export const site = {
         { date: "2026-05-17", e: "First commit" },
         { date: "2026-06-26", e: "Security audit, 22 fixes" },
         { date: "2026-07-01", e: "Launch: first real invoice", key: true },
-        { date: "2026-07-22", e: "Closed a cross-account data leak" },
+        { date: "2026-07-22", e: "Closed a cross-account security hole" },
         { date: "2026-08-14", e: "Deleted flavor tracking" },
         { date: "2026-10-04", e: "Started the native app" },
       ],
