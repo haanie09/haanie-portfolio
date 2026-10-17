@@ -97,7 +97,7 @@ function Hero() {
           height={1024}
           eager
         >
-          {site.photos.portraitPlace ? <span className="sign t-rec hero__place">{site.photos.portraitPlace}</span> : null}
+          {site.photos.portraitPlace ? <span className="sign t-rec place">{site.photos.portraitPlace}</span> : null}
         </Photo>
         <Slot w={site.oneLiner} className="hero__line" />
         {demo ? (
@@ -315,6 +315,22 @@ function Beyond() {
             <Slot w={b.scc.story} />
           </div>
         </article>
+        {b.scc.shot ? (
+          <div className="showcase org__showcase">
+            <figure className="showcase__desk">
+              <Photo src={b.scc.shot.src} alt={b.scc.shot.alt} label="Steel City Codes dashboard" className="shot" width={b.scc.shot.w} height={b.scc.shot.h} />
+              <figcaption>{b.scc.shot.caption}</figcaption>
+            </figure>
+            {site.links.sccDemo ? (
+              <div className="org__demo">
+                <a href={site.links.sccDemo} className="sign t-guide go" target="_blank" rel="noreferrer">
+                  Try the live demo
+                </a>
+                <p className="org__demo-note">{b.scc.demoNote}</p>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
         <article className="org org--flip">
           <Photo
             src={site.photos.fblaState}
@@ -330,15 +346,20 @@ function Beyond() {
             <p className="words">{b.fbla.body}</p>
           </div>
         </article>
-        <article className="org org--text">
+        <article className="org org--tall">
+          <Photo
+            src={site.photos.decaState}
+            alt="Holding the DECA Colorado State Career Development Conference award"
+            label="DECA state award"
+            className="org__photo"
+            width={665}
+            height={752}
+          />
           <div className="org__body">
             <h3 className="org__name">{b.deca.name}</h3>
             <p className="org__role">{b.deca.roles}</p>
             <p className="words">{b.deca.body}</p>
           </div>
-          <p className="sign t-service placard" aria-hidden="true">
-            {b.deca.place}
-          </p>
         </article>
       </div>
     </section>
@@ -351,6 +372,12 @@ function Why() {
       <div className="wrap why">
         <h2 className="sign t-reg plate why__plate">{site.why.kicker}</h2>
         <Slot w={site.why.quote} big className="why__quote" />
+        {site.why.photo ? (
+          <figure className="why__photo">
+            <Photo src={site.why.photo.src} alt={site.why.photo.alt} label="you and your dad" className="why__img" width={site.why.photo.w} height={site.why.photo.h} />
+            <figcaption>{site.why.photo.caption}</figcaption>
+          </figure>
+        ) : null}
       </div>
     </section>
   );
@@ -361,17 +388,37 @@ function OffHours() {
   if (all.length === 0) return null;
   const pictured = all.filter((it) => it.photo);
   const listed = all.filter((it) => !it.photo);
+  // Balanced rows of three or four: 6 photos -> 3 + 3, 7 -> 4 + 3, 8 -> 4 + 4.
+  const rowCount = Math.ceil(pictured.length / 4);
+  const rows: (typeof pictured)[] = [];
+  for (let r = 0, i = 0; r < rowCount; r++) {
+    const size = Math.floor(pictured.length / rowCount) + (r < pictured.length % rowCount ? 1 : 0);
+    rows.push(pictured.slice(i, i + size));
+    i += size;
+  }
   return (
     <section id="offhours" className="section section--tight">
       <div className="wrap">
         <h2 className="sign t-rec plate">{site.offHours.kicker}</h2>
         <div className="off">
-          {pictured.map((it) => (
-            <figure key={it.caption} className="snap">
-              <Photo src={it.photo} alt={it.caption} label={it.caption.toLowerCase()} className="snap__img" width={768} height={1024} />
-              <figcaption>{it.caption}</figcaption>
-            </figure>
-          ))}
+          <div className="dump">
+            {rows.map((row, r) => (
+              <div key={r} className="dump__row">
+                {row.map((it) => (
+                  // Each photo grows by its aspect ratio, so a row of mixed shapes shares one height.
+                  <figure
+                    key={it.caption}
+                    className={`snap${pictured.length % 2 === 1 && it === pictured[pictured.length - 1] ? " snap--span" : ""}`}
+                    style={{ flexGrow: it.w / it.h }}
+                  >
+                    <Photo src={it.photo} alt={it.caption} label={it.caption.toLowerCase()} className="snap__img" width={it.w} height={it.h}>
+                      <span className="sign t-rec place">{it.caption}</span>
+                    </Photo>
+                  </figure>
+                ))}
+              </div>
+            ))}
+          </div>
           {listed.length > 0 ? (
             <ul className="sign t-rec dest off__sign">
               {listed.map((it) => (

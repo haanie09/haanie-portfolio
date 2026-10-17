@@ -423,8 +423,8 @@ dd {
 .hero__photo img {
   object-position: 50% 50%;
 }
-/* Where the photo was taken, on a brown attraction sign */
-.hero__place {
+/* Photo labels, on brown attraction signs */
+.place {
   position: absolute;
   left: 16px;
   bottom: 16px;
@@ -884,6 +884,22 @@ dd {
 .org__photo--left img {
   object-position: 0 50%;
 }
+.org__showcase {
+  margin-top: 40px;
+  align-items: center;
+}
+.org__demo {
+  grid-column: 10 / span 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.org__demo-note {
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--asphalt);
+}
 .org__body {
   grid-column: 8 / span 5;
   display: flex;
@@ -898,8 +914,12 @@ dd {
   grid-column: 1 / span 5;
   grid-row: 1;
 }
-.org--text .org__body {
-  grid-column: 1 / span 7;
+.org--tall .org__photo {
+  grid-column: 1 / span 4;
+  aspect-ratio: 665 / 752;
+}
+.org--tall .org__body {
+  grid-column: 6 / span 6;
 }
 .org__name {
   font-size: clamp(32px, 3.4vw, 48px);
@@ -921,18 +941,7 @@ dd {
 .org__facts li::marker {
   color: var(--service);
 }
-.placard {
-  grid-column: 9 / span 3;
-  justify-self: start;
-  padding: 0.24em 0.36em 0.06em;
-  font-size: clamp(80px, 9vw, 132px);
-  line-height: 1;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  --r: 0.16em;
-  --inset: 0.07em;
-  --line: 0.03em;
-}
+
 
 /* ─── Why I build ───────────────────────────────────────── */
 .why {
@@ -941,25 +950,55 @@ dd {
   gap: 32px var(--gutter);
   align-items: start;
 }
+.why {
+  align-items: center;
+}
 .why__plate {
-  grid-column: 1 / span 4;
+  grid-column: 1 / -1;
   justify-self: start;
   box-shadow: 0 0 0 2px var(--ink);
 }
 .why__quote {
-  grid-column: 5 / span 8;
+  grid-column: 1 / span 7;
+}
+.why__photo {
+  grid-column: 9 / span 4;
+}
+.why__img {
+  aspect-ratio: 1150 / 1440;
+  border-radius: 20px;
+}
+.why__photo figcaption {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 /* ─── Off the clock ─────────────────────────────────────── */
 .off {
   margin-top: 40px;
-  display: grid;
-  grid-template-columns: minmax(0, 360px) minmax(0, 480px);
-  gap: var(--gutter);
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+.dump {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+.dump__row {
+  display: flex;
+  gap: 16px;
+}
+.snap {
+  flex: 1 1 0;
+  min-width: 0;
 }
 /* Activities without a photo, listed like a recreation sign */
 .off__sign {
+  width: min(520px, 100%);
   border-top: 0;
   padding: 22px 32px 18px;
   --r: 20px;
@@ -967,8 +1006,7 @@ dd {
   --line: 3px;
 }
 .snap__img {
-  aspect-ratio: 4 / 5;
-  border-radius: 18px;
+  border-radius: 16px;
 }
 .snap figcaption {
   margin-top: 12px;
@@ -1077,9 +1115,17 @@ dd {
   .closed__lesson,
   .next__main,
   .next__left,
-  .why__plate,
-  .why__quote {
+  .why__plate {
     grid-column: 1 / -1;
+  }
+  .why__quote {
+    grid-column: 1 / span 7;
+  }
+  .why__photo {
+    grid-column: 8 / span 5;
+  }
+  .org__demo {
+    grid-column: 9 / span 4;
   }
   .org__photo,
   .org--flip .org__photo {
@@ -1091,11 +1137,11 @@ dd {
     grid-column: 7 / span 6;
     grid-row: auto;
   }
-  .org--text .org__body {
-    grid-column: 1 / span 8;
+  .org--tall .org__photo {
+    grid-column: 1 / span 5;
   }
-  .placard {
-    grid-column: 10 / span 3;
+  .org--tall .org__body {
+    grid-column: 6 / span 7;
   }
 }
 
@@ -1249,15 +1295,48 @@ dd {
   .org--flip .org__photo,
   .org__body,
   .org--flip .org__body,
-  .org--text .org__body {
+  .org--tall .org__photo,
+  .org--tall .org__body {
     grid-column: 1 / -1;
   }
-  .placard {
-    display: none;
+  .org--tall .org__photo {
+    max-width: 420px;
   }
 
-  .off {
-    grid-template-columns: 1fr;
+  .dump {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .dump__row {
+    display: contents;
+  }
+  .snap__img {
+    aspect-ratio: 1;
+    border-radius: 12px;
+  }
+  /* An odd photo out fills the last row on its own */
+  .snap--span {
+    grid-column: 1 / -1;
+  }
+  .snap--span .snap__img {
+    aspect-ratio: 2 / 1;
+  }
+  .place {
+    left: 8px;
+    bottom: 8px;
+    padding: 7px 10px 5px;
+    font-size: 12px;
+  }
+  .why__quote,
+  .why__photo {
+    grid-column: 1 / -1;
+  }
+  .why__photo {
+    max-width: 420px;
+  }
+  .org__demo {
+    grid-column: 1 / -1;
   }
   .off__sign {
     padding: 18px 24px 14px;

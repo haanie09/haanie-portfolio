@@ -44,6 +44,7 @@ export const site = {
   links: {
     intro: null as string | null, // your one-minute YouTube intro, e.g. "https://youtube.com/watch?v=…"
     demo: "https://safar.haanie.com" as string | null, // live Safar demo with made-up data
+    sccDemo: "https://scc.haanie.com" as string | null, // live Steel City Codes registration demo (fictional camp, resets nightly)
     github: "https://github.com/haanie09" as string | null, // Safar-Technologies org has no public repos yet
     linkedin: null as string | null,
     x: null as string | null,
@@ -58,6 +59,7 @@ export const site = {
     safarPhone: "/photos/safar-phone.png" as string | null,
     sccCamp: "/photos/scc-camp.jpg" as string | null,
     fblaState: "/photos/fbla-state.jpg" as string | null, // State Leadership Conference 2025, Website Design on stage
+    decaState: "/photos/deca-state.jpg" as string | null, // state conference award; the selfie is flipped so the plaque reads correctly
   },
 
   roles: [
@@ -201,6 +203,14 @@ export const site = {
         "Volunteer to director: what you took on that nobody asked you to.",
         draft("Before every camp, our team spent weekends matching volunteers and students to classes by hand. Nobody asked for a registration system, so I built one. Volunteers pick their own classes, parents sign their kids up, and admins see the whole camp in one place. Denver pilots it in February, when registration opens. If it holds up, I’ll hand it to the national team so other regions can use it too."),
       ),
+      demoNote: "Pick a seat with one click: camp admin, parent, volunteer or applicant. The camp is made up and resets every night.",
+      shot: {
+        src: "/photos/scc-admin.png",
+        w: 1600,
+        h: 976,
+        alt: "The Steel City Codes camp admin dashboard: 73 students, 4 classes, 22 volunteers, and a Needs attention list",
+        caption: "The camp admin’s dashboard, from the live demo.",
+      },
     },
     fbla: {
       name: "FBLA",
@@ -209,7 +219,6 @@ export const site = {
     },
     deca: {
       name: "DECA",
-      place: "2nd",
       roles: "2nd at state, Integrated Marketing Campaign–Product",
       body: draft("A campaign pitching Meta’s smart glasses to blind and low-vision users. State qualifier two years running."),
     },
@@ -223,15 +232,22 @@ export const site = {
       // From your Common App personal statement and supplement, edited.
       "A few weeks after my dad started using Safar, he told me, “Bohot time bachaa liya app ne mera”: you saved me a lot of time. To me, the best technology gives people back their time.",
     ),
+    photo: { src: "/photos/with-dad.jpg", w: 1150, h: 1440, alt: "Haanie and his dad at a park at dusk", caption: "With my dad." },
   },
 
   offHours: {
     kicker: "Off the clock",
-    /** Items with a photo show as photos; the rest are listed on a brown recreation sign. */
+    /** Items with a photo fill the photo grid in balanced rows of three or four, each labeled with a small brown sign. The rest are listed on a brown recreation sign. */
     items: [
-      { caption: "Hiking", detail: "", photo: "/photos/hiking.jpg" as string | null },
-      { caption: "Pickleball", detail: "Daily in season, entering tournaments", photo: null as string | null },
-      { caption: "Snowboarding", detail: "", photo: null as string | null },
+      { caption: "Fall", detail: "", photo: "/photos/fall-pumpkin.jpg" as string | null, w: 768, h: 1024 },
+      { caption: "Hiking with friends", detail: "", photo: "/photos/hiking-friends.jpg" as string | null, w: 1024, h: 768 },
+      { caption: "Hiking", detail: "", photo: "/photos/hiking.jpg" as string | null, w: 768, h: 1024 },
+      { caption: "Family trip", detail: "", photo: "/photos/family-trip.jpg" as string | null, w: 1200, h: 1600 },
+      { caption: "Friends", detail: "", photo: "/photos/friends.jpg" as string | null, w: 1200, h: 900 },
+      { caption: "Grandview student section", detail: "", photo: "/photos/student-section.jpg" as string | null, w: 1024, h: 578 },
+      { caption: "Family", detail: "", photo: "/photos/family.jpg" as string | null, w: 1024, h: 768 },
+      { caption: "Pickleball", detail: "Daily in season, entering tournaments", photo: null as string | null, w: 0, h: 0 },
+      { caption: "Snowboarding", detail: "", photo: null as string | null, w: 0, h: 0 },
     ],
   },
 };
