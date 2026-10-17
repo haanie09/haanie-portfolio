@@ -733,10 +733,10 @@ dd {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 40px var(--gutter);
-  align-items: start;
+  align-items: center;
 }
 .next__main {
-  grid-column: 1 / span 7;
+  grid-column: 1 / span 6;
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -747,8 +747,62 @@ dd {
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.next__left {
-  grid-column: 9 / span 4;
+.next__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--asphalt);
+}
+/* In progress: a work-zone light that blinks slowly */
+.next__dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--work);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--work) 30%, transparent);
+}
+.motion .next__dot {
+  animation: blink 1.6s ease-in-out infinite;
+}
+@keyframes blink {
+  50% { opacity: 0.35; }
+}
+/* What the app adds, on an orange work-zone sign */
+.works {
+  grid-column: 7 / span 6;
+  padding: 30px 36px 24px;
+  --r: 22px;
+  --inset: 9px;
+  --line: 3px;
+}
+.works__title {
+  font-size: clamp(24px, 2.2vw, 30px);
+  font-weight: 800;
+  line-height: 1.1;
+  padding-bottom: 14px;
+  border-bottom: 3px solid currentColor;
+}
+.works__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px 24px;
+  flex-wrap: wrap;
+  padding: 12px 0 8px;
+}
+.works__row + .works__row {
+  border-top: 1px solid rgb(0 0 0 / 0.22);
+}
+.works__row dt {
+  font-size: clamp(19px, 1.7vw, 23px);
+  font-weight: 800;
+}
+.works__row dd {
+  font-size: 16px;
+  font-weight: 600;
 }
 .next__label {
   font-size: 22px;
@@ -1030,6 +1084,7 @@ dd {
   .closed__list,
   .closed__lesson,
   .next__main,
+  .works,
   .why__plate {
     grid-column: 1 / -1;
   }

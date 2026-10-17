@@ -190,7 +190,16 @@ export const site = {
     kicker: "What I’m building next",
     title: "Safar for iPhone and Android",
     // Checked against the Safar repo: Capacitor shell (#516), SQLite outbox, camera/barcode, share sheet.
-    goal: draft("Reps use Safar in their phone’s browser today. The native app ships with its screens built in, so it opens with no signal. It also scans barcodes with the camera and sends invoice PDFs straight from the phone’s share sheet."),
+    goal: draft("Reps use Safar in their phone’s browser today. The native app ships with its screens built in, so it opens even where there’s no signal."),
+    /** What the native app adds, each checked against the Safar repo (#516 and the outbox work). */
+    addsTitle: "What the app adds",
+    adds: [
+      { name: "Opens with no signal", what: "Screens ship inside the app" },
+      { name: "Keeps unsent work", what: "Queued on the phone until it syncs" },
+      { name: "Scans barcodes", what: "With the phone’s camera" },
+      { name: "Shares invoice PDFs", what: "From the phone’s share sheet" },
+    ],
+    status: "Running in the iPhone simulator. Android project generated.",
   },
 
   beyond: {

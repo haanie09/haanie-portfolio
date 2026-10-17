@@ -293,6 +293,21 @@ function Next() {
           <div className="next__main">
             <h3 className="next__title">{n.title}</h3>
             <p className="lede">{n.goal}</p>
+            <p className="next__status">
+              <span className="next__dot" aria-hidden="true" />
+              {n.status}
+            </p>
+          </div>
+          <div className="sign t-work works">
+            <p className="works__title">{n.addsTitle}</p>
+            <dl className="works__list">
+              {n.adds.map((a) => (
+                <div key={a.name} className="works__row">
+                  <dt>{a.name}</dt>
+                  <dd>{a.what}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </div>
