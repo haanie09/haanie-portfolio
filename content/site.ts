@@ -37,6 +37,8 @@ export const site = {
 
   name: { first: "Haanie", last: "Mohammed" },
   email: "me@haanie.com",
+  /** The address the site actually serves from (haanie.com redirects here); used for search and share links. */
+  url: "https://www.haanie.com",
   place: "Aurora, Colorado",
   school: "Grandview High School",
   classOf: "2027",
