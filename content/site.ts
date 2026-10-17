@@ -33,7 +33,7 @@ export const draft = (s: string) => s;
 
 export const site = {
   /** false = the live site shows an "in progress" page. `npm run dev` always shows the full site. Flip to true to launch. */
-  launched: false,
+  launched: true,
 
   name: { first: "Haanie", last: "Mohammed" },
   email: "me@haanie.com",
@@ -69,7 +69,7 @@ export const site = {
   ],
 
   // From your Common App activity ("Because I build for people I work beside").
-  oneLiner: slot("Q23", "One line on who you are, the way you’d say it to a friend.", "I build software for the people I work beside."),
+  oneLiner: slot("Q23", "One line on who you are, the way you’d say it to a friend.", "I build software that gives people their time back."),
 
   stats: {
     title: "Safar so far",
@@ -232,7 +232,7 @@ export const site = {
       // From your Common App personal statement and supplement, edited.
       "A few weeks after my dad started using Safar, he told me, “Bohot time bachaa liya app ne mera”: you saved me a lot of time. To me, the best technology gives people back their time.",
     ),
-    photo: { src: "/photos/with-dad.jpg", w: 1150, h: 1440, alt: "Haanie and his dad at a park at dusk", caption: "With my dad." },
+    photo: { src: "/photos/with-dad.jpg", w: 1086, h: 1358, alt: "Haanie and his dad at a park at dusk", caption: "With my dad." },
   },
 
   offHours: {
