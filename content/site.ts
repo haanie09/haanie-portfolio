@@ -55,8 +55,8 @@ export const site = {
 
   /** Photos: put files in /public/photos and set the path, e.g. "/photos/portrait.jpg". null = placeholder. */
   photos: {
-    portrait: "/photos/traveling.jpg" as string | null, // swap in the warehouse portrait from the shot list when you have one
-    portraitPlace: "Taj Mahal, Agra" as string | null, // small brown sign on the photo; null hides it
+    portrait: "/photos/fall-pumpkin.jpg" as string | null, // swap in the warehouse portrait from the shot list when you have one
+    portraitPlace: null as string | null, // small brown sign on the photo, e.g. "Taj Mahal, Agra"; null hides it
     safarDesktop: "/photos/safar-desktop.png" as string | null,
     safarPhone: "/photos/safar-phone.png" as string | null,
     sccCamp: "/photos/scc-camp.jpg" as string | null,
@@ -256,7 +256,7 @@ export const site = {
     kicker: "Off the clock",
     /** Items with a photo fill the photo grid in balanced rows of three or four, each labeled with a small brown sign. The rest are listed on a brown recreation sign. */
     items: [
-      { caption: "Fall", detail: "", photo: "/photos/fall-pumpkin.jpg" as string | null, w: 768, h: 1024 },
+      { caption: "Taj Mahal, Agra", detail: "", photo: "/photos/traveling.jpg" as string | null, w: 768, h: 1024 },
       { caption: "Hiking with friends", detail: "", photo: "/photos/hiking-friends.jpg" as string | null, w: 1024, h: 768 },
       { caption: "Hiking", detail: "", photo: "/photos/hiking.jpg" as string | null, w: 768, h: 1024 },
       { caption: "Family trip", detail: "", photo: "/photos/family-trip.jpg" as string | null, w: 1200, h: 1600 },

@@ -1153,8 +1153,13 @@ dd {
   .hero__photo {
     order: -1;
     aspect-ratio: 4 / 5;
-    margin-bottom: 12px;
+    min-height: 0;
+    margin-bottom: 20px;
     border-radius: 20px;
+  }
+  /* Keep the person, trim the wall above */
+  .hero__photo img {
+    object-position: 50% 90%;
   }
   .dest li,
   .dest a {
