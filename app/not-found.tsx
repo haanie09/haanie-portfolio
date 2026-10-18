@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { site } from "@/content/site";
 
 /** 404, set as the road's own sign for it. */
 export default function NotFound() {
@@ -11,6 +12,9 @@ export default function NotFound() {
       <Link className="sign t-guide go" href="/">
         Go to the home page
       </Link>
+      <a className="wip__mail" href={`mailto:${site.email}`}>
+        {site.email}
+      </a>
     </main>
   );
 }

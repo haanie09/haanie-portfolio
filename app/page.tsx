@@ -1,5 +1,9 @@
 import { isHidden, site } from "@/content/site";
-import { Photo, Play, Slot } from "@/components/ui";
+import { Exit, Out, Photo, Play, Slot } from "@/components/ui";
+import NavBehavior from "@/components/NavBehavior";
+
+/** Re-render daily so the road's "Today" stop keeps moving between deploys. */
+export const revalidate = 86400;
 
 const intro = site.links.intro;
 const demo = site.links.demo;
@@ -32,9 +36,9 @@ function Nav() {
         </a>
       ))}
       {intro ? (
-        <a href={intro} target="_blank" rel="noreferrer">
+        <Out href={intro}>
           <Play /> Watch my intro
-        </a>
+        </Out>
       ) : null}
       <a href="#contact">Contact</a>
     </>
@@ -49,7 +53,7 @@ function Nav() {
           {items}
         </nav>
         <details className="nav__menu">
-          <summary aria-label="Open menu">
+          <summary aria-label="Menu">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
               <path d="M4 8h16M4 16h16" />
             </svg>
@@ -59,6 +63,7 @@ function Nav() {
           </nav>
         </details>
       </div>
+      <NavBehavior />
     </header>
   );
 }
@@ -76,34 +81,42 @@ function Hero() {
             <br />
             {site.name.last}
           </h1>
-          <ul className="dest">
+          {/* Each destination is an exit: it jumps to that part of the page. */}
+          <ul className="dest dest--exits">
             {site.roles.map((r) => (
               <li key={r.org}>
-                <span className="dest__name">{r.org}</span>
-                <span className="dest__what">
-                  {r.title}
-                  {r.note ? `, ${r.note}` : ""}
-                </span>
+                <a href={r.href}>
+                  <span className="dest__name">{r.org}</span>
+                  <span className="dest__what">
+                    {r.title}
+                    {r.note ? `, ${r.note}` : ""}
+                    <Exit />
+                  </span>
+                </a>
               </li>
             ))}
           </ul>
         </div>
         <Photo
           src={site.photos.portrait}
-          alt={`${site.name.first} ${site.name.last}${site.photos.portraitPlace ? ` at the ${site.photos.portraitPlace}` : ""}`}
+          alt={site.photos.portraitAlt}
           label="portrait of you"
           className="hero__photo"
           width={768}
           height={1024}
+          sizes="(max-width: 760px) 100vw, (max-width: 1080px) 40vw, 400px"
           eager
         >
           {site.photos.portraitPlace ? <span className="sign t-rec place">{site.photos.portraitPlace}</span> : null}
         </Photo>
         <Slot w={site.oneLiner} className="hero__line" />
         {demo ? (
-          <a href={demo} className="sign t-guide go hero__cta" target="_blank" rel="noreferrer">
-            Try the Safar demo
-          </a>
+          <div className="hero__go">
+            <Out href={demo} className="sign t-guide go">
+              Try the Safar demo
+            </Out>
+            <p className="hero__go-note">{site.safar.demoNote}</p>
+          </div>
         ) : null}
       </div>
     </section>
@@ -143,7 +156,7 @@ function Safar() {
         </div>
 
         <div className="showcase">
-          <figure className="showcase__desk">
+          <figure className="showcase__desk showcase__desk--safar">
             <Photo
               src={site.photos.safarDesktop}
               alt="Safar's owner dashboard in the live demo"
@@ -151,15 +164,14 @@ function Safar() {
               className="shot"
               width={2880}
               height={1800}
+              sizes="(max-width: 760px) 190vw, 66vw"
             />
             <figcaption>
               {v.desktopNote}
               {demo ? (
                 <>
                   {" "}
-                  <a href={demo} target="_blank" rel="noreferrer">
-                    {host(demo)}
-                  </a>
+                  <Out href={demo}>{host(demo)}</Out>
                 </>
               ) : null}
             </figcaption>
@@ -172,6 +184,7 @@ function Safar() {
               className="phone"
               width={1170}
               height={1992}
+              sizes="(max-width: 760px) 70vw, 25vw"
             />
             <figcaption>{v.phoneNote}</figcaption>
           </figure>
@@ -181,7 +194,6 @@ function Safar() {
           <h3 className="story__label">{v.roleLabel}</h3>
           <Slot w={v.role} className="story__text" />
         </div>
-
       </div>
     </section>
   );
@@ -207,14 +219,22 @@ function Road() {
     { x: PAST, m: "", d: "Today", e: r.today, kind: "now" },
     ...r.next.map((e, i) => ({ x: PAST + nextStep * (i + 0.85), m: "", d: "Next", e, kind: "next" })),
   ];
+  // Cards alternate above and below the lane, so each one has until the next card on its side.
+  const room = (i: number) => (stops[i + 2] ? stops[i + 2].x - stops[i].x : 100);
+  const today = stops.findIndex((s) => s.kind === "now");
   return (
-    <ol className="road" data-reveal aria-label="Safar timeline, from first commit to what is next">
-      <li className="road__lane" aria-hidden="true" style={{ ["--past" as string]: `${PAST}%` }} />
+    <ol
+      className="road"
+      data-reveal
+      aria-label="Safar timeline, from first commit to what is next"
+      style={{ ["--past" as string]: `${PAST}%`, ["--today" as string]: `${((today + 0.5) / stops.length) * 100}%` }}
+    >
+      <li className="road__lane" aria-hidden="true" />
       {stops.map((s, i) => (
         <li
           key={`${s.d}-${s.e}`}
           className={`stop stop--${s.kind} ${i % 2 === 0 ? "stop--up" : "stop--down"}${s.x > 84 ? " stop--end" : ""}`}
-          style={{ left: `${s.x}%`, ["--i" as string]: i }}
+          style={{ left: `${s.x}%`, ["--i" as string]: i, ["--room" as string]: room(i) }}
         >
           <span className="stop__card">
             <span className={`sign marker ${s.kind === "now" ? "t-warn" : s.kind === "next" ? "t-work" : "t-guide"}`}>
@@ -243,7 +263,15 @@ function Problems() {
                 <Slot w={it.story} />
                 {"shot" in it && it.shot ? (
                   <figure className={`incident__shot incident__shot--${it.shot.kind}`}>
-                    <Photo src={it.shot.src} alt={it.shot.alt} label="screenshot" className="crop" width={it.shot.w} height={it.shot.h} />
+                    <Photo
+                      src={it.shot.src}
+                      alt={it.shot.alt}
+                      label="screenshot"
+                      className="crop"
+                      width={it.shot.w}
+                      height={it.shot.h}
+                      sizes={it.shot.kind === "phone" ? "340px" : "(max-width: 1080px) 100vw, 50vw"}
+                    />
                     <figcaption>{it.shot.caption}</figcaption>
                   </figure>
                 ) : null}
@@ -259,7 +287,7 @@ function Problems() {
 function Killed() {
   const k = site.killed;
   return (
-    <section className="section section--night">
+    <section id="deleted" className="section section--night">
       <div className="wrap">
         <h2 className="sign t-reg plate">{k.kicker}</h2>
         <div className="closed">
@@ -315,13 +343,23 @@ function Next() {
   );
 }
 
+/** Each organization's name and role, on its own blue service sign. */
+function OrgSign({ name, role }: { name: string; role: string }) {
+  return (
+    <div className="sign t-service org__sign">
+      <h3 className="org__name">{name}</h3>
+      <p className="org__role">{role}</p>
+    </div>
+  );
+}
+
 function Beyond() {
   const b = site.beyond;
   return (
     <section id="beyond" className="section section--paper">
       <div className="wrap">
         <h2 className="sign t-service plate">{b.kicker}</h2>
-        <article className="org">
+        <article id="scc" className="org">
           <Photo
             src={site.photos.sccCamp}
             alt="With the Steel City Codes team at summer camp"
@@ -329,10 +367,10 @@ function Beyond() {
             className="org__photo org__photo--left"
             width={1600}
             height={900}
+            sizes="(max-width: 760px) 100vw, 50vw"
           />
           <div className="org__body">
-            <h3 className="org__name">{b.scc.name}</h3>
-            <p className="org__role">{b.scc.roles}</p>
+            <OrgSign name={b.scc.name} role={b.scc.roles} />
             <ul className="org__facts">
               {b.scc.facts.map((f) => (
                 <li key={f}>{f}</li>
@@ -343,21 +381,29 @@ function Beyond() {
         </article>
         {b.scc.shot ? (
           <div className="showcase org__showcase">
-            <figure className="showcase__desk">
-              <Photo src={b.scc.shot.src} alt={b.scc.shot.alt} label="Steel City Codes dashboard" className="shot" width={b.scc.shot.w} height={b.scc.shot.h} />
+            <figure className="showcase__desk showcase__desk--scc">
+              <Photo
+                src={b.scc.shot.src}
+                alt={b.scc.shot.alt}
+                label="Steel City Codes dashboard"
+                className="shot"
+                width={b.scc.shot.w}
+                height={b.scc.shot.h}
+                sizes="(max-width: 760px) 170vw, 66vw"
+              />
               <figcaption>{b.scc.shot.caption}</figcaption>
             </figure>
             {site.links.sccDemo ? (
               <div className="org__demo">
-                <a href={site.links.sccDemo} className="sign t-guide go" target="_blank" rel="noreferrer">
+                <Out href={site.links.sccDemo} className="sign t-guide go">
                   Try the Steel City Codes demo
-                </a>
+                </Out>
                 <p className="org__demo-note">{b.scc.demoNote}</p>
               </div>
             ) : null}
           </div>
         ) : null}
-        <article className="org org--flip">
+        <article id="fbla" className="org org--flip">
           <Photo
             src={site.photos.fblaState}
             alt="On stage for Website Design at the 2025 FBLA State Leadership Conference"
@@ -365,14 +411,14 @@ function Beyond() {
             className="org__photo"
             width={1600}
             height={1042}
+            sizes="(max-width: 760px) 100vw, 50vw"
           />
           <div className="org__body">
-            <h3 className="org__name">{b.fbla.name}</h3>
-            <p className="org__role">{b.fbla.roles}</p>
+            <OrgSign name={b.fbla.name} role={b.fbla.roles} />
             <p className="words">{b.fbla.body}</p>
           </div>
         </article>
-        <article className="org org--tall">
+        <article id="deca" className="org org--tall">
           <Photo
             src={site.photos.decaState}
             alt="Holding the DECA Colorado State Career Development Conference award"
@@ -380,10 +426,10 @@ function Beyond() {
             className="org__photo"
             width={665}
             height={752}
+            sizes="(max-width: 760px) 420px, 33vw"
           />
           <div className="org__body">
-            <h3 className="org__name">{b.deca.name}</h3>
-            <p className="org__role">{b.deca.roles}</p>
+            <OrgSign name={b.deca.name} role={b.deca.roles} />
             <p className="words">{b.deca.body}</p>
           </div>
         </article>
@@ -394,13 +440,21 @@ function Beyond() {
 
 function Why() {
   return (
-    <section className="section">
+    <section id="why" className="section">
       <div className="wrap why">
         <h2 className="sign t-reg plate why__plate">{site.why.kicker}</h2>
         <Slot w={site.why.quote} big className="why__quote" />
         {site.why.photo ? (
           <figure className="why__photo">
-            <Photo src={site.why.photo.src} alt={site.why.photo.alt} label="you and your dad" className="why__img" width={site.why.photo.w} height={site.why.photo.h} />
+            <Photo
+              src={site.why.photo.src}
+              alt={site.why.photo.alt}
+              label="you and your dad"
+              className="why__img"
+              width={site.why.photo.w}
+              height={site.why.photo.h}
+              sizes="(max-width: 760px) 420px, 33vw"
+            />
             <figcaption>{site.why.photo.caption}</figcaption>
           </figure>
         ) : null}
@@ -437,8 +491,19 @@ function OffHours() {
                     className={`snap${pictured.length % 2 === 1 && it === pictured[pictured.length - 1] ? " snap--span" : ""}`}
                     style={{ flexGrow: it.w / it.h }}
                   >
-                    <Photo src={it.photo} alt={it.caption} label={it.caption.toLowerCase()} className="snap__img" width={it.w} height={it.h}>
-                      <span className="sign t-rec place">{it.caption}</span>
+                    <Photo
+                      src={it.photo}
+                      alt={it.caption}
+                      label={it.caption.toLowerCase()}
+                      className="snap__img"
+                      width={it.w}
+                      height={it.h}
+                      sizes="(max-width: 760px) 50vw, 33vw"
+                    >
+                      {/* The alt already says it, so the sign is for sighted readers only. */}
+                      <span className="sign t-rec place" aria-hidden="true">
+                        {it.caption}
+                      </span>
                     </Photo>
                   </figure>
                 ))}
@@ -463,7 +528,7 @@ function OffHours() {
 
 function Contact() {
   const l = site.links;
-  const rows: { label: string; href: string | null; note: string; download?: boolean }[] = [
+  const rows: { label: string; href: string | null; note: string }[] = [
     { label: "One-minute intro", href: intro, note: "YouTube" },
     { label: "Safar demo", href: l.demo, note: l.demo ? host(l.demo) : "" },
     { label: "Steel City Codes demo", href: l.sccDemo, note: l.sccDemo ? host(l.sccDemo) : "" },
@@ -476,6 +541,7 @@ function Contact() {
     <footer id="contact" className="contact">
       <div className="wrap">
         <div className="sign t-guide contact__sign">
+          <h2 className="sr-only">Contact</h2>
           <a href={`mailto:${site.email}`} className="contact__email">
             {site.email}
           </a>
@@ -484,10 +550,10 @@ function Contact() {
               .filter((r) => r.href)
               .map((r) => (
                 <li key={r.label}>
-                  <a href={r.href!} target="_blank" rel="noreferrer">
+                  <Out href={r.href!}>
                     <span className="dest__name">{r.label}</span>
                     <span className="dest__what">{r.note}</span>
-                  </a>
+                  </Out>
                 </li>
               ))}
           </ul>

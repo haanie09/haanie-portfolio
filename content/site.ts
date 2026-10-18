@@ -57,6 +57,7 @@ export const site = {
   photos: {
     portrait: "/photos/fall-pumpkin.jpg" as string | null, // swap in the warehouse portrait from the shot list when you have one
     portraitPlace: null as string | null, // small brown sign on the photo, e.g. "Taj Mahal, Agra"; null hides it
+    portraitAlt: "Haanie on a hay bale against a brick wall, holding a big pumpkin",
     safarDesktop: "/photos/safar-desktop.png" as string | null,
     safarPhone: "/photos/safar-phone.png" as string | null,
     sccCamp: "/photos/scc-camp.jpg" as string | null,
@@ -65,9 +66,9 @@ export const site = {
   },
 
   roles: [
-    { org: "Safar", title: "Founder & developer", note: "" },
-    { org: "Steel City Codes", title: "Regional Director", note: "Denver" },
-    { org: "Grandview FBLA", title: "Data Officer", note: "" },
+    { org: "Safar", title: "Founder & developer", note: "", href: "#safar" },
+    { org: "Steel City Codes", title: "Regional Director", note: "Denver", href: "#scc" },
+    { org: "Grandview FBLA", title: "Data Officer", note: "", href: "#fbla" },
   ],
 
   // From your Common App activity ("Because I build for people I work beside").
@@ -94,6 +95,8 @@ export const site = {
       "Every invoice my dad sent meant a second job: opening Excel afterward to subtract each item by hand. Last summer I started building him a system to do that work instead. The hard part was his data. Items had been entered twice under different names, and the counts no longer matched the shelves, so my family recounted the whole warehouse, aisle by aisle. The next morning, we punched in a local 7-Eleven’s order, and the inventory updated itself.",
     ),
     desktopNote: "The owner’s dashboard in the live demo, which runs on made-up data.",
+    /** Under the hero's demo button, so nobody mistakes the demo for my dad's real books. */
+    demoNote: draft("A live demo, running on made-up data."),
     /** Heading over the role slot; matches the Academy's "what you personally built". */
     roleLabel: "What I personally built",
     role: slot(

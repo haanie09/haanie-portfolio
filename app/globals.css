@@ -15,6 +15,12 @@
   --service: #0a4a9a; /* blue: services */
   --rec: #6b4127; /* brown: recreation */
   --stop: #c8102e; /* red: wrong way */
+  --legend: #ffffff; /* white legend on green, blue, brown and red signs */
+  --guide-dark: #004f31; /* green sign, pressed */
+  --work-ink: #9a3d06; /* orange dark enough to read as text */
+  --road-ahead: #9aa0a4; /* unpaved: the road not yet driven */
+  --night-2: #c4c8c2; /* secondary text on black */
+  --night-text: #eef0ec;
 
   --f: "Overpass Variable", "Overpass", "Helvetica Neue", Arial, sans-serif;
 
@@ -83,7 +89,7 @@ dd {
    A colored plate with the inset keyline every highway sign has. */
 .sign {
   --bg: var(--guide);
-  --fg: #fff;
+  --fg: var(--legend);
   --r: 14px;
   --inset: 6px;
   --line: 2.5px;
@@ -102,7 +108,7 @@ dd {
 }
 .t-guide {
   --bg: var(--guide);
-  --fg: #fff;
+  --fg: var(--legend);
 }
 .t-warn {
   --bg: var(--warn);
@@ -114,11 +120,11 @@ dd {
 }
 .t-service {
   --bg: var(--service);
-  --fg: #fff;
+  --fg: var(--legend);
 }
 .t-rec {
   --bg: var(--rec);
-  --fg: #fff;
+  --fg: var(--legend);
 }
 .t-reg {
   --bg: var(--paper);
@@ -126,7 +132,7 @@ dd {
 }
 .t-stop {
   --bg: var(--stop);
-  --fg: #fff;
+  --fg: var(--legend);
 }
 
 /* Section titles, set like a guide-sign legend */
@@ -163,14 +169,14 @@ dd {
   font-size: 19px;
   font-weight: 700;
   text-decoration: none;
-  white-space: nowrap;
+  text-wrap: balance;
   --r: 12px;
   --inset: 5px;
   --line: 2px;
   transition: background-color 0.15s ease;
 }
 .go:hover {
-  --bg: #004f31;
+  --bg: var(--guide-dark);
 }
 .go.t-reg:hover {
   --bg: var(--warn);
@@ -184,7 +190,7 @@ dd {
   max-width: 34ch;
 }
 .words {
-  max-width: 62ch;
+  max-width: 54ch;
   font-size: 19px;
   line-height: 1.6;
 }
@@ -214,7 +220,19 @@ dd {
 }
 .section--night {
   background: var(--ink);
-  color: #fff;
+  color: var(--legend);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 .skip {
@@ -224,7 +242,7 @@ dd {
   z-index: 100;
   padding: 10px 14px;
   background: var(--ink);
-  color: #fff;
+  color: var(--legend);
   border-radius: 8px;
 }
 .skip:focus {
@@ -245,7 +263,7 @@ dd {
 .slot__label {
   font-size: 14px;
   font-weight: 700;
-  color: #9a3d06;
+  color: var(--work-ink);
 }
 .slot__prompt {
   font-size: 18px;
@@ -298,6 +316,7 @@ dd {
   gap: 24px;
 }
 .nav__name {
+  padding: 10px 0;
   font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.01em;
@@ -307,7 +326,7 @@ dd {
 .nav__links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: clamp(18px, 2.2vw, 28px);
 }
 .nav__links a,
 .nav__sheet a {
@@ -319,10 +338,16 @@ dd {
   text-decoration: none;
 }
 .nav__links a:hover,
-.nav__sheet a:hover {
+.nav__sheet a:hover,
+.nav a[aria-current] {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 5px;
+}
+/* The section you're reading gets a heavier line */
+.nav a[aria-current] {
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--ink);
 }
 .chip {
   flex: none;
@@ -344,7 +369,7 @@ dd {
   place-items: center;
   border-radius: 10px;
   background: var(--ink);
-  color: #fff;
+  color: var(--legend);
   cursor: pointer;
 }
 .nav__menu summary::-webkit-details-marker {
@@ -447,10 +472,22 @@ dd {
   letter-spacing: -0.01em;
 }
 
-.hero__cta {
+.hero__go {
   grid-column: 9 / span 4;
-  justify-content: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 28px;
+}
+.hero__go .go {
+  justify-content: center;
+}
+.hero__go-note {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--asphalt);
+  text-align: center;
 }
 
 /* Destination rows: name on the left, detail on the right, like "Denver 12" */
@@ -491,6 +528,21 @@ dd {
   text-decoration: underline;
   text-decoration-thickness: 3px;
   text-underline-offset: 6px;
+}
+/* Hero destinations are exits down the page: the arrow drops a little on hover */
+.dest--exits .dest__what {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto; /* stays right-aligned if it wraps under a long name */
+}
+.exit {
+  flex: none;
+  margin-top: -3px;
+  transition: translate 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.dest a:hover .exit {
+  translate: 0 3px;
 }
 
 /* ─── Safar ─────────────────────────────────────────────── */
@@ -712,19 +764,19 @@ dd {
   user-select: none;
 }
 .closed__bar > span {
-  background: repeating-linear-gradient(-50deg, var(--work) 0 0.24em, #fff 0.24em 0.48em) 0 58% / 100% 0.19em no-repeat;
+  background: repeating-linear-gradient(-50deg, var(--work) 0 0.24em, var(--legend) 0.24em 0.48em) 0 58% / 100% 0.19em no-repeat;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 .closed__meta {
   font-size: 17px;
   font-weight: 600;
-  color: #c4c8c2;
+  color: var(--night-2);
   white-space: nowrap;
 }
 .closed__lesson {
   grid-column: 9 / span 4;
-  color: #eef0ec;
+  color: var(--night-text);
 }
 
 /* ─── What's next ───────────────────────────────────────── */
@@ -765,7 +817,7 @@ dd {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--work) 30%, transparent);
 }
 .motion .next__dot {
-  animation: blink 1.6s ease-in-out infinite;
+  animation: blink 1.6s ease-in-out 3;
 }
 @keyframes blink {
   50% { opacity: 0.35; }
@@ -803,39 +855,6 @@ dd {
 .works__row dd {
   font-size: 16px;
   font-weight: 600;
-}
-.next__label {
-  font-size: 22px;
-  font-weight: 800;
-  margin-bottom: 8px;
-}
-.steps li {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  padding: 14px 0;
-  font-size: 19px;
-  line-height: 1.4;
-}
-/* Work-zone diamonds number the steps, which happen in this order */
-.steps__n {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  margin: 1px 4px 0;
-  border-radius: 4px;
-  transform: rotate(45deg);
-  background: var(--work);
-  box-shadow: inset 0 0 0 2px var(--work), inset 0 0 0 3.5px var(--ink);
-}
-.steps__n span {
-  transform: rotate(-45deg);
-  font-size: 15px;
-  font-weight: 800;
-  line-height: 1;
-  padding-top: 2px;
 }
 
 /* ─── Beyond Safar ──────────────────────────────────────── */
@@ -891,19 +910,31 @@ dd {
 .org--tall .org__body {
   grid-column: 6 / span 6;
 }
+/* Name and role on a blue service sign, like the plate over the section */
+.org__sign {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 100%;
+  margin-bottom: 8px;
+  padding: 22px 30px 16px;
+  --r: 16px;
+  --inset: 6px;
+  --line: 2.5px;
+}
 .org__name {
   font-size: clamp(32px, 3.4vw, 48px);
   line-height: 1.02;
   font-weight: 800;
   letter-spacing: -0.015em;
-  color: var(--service);
 }
 .org__role {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
 }
 .org__facts {
-  list-style: disc;
+  list-style: square;
   padding-left: 20px;
   font-size: 18px;
   line-height: 1.5;
@@ -918,9 +949,6 @@ dd {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 32px var(--gutter);
-  align-items: start;
-}
-.why {
   align-items: center;
 }
 .why__plate {
@@ -978,11 +1006,6 @@ dd {
 .snap__img {
   border-radius: 16px;
 }
-.snap figcaption {
-  margin-top: 12px;
-  font-size: 17px;
-  font-weight: 600;
-}
 
 /* ─── Contact ───────────────────────────────────────────── */
 .contact {
@@ -998,6 +1021,7 @@ dd {
   --line: 4px;
 }
 .contact__email {
+  padding: 8px 0;
   font-size: clamp(34px, 6.6vw, 104px);
   line-height: 1;
   font-weight: 800;
@@ -1051,13 +1075,17 @@ dd {
 }
 
 /* ─── Responsive ────────────────────────────────────────── */
-@media (max-width: 1080px) {
+/* The full nav fits down to about 950px; below that it folds into the menu */
+@media (max-width: 960px) {
   .nav__links {
     display: none;
   }
   .nav__menu {
     display: block;
   }
+}
+
+@media (max-width: 1080px) {
   .hero__sign {
     grid-column: 1 / span 7;
     min-height: 520px;
@@ -1094,8 +1122,17 @@ dd {
   .why__photo {
     grid-column: 8 / span 5;
   }
+  .org__showcase .showcase__desk {
+    grid-column: 1 / -1;
+  }
   .org__demo {
-    grid-column: 9 / span 4;
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+  .org__demo-note {
+    max-width: 46ch;
   }
   .org__photo,
   .org--flip .org__photo {
@@ -1151,10 +1188,10 @@ dd {
     font-size: clamp(44px, 13.4vw, 84px);
   }
   .hero__photo {
-    order: -1;
+    order: 1;
     aspect-ratio: 4 / 5;
     min-height: 0;
-    margin-bottom: 20px;
+    margin-top: 28px;
     border-radius: 20px;
   }
   /* Keep the person, trim the wall above */
@@ -1171,8 +1208,11 @@ dd {
     text-align: left;
     font-size: 17px;
   }
+  .dest--exits .dest__what {
+    margin-left: 0;
+  }
   .hero__line,
-  .hero__cta {
+  .hero__go {
     grid-column: 1 / -1;
     margin-top: 20px;
   }
@@ -1203,11 +1243,25 @@ dd {
   .showcase {
     margin-top: 56px;
   }
-  .showcase__desk {
-    display: none;
+  .showcase__desk,
+  .org__showcase .showcase__desk {
+    grid-column: 1 / -1;
+  }
+  .showcase__desk .shot {
+    aspect-ratio: 4 / 3;
+  }
+  .showcase__desk .shot img {
+    max-width: none;
+    width: 170%;
+    height: auto;
+  }
+  /* Skip Safar's sidebar: start at the greeting and the numbers */
+  .showcase__desk--safar .shot img {
+    width: 190%;
+    margin-left: -30%;
   }
   .showcase__phone {
-    grid-column: 2 / span 10;
+    grid-column: 3 / span 8;
   }
 
   .story {
@@ -1274,13 +1328,11 @@ dd {
     max-width: 420px;
   }
   .org__demo {
-    grid-column: 1 / -1;
+    flex-direction: column;
+    align-items: stretch;
   }
   .off__sign {
     padding: 18px 24px 14px;
-  }
-  .snap figcaption {
-    font-size: 15px;
   }
 
   .contact__sign {
@@ -1307,16 +1359,7 @@ dd {
   }
 }
 
-/* ─── Motion: one load moment, three that mean something ─── */
-.motion .hero__sign {
-  animation: sign-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-.motion .hero__photo {
-  animation: sign-up 0.7s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-@keyframes sign-up {
-  from { opacity: 0; transform: translateY(18px); }
-}
+/* ─── Motion: one load moment (the headlight pass), three that mean something ─── */
 /* Barricade stripes draw across each deleted feature */
 .motion .closed__bar > span {
   background-size: 0% 0.19em;
@@ -1331,8 +1374,9 @@ dd {
   --lane-top: 152px;
   position: relative;
   height: 330px;
-  margin: 96px 0 8px;
+  margin: 96px 26px 8px;
   padding: 0;
+  container-type: inline-size;
 }
 .road__lane {
   position: absolute;
@@ -1343,8 +1387,8 @@ dd {
   border-radius: 3px;
   background:
     repeating-linear-gradient(90deg, var(--warn) 0 26px, transparent 26px 48px) 0 50% / var(--past) 2px no-repeat,
-    repeating-linear-gradient(90deg, #fff 0 14px, transparent 14px 34px) right 50% / calc(100% - var(--past)) 2px no-repeat,
-    linear-gradient(90deg, var(--road) 0 var(--past), #9aa0a4 var(--past));
+    repeating-linear-gradient(90deg, var(--legend) 0 14px, transparent 14px 34px) right 50% / calc(100% - var(--past)) 2px no-repeat,
+    linear-gradient(90deg, var(--road) 0 var(--past), var(--road-ahead) var(--past));
 }
 .stop {
   position: absolute;
@@ -1361,13 +1405,14 @@ dd {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--legend);
   box-shadow: 0 0 0 2px var(--road);
 }
 .stop__card {
   position: absolute;
   left: -26px;
-  width: 130px;
+  /* No wider than the gap to the next card on the same side of the lane */
+  width: clamp(84px, calc(var(--room) * 1cqi - 12px), 130px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1426,10 +1471,11 @@ dd {
   color: var(--asphalt);
 }
 
-@media (max-width: 760px) {
+/* Below laptop width the stops get too close to read side by side: the road turns and runs down the page */
+@media (max-width: 1080px) {
   .road {
     height: auto;
-    margin-top: 56px;
+    margin: 64px 0 8px;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -1442,7 +1488,7 @@ dd {
     bottom: 0;
     width: 12px;
     border-radius: 3px;
-    background: linear-gradient(180deg, var(--road) 0 64%, #9aa0a4 64%);
+    background: linear-gradient(180deg, var(--road) 0 var(--today), var(--road-ahead) var(--today));
   }
   .road__lane,
   .stop::after {
