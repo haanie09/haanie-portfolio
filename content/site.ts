@@ -237,7 +237,7 @@ export const site = {
     deca: {
       name: "DECA",
       roles: "2nd at state, Integrated Marketing Campaign–Product",
-      body: draft("A campaign pitching Meta’s smart glasses to blind and low-vision users. State qualifier two years running."),
+      body: draft("A campaign pitching Meta’s smart glasses to blind and low-vision users."),
     },
   },
 
