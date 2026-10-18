@@ -50,7 +50,7 @@ export const site = {
     github: "https://github.com/haanie09" as string | null, // Safar-Technologies org has no public repos yet
     linkedin: null as string | null,
     x: null as string | null,
-    resume: "/resume.pdf" as string | null, // copy of Documents/Academy Application/03 Resume, re-copy after edits
+    resume: "/resume.pdf" as string | null, // Oct 17 tech version (source/resume-tech.html), re-export and re-copy after edits
   },
 
   /** Photos: put files in /public/photos and set the path, e.g. "/photos/portrait.jpg". null = placeholder. */
