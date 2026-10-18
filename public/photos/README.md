@@ -12,7 +12,7 @@ Drop images here, then point to them in `content/site.ts` under `photos` / `offH
 | What broke: routes | `safar-collections.jpg` | crop of a rep's route in the demo (suggested stops tagged Overdue balance), shown up to 340px wide |
 | What broke: security | `safar-permissions.png` | crop of a rep's Invoices permissions in the demo team page |
 | DECA | `deca-state.jpg` | 665×752 crop of the state-conference selfie, flipped so the plaque reads correctly |
-| Steel City Codes demo | `scc-admin.png` | camp admin dashboard from scc.haanie.com, captured at 2x |
+| Steel City Codes demo | `scc-admin.png` | camp admin Today page from scc.haanie.com, 1440×900 captured at 2x (sidebar skipped on phones) |
 | Why I build | `with-dad.jpg` | 4:5 crop of you and your dad at the park |
 | Off the clock | `fall-pumpkin.jpg`, `hiking-friends.jpg`, `hiking.jpg`, `family-trip.jpg`, `friends.jpg`, `student-section.jpg`, `family.jpg` | any shape, in balanced rows of three or four; each row shares one height (squares on phones). Set `w`/`h` in `offHours.items` |
 

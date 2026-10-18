@@ -1255,8 +1255,9 @@ dd {
     width: 170%;
     height: auto;
   }
-  /* Skip Safar's sidebar: start at the greeting and the numbers */
-  .showcase__desk--safar .shot img {
+  /* Skip each app's sidebar: start at the greeting and the numbers */
+  .showcase__desk--safar .shot img,
+  .showcase__desk--scc .shot img {
     width: 190%;
     margin-left: -30%;
   }
