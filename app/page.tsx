@@ -397,7 +397,7 @@ function Beyond() {
             {site.links.sccDemo ? (
               <div className="org__demo">
                 <Out href={site.links.sccDemo} className="sign t-guide go">
-                  Try the Steel City Codes demo
+                  Try the Steel&nbsp;City&nbsp;Codes demo
                 </Out>
                 <p className="org__demo-note">{b.scc.demoNote}</p>
               </div>

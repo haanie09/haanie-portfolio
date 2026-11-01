@@ -166,8 +166,8 @@ export const site = {
         ),
         shot: {
           src: "/photos/safar-permissions.png",
-          w: 1260,
-          h: 624,
+          w: 1494,
+          h: 900,
           kind: "panel",
           alt: "Safar’s invoice permissions for a rep: See everyone’s invoices is off, so they only see invoices they wrote; delete, record and void payments are marked DB-enforced",
           caption: "A rep’s invoice permissions, from the live demo.",
@@ -221,8 +221,8 @@ export const site = {
       ],
       story: slot(
         "SCC",
-        "Volunteer to director: what you took on that nobody asked you to.",
-        draft("Before every camp, our team spent weekends matching volunteers and students to classes by hand. Nobody asked for a registration system, so I built one. Volunteers pick their own classes, parents sign their kids up, and admins see the whole camp in one place. Denver pilots it in February, when registration opens. If it holds up, I’ll hand it to the national team so other regions can use it too."),
+        "Volunteer to director: what you took on yourself.",
+        draft("Before every camp, our team spent weekends matching volunteers and students to classes by hand. I wanted those weekends back for teaching, so I built a registration system that does the matching: volunteers pick their own classes, parents sign their kids up, and admins see the whole camp in one place. Denver pilots it in February, when registration opens. If it holds up, I’ll hand it to the national team so other regions can use it too."),
       ),
       demoNote: "Pick a seat with one click: camp admin, parent, volunteer or applicant. The camp is made up and resets every night.",
       shot: {

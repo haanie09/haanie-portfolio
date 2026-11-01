@@ -144,6 +144,7 @@ dd {
   line-height: 1.08;
   font-weight: 750;
   letter-spacing: 0.004em;
+  text-wrap: balance;
   --r: 0.3em;
   --inset: 0.15em;
   --line: 0.065em;
@@ -718,6 +719,9 @@ dd {
 }
 .incident__shot--phone .crop {
   max-width: 340px;
+}
+.incident__shot--panel .crop {
+  max-width: 520px;
 }
 .incident__shot figcaption {
   margin-top: 12px;
