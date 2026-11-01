@@ -325,6 +325,7 @@ function Next() {
               <span className="next__dot" aria-hidden="true" />
               {n.status}
             </p>
+            <p className="next__then">{n.then}</p>
           </div>
           <div className="sign t-work works">
             <p className="works__title">{n.addsTitle}</p>

@@ -192,7 +192,7 @@ export const site = {
   },
 
   next: {
-    kicker: "What I’m building next",
+    kicker: "In progress",
     title: "Safar for iPhone and Android",
     // Checked against the Safar repo: Capacitor shell (#516), SQLite outbox, camera/barcode, share sheet.
     goal: draft("Reps use Safar in their phone’s browser today. The native app ships with its screens built in, so it opens even where there’s no signal."),
@@ -205,6 +205,7 @@ export const site = {
       { name: "Shares invoice PDFs", what: "From the phone’s share sheet" },
     ],
     status: "Running in the iPhone simulator. Android project generated.",
+    then: "Next: a tool that tells small distributors what to stock, tested on my dad’s sales data.",
   },
 
   beyond: {
