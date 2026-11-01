@@ -816,10 +816,6 @@ dd {
   background: var(--work);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--work) 30%, transparent);
 }
-.motion .next__dot {
-  animation: blink 1.6s ease-in-out 3;
-}
-@keyframes blink {
 /* After the work zone: one line on what comes next */
 .next__then {
   padding-top: 18px;
@@ -829,6 +825,10 @@ dd {
   color: var(--asphalt);
   text-wrap: pretty;
 }
+.motion .next__dot {
+  animation: blink 1.6s ease-in-out 3;
+}
+@keyframes blink {
   50% { opacity: 0.35; }
 }
 /* What the app adds, on an orange work-zone sign */
