@@ -115,7 +115,6 @@ function Hero() {
             <Out href={demo} className="sign t-guide go">
               Try the Safar demo
             </Out>
-            <p className="hero__go-note">{site.safar.demoNote}</p>
           </div>
         ) : null}
       </div>

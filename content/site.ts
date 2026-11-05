@@ -55,9 +55,9 @@ export const site = {
 
   /** Photos: put files in /public/photos and set the path, e.g. "/photos/portrait.jpg". null = placeholder. */
   photos: {
-    portrait: "/photos/fall-pumpkin.jpg" as string | null, // swap in the warehouse portrait from the shot list when you have one
+    portrait: "/photos/headshot.jpg" as string | null, // swap in the warehouse portrait from the shot list when you have one
     portraitPlace: null as string | null, // small brown sign on the photo, e.g. "Taj Mahal, Agra"; null hides it
-    portraitAlt: "Haanie on a hay bale against a brick wall, holding a big pumpkin",
+    portraitAlt: "Haanie in a brown sweater and white collar, smiling in front of a tree with red and orange fall leaves",
     safarDesktop: "/photos/safar-desktop.png" as string | null,
     safarPhone: "/photos/safar-phone.png" as string | null,
     sccCamp: "/photos/scc-camp.jpg" as string | null,
@@ -95,8 +95,6 @@ export const site = {
       "Every invoice my dad sent meant a second job: opening Excel afterward to subtract each item by hand. Last summer I started building him a system to do that work instead. The hard part was his data. Items had been entered twice under different names, and the counts no longer matched the shelves, so my family recounted the whole warehouse, aisle by aisle. The next morning, we punched in a local 7-Eleven’s order, and the inventory updated itself.",
     ),
     desktopNote: "The owner’s dashboard in the live demo, which runs on made-up data.",
-    /** Under the hero's demo button, so nobody mistakes the demo for my dad's real books. */
-    demoNote: draft("A live demo, running on made-up data."),
     /** Heading over the role slot; matches the Academy's "what you personally built". */
     roleLabel: "What I personally built",
     role: slot(
@@ -262,9 +260,9 @@ export const site = {
     items: [
       { caption: "Taj Mahal, Agra", detail: "", photo: "/photos/traveling.jpg" as string | null, w: 768, h: 1024 },
       { caption: "Hiking with friends", detail: "", photo: "/photos/hiking-friends.jpg" as string | null, w: 1024, h: 768 },
-      { caption: "Hiking", detail: "", photo: "/photos/hiking.jpg" as string | null, w: 768, h: 1024 },
+      { caption: "Hiking", detail: "", photo: "/photos/hiking-rainbow.jpg" as string | null, w: 1200, h: 1600 },
       { caption: "Family trip", detail: "", photo: "/photos/family-trip.jpg" as string | null, w: 1200, h: 1600 },
-      { caption: "Friends", detail: "", photo: "/photos/friends.jpg" as string | null, w: 1200, h: 900 },
+      { caption: "Friends", detail: "", photo: "/photos/friends-prom.jpg" as string | null, w: 1560, h: 1170 },
       { caption: "Grandview student section", detail: "", photo: "/photos/student-section.jpg" as string | null, w: 1024, h: 578 },
       { caption: "Family", detail: "", photo: "/photos/family.jpg" as string | null, w: 1024, h: 768 },
       { caption: "Pickleball", detail: "", photo: null as string | null, w: 0, h: 0 },

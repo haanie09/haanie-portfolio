@@ -484,12 +484,6 @@ dd {
 .hero__go .go {
   justify-content: center;
 }
-.hero__go-note {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--asphalt);
-  text-align: center;
-}
 
 /* Destination rows: name on the left, detail on the right, like "Denver 12" */
 .dest {
