@@ -115,13 +115,13 @@ export const site = {
         { date: "2026-07-22", e: "Closed a cross-account security hole" },
         { date: "2026-08-14", e: "Deleted flavor tracking" },
         { date: "2026-10-04", e: "Started the native app" },
+        { date: "2026-10-22", e: "Pitched Safar to other distributors" },
       ],
       today: "Still in daily use",
       /** The work zone ahead, in order. */
       next: [
         draft("Finish the iPhone app"),
         draft("App Store, then Google Play"),
-        draft("Offer Safar to other distributors"),
       ],
     },
   },
