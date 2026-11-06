@@ -17,7 +17,7 @@
  *  3. Plain strings             Facts: numbers, dates, PR numbers, titles.
  *
  *  Run `npm run check-copy` to list every slot and draft still left.
- *  Numbers are from FACT_SHEET.md (production database, Nov 5 2026).
+ *  Numbers are from FACT_SHEET.md (production database; monthly averages Jul to Oct 2026: 123 invoices, 155 visits; 286 active stores on Nov 5).
  */
 
 export type Words = { q: string; prompt: string; text: string | null };
@@ -76,11 +76,11 @@ export const site = {
 
   stats: {
     title: "Safar so far",
-    source: "Production database, Nov 5, 2026",
+    source: "Production database, monthly averages since July 2026",
     items: [
-      { n: "514", label: "invoices since launch" },
-      { n: "286", label: "stores on my dad’s routes" },
-      { n: "643", label: "store visits logged by reps" },
+      { n: "~120", label: "invoices a month" },
+      { n: "280+", label: "stores on my dad’s routes" },
+      { n: "~150", label: "store visits logged a month" },
       { n: "3", label: "reps invoicing from the field" },
     ],
   },

@@ -7,11 +7,15 @@ export default function Motion() {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     document.documentElement.classList.add("motion");
     const count = (el: HTMLElement) => {
-      const end = Number(el.dataset.count);
+      // Keeps any prefix/suffix ("~120", "280+") and animates only the number.
+      const m = /^(\D*)(\d+)(\D*)$/.exec(el.dataset.count ?? "");
+      if (!m) return;
+      const [, pre, num, post] = m;
+      const end = Number(num);
       const t0 = performance.now();
       const tick = (t: number) => {
         const p = Math.min(1, (t - t0) / 1100);
-        el.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 3))));
+        el.textContent = pre + String(Math.round(end * (1 - Math.pow(1 - p, 3)))) + post;
         if (p < 1) requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
