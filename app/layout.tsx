@@ -4,6 +4,7 @@ import "@fontsource-variable/overpass/wght-italic.css";
 import "./globals.css";
 import { isHidden, site } from "@/content/site";
 import Motion from "@/components/Motion";
+import { Analytics } from "@vercel/analytics/next";
 
 const fullName = `${site.name.first} ${site.name.last}`;
 const description = `${fullName} is a senior at ${site.school} in ${site.place}. He built Safar, the software his family’s wholesale business runs on, and directs Steel City Codes in Denver.`;
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <Motion />
+        <Analytics />
         {isHidden() ? null : <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }} />}
       </body>
     </html>
